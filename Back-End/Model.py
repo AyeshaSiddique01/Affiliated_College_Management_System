@@ -16,3 +16,23 @@ class model:
     def __del__(self):
         if self.connection != None:
             self.connection.close()
+
+    def insertUser(self, user):  # agar admin
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f''''''
+                cursor.execute(query)
+                self.connection.commit()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in insertAdmin", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    
