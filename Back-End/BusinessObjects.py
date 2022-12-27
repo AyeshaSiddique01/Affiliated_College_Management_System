@@ -59,9 +59,9 @@ class practical_duty:
         self.examiner_id = examiner_id
         self.ac_id = ac_id
         self.rd_id = rd_id
-        # self.rd_dept
-        # self.rd_year
-        # self.rd_crs_code
+        self.rd_dept = rd_dept
+        self.rd_year = rd_year
+        self.rd_crs_code = rd_crs_code
 
 class exam_duty:
     def __init__(self , examiner_id, deadline, status_req, rd_id, rd_dept, rd_year, rd_crs_code) -> None:
@@ -69,9 +69,9 @@ class exam_duty:
         self.deadline = deadline
         self.status_req = status_req
         self.rd_id = rd_id
-        # rd_dept
-        # rd_year
-        # rd_crs_code       
+        self.rd_dept = rd_dept
+        self.rd_year = rd_year
+        self.rd_crs_code = rd_crs_code       
 '''
 SELECT exam_duty.examiner_id, exam_duty.deadline, exam_duty.status_req, roadmap.rd_dept, roadmap.rd_year, roadmap.rd_crs_code
     exam_duty INNER JOIN roadmap
