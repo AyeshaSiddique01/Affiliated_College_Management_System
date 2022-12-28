@@ -1,5 +1,5 @@
 from BusinessObjects import *
-from psycopg2 import psycopg2  #pip install psycopg2
+import psycopg2  #pip install psycopg2
 
 class model:
     def __init__(self):

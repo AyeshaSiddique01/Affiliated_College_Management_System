@@ -4,6 +4,8 @@ from Model import model
 from datetime import datetime
 # pip install flask_cors
 from flask_cors import CORS
+from fileinput import filename
+import os
 from BusinessObjects import *
 
 app = Flask(__name__)
@@ -14,12 +16,12 @@ def SignUpPersonalInfo() :
 	usr_name = request.form["usr_name"]
 	usr_password = request.form["usr_password"]
 	usr_cnic = request.form["usr_cnic"]
-	usr_profile_pic = request.form["usr_profile_pic"]
 	usr_address = request.form["usr_address"]
 	usr_email = request.form["usr_email"]
 	usr_active_status = True
 	usr_bio = request.form["usr_bio"]
 	usr_gender = request.form["usr_gender"]
+	usr_profile_pic = "//Front-End//src//Static//ProfilePics/empty.png"
 	data = User(usr_name, usr_password, usr_cnic, usr_profile_pic, 
 	usr_address, usr_email, usr_active_status, usr_bio, usr_gender)
 	m = model()
@@ -27,15 +29,19 @@ def SignUpPersonalInfo() :
 		user_id = m.InsertUser(data)  		#insertion function return userid
 		session["user_id"] = user_id
 		print("User inserted")
-		return render_template("SignUpExaminerInfo")
+		return jsonify("SignUpExaminerInfo")
 	else :
-		return render_template("SignUpPersonalInfo" , msj="EmailExist")
+		return jsonify("EmailExist")
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 def SignUpExaminerInfo() :
-	institution = request.form["institution"]
-	resume = request.form["resume"]
 	user_id = session.get("user_id")
+	institution = request.form["institution"]
+	f = request.files['resume']    
+	resume = f"\\Front-End\\src\\Static\\{user_id}"
+	if Path(resume).is_file() :
+		os.remove(f'\\Front-End\\src\\Static\\Resumes\{f.filename}')
+	f.save(resume) 
 	availability = True
 	ranking = 0
 	acceptance_count = 0
@@ -45,7 +51,7 @@ def SignUpExaminerInfo() :
 	examiner_id = m.InsertExaminer(data)
 	session["examiner_id"] = examiner_id
 	print("Examiner inserted")
-	return render_template("/") #ya abhi nae ata
+	return jsonify("home") #ya abhi nae ata
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification() :
@@ -58,7 +64,7 @@ def ExaminerQualification() :
 	m = model()
 	m.InsertExaminerQualification(data)
 	print("Qualification inserted")
-	return render_template("/") #ya abhi nae ata
+	return jsonify("Home") #ya abhi nae ata
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience() :
@@ -72,7 +78,7 @@ def ExaminerExperience() :
 	m = model()
 	m.InsertExaminerExperience(data)
 	print("Experience inserted")
-	return render_template("/") #ya abhi nae ata
+	return jsonify("home") #ya abhi nae ata
 
 @app.route('/ExaminerLogin', methods=["POST", "GET"])
 def ExaminerLogin() :
@@ -82,14 +88,14 @@ def ExaminerLogin() :
 	#chk email exist
 	if (m.checkEmailExist(email)) :
 		examiner_id = m.ValidatePassword(email, password)
-		if (examiner_id >= 0) :									#0 sy shuru hota ya 1
+		if (examiner_id > 0) :									# 0 sy shuru hota ya 1
 			session["examiner_id"] = examiner_id
 			print("logged in")
-			return render_template("dashboard")
+			return jsonify("dashboard")
 		else :
-			return render_template("ExaminerLogin" , msj="Invalid Password")
+			return jsonify("Invalid Password")
 	else :
-		return render_template("ExaminerLogin" , msj="Email does not exist")
+		return jsonify("Email does not exist")
 
 # Running app
 if __name__ == '__main__':
