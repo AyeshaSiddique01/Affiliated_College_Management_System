@@ -49,23 +49,43 @@ class model:
             else:
                 return 0
         except Exception as e:
-            print("Exception in insertExaminer", str(e))
+            print("Exception in getUserID", str(e))
             return False
         finally:
             if cursor != None:
                 cursor.close()
 
-    def InsertExaminer(self, user):  # inherited from user   return examinerID
+    def getExaminerID(self, userid): 
         cursor = None
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f''''''
+                cursor.execute(f'''select examiner_id from public.examiner where "user_id " = {userid};''')
+                id = cursor.fetchone()
+                return id[0]
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in getExaminerID", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def InsertExaminer(self, examiner):  # return examinerID
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count") 
+                            values('{examiner.user_id}', '{examiner.institution}', '{examiner.availability}', '{examiner.ranking}', '{examiner.resume}', '{examiner.acceptance_count}', '{examiner.rejection_count}');
+                            '''
                 cursor.execute(query)
                 self.connection.commit()
-                return True
+                id = model.getExaminerID(examiner.user_id)  
+                return id
             else:
-                return False
+                return 0
         except Exception as e:
             print("Exception in insertExaminer", str(e))
             return False
@@ -73,7 +93,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
-    def checkEmailExist(self , usr_email):      #check again
+    def checkEmailExist(self , usr_email):
         cursor = None
         try:
             if self.connection != None:
@@ -87,17 +107,65 @@ class model:
             else:
                 return False
         except Exception as e:
-            print("Exception in checkEmailExists", str(e))
+            print("Exception in checkEmailExist", str(e))
             return False
         finally:
             if cursor != None:
                 cursor.close()
 
-    def ValidatePassword(email, password): #return examiner id
+    def ValidatePassword(self, email, password): #return examiner id
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(f'''select usr_password from public.user where "usr_email" = '{email}';''')
+                pwd = cursor.fetchone()
+                if(pwd == password):
+                    uID = model.getUserID(email)
+                    eID = model.getExaminerID(uID)
+                    return eID[0]
+                return 0
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in ValidatePassword", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
         return True
 
     def InsertExaminerQualification(self,qualification):
-        print("inserted")
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''insert into public.qualification("examiner_id", "degree_title", "institution", "starting_date", "ending_date") 
+                values('{qualification.examiner_id}', '{qualification.degree_title}', '{qualification.institution}', '{qualification.starting_date}', '{qualification.ending_date}');
+                '''
+                cursor.execute(query)
+                self.connection.commit()
+        except Exception as e:
+            print("Exception in insertExaminerQualification", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
 
     def InsertExaminerExperience(self, experience): 
-        print("inserted")   
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''insert into public.experience("examiner_id", "job_title", "organization", "reference_email", "starting_date", "ending_date") 
+                        values('{experience.examiner_id}', '{experience.job_title}', '{experience.organization}','{experience.reference_email}' ,'{experience.starting_date}', '{experience.ending_date}');
+                        '''
+                cursor.execute(query)
+                self.connection.commit()
+        except Exception as e:
+            print("Exception in insertExaminerExperience", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
