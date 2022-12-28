@@ -1,3 +1,4 @@
+# personal info and all imp cant be null 
 class User:
     def _init_(self, usr_name, usr_password, usr_cnic, usr_profile_pic, usr_address,
     usr_email, usr_active_status, usr_bio, usr_gender):
