@@ -6,6 +6,7 @@ from datetime import datetime
 from flask_cors import CORS
 from fileinput import filename
 import os
+from pathlib import Path
 from BusinessObjects import *
 
 app = Flask(__name__)
@@ -14,14 +15,14 @@ CORS(app)
 @app.route('/SignUpPersonalInfo', methods=["POST", "GET"])
 def SignUpPersonalInfo() :
 	usr_name = request.form["usr_name"]
-	usr_password = request.form["usr_password"]
 	usr_cnic = request.form["usr_cnic"]
-	usr_address = request.form["usr_address"]
 	usr_email = request.form["usr_email"]
-	usr_active_status = True
+	usr_address = request.form["usr_address"]
 	usr_bio = request.form["usr_bio"]
 	usr_gender = request.form["usr_gender"]
-	usr_profile_pic = "//Front-End//src//Static//ProfilePics/empty.png"
+	usr_password = request.form["usr_password"]
+	usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
+	usr_active_status = True
 	data = User(usr_name, usr_password, usr_cnic, usr_profile_pic, 
 	usr_address, usr_email, usr_active_status, usr_bio, usr_gender)
 	m = model()
@@ -37,10 +38,11 @@ def SignUpPersonalInfo() :
 def SignUpExaminerInfo() :
 	user_id = session.get("user_id")
 	institution = request.form["institution"]
-	f = request.files['resume']    
-	resume = f"\\Front-End\\src\\Static\\{user_id}"
+	# Get File and Save in a directory 
+	f = request.files["resume"]    
+	resume = f"Static\Resumes\{user_id}"
 	if Path(resume).is_file() :
-		os.remove(f'\\Front-End\\src\\Static\\Resumes\{f.filename}')
+		os.remove(resume)
 	f.save(resume) 
 	availability = True
 	ranking = 0

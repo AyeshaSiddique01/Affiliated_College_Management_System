@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Login() {
+    
     // const showBtn = document.querySelector(".show");
     // showBtn.addEventListener("click", function(){ 
     //     const pass_field = document.querySelector(".pass-key");
@@ -18,7 +19,7 @@ function Login() {
     //     }
     // });
   return (
-    <div className='loginExaminer'>
+    <div className='FormBg'>
         <style>
             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
         </style>
@@ -35,7 +36,7 @@ function Login() {
                         <input type="password" className='pass-key' name='password' required placeholder='Password' />
                         <span className='show'>Show</span>
                     </div>
-                    <div className="pas">
+                    <div className="pass">
                         <a href="/">Forgot Password? Get Lost.</a>
                     </div>
                     <div className="field">
