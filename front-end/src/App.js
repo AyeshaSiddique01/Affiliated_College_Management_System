@@ -23,7 +23,7 @@ function App() {
       {/* <SignupExaminerInfo /> */}
       <ExaminerQualification />
       {/* <Sidebar /> */}
-      <Router>
+      {/* <Router>
           <Switch>
               <Route exact path="" 
                   component={Login} />
@@ -43,7 +43,7 @@ function App() {
               <Route exact path="/Profile" 
                   component={Profile} />
           </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 }
