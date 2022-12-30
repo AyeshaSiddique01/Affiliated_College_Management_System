@@ -1,4 +1,5 @@
 import React from 'react'
+import '../App.css';
 
 function Login() {
     // const showBtn = document.querySelector(".show");
@@ -18,11 +19,11 @@ function Login() {
     //     }
     // });
   return (
-    <div className='loginExaminer'>
+    <div className="loginExaminer">
         <style>
             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
         </style>
-        <div className='bg-img'>
+        <div className="bg-img">
             <div className="content">
                 <header>Login Examiner</header>
                 <form action="http://localhost:5000//ExaminerLogin" method='post'>
