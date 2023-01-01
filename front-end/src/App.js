@@ -19,10 +19,10 @@ function App() {
     <div className="App">
       {/* <Sidebar /> */}
       {/* <Login /> */}
-      <SignupPersonalInfo />
+      {/* <SignupPersonalInfo /> */}
       {/* <SignupExaminerInfo /> */}
       {/* <ExaminerQualification /> */}
-      {/* <ExaminerExp /> */}
+      <ExaminerExp />
       {/* <Sidebar /> */}
       {/* <Router>
           <Switch>

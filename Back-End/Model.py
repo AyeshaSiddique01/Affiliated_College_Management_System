@@ -75,7 +75,7 @@ class model:
     def InsertExaminer(self, examiner):  # return examinerID
         cursor = None
         try:
-            if self.connection != None:
+            if self.connection != None:         #there should be a email check weather the user exists or not
                 cursor = self.connection.cursor()
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count") 
                             values('{examiner.user_id}', '{examiner.institution}', '{examiner.availability}', '{examiner.ranking}', '{examiner.resume}', '{examiner.acceptance_count}', '{examiner.rejection_count}');
@@ -169,3 +169,86 @@ class model:
         finally:
             if cursor != None:
                 cursor.close()
+
+    def getData(self, tableName):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''select * from public.{tableName};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getData", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def deleteAllQuaAndExp(self, tableName, exaimerID):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''delete from {tableName} where examiner_id = {exaimerID};'''   
+                cursor.execute(query)
+                self.connection.commit() 
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in deleteUser", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def deleteExaminer(self,email):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                userID = model.getUserID(email)
+                ExmnrID = model.getExaminerID(userID)
+                
+                #all qualification and experience are deleted before deleting the examiner...
+                model.deleteAllQuaAndExp("public.qualification",ExmnrID)
+                model.deleteAllQuaAndExp("public.experience",ExmnrID)
+
+                query = f'''delete from examiner where "user_id " = {userID};'''
+                # on  which basis examiner is deleted...  userid????
+                # should we delete user as well... if examiner is deleted...???
+                cursor.execute(query)
+                self.connection.commit()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in deleteExaminer", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+                  
+    def deleteUser(self, email):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                # problem:  examiner not automatically deleted if user deleted...
+                # So deleting examiner first...
+                model.deleteExaminer(email)
+                query = f'''delete from public.user where usr_email = {email};'''   
+                cursor.execute(query)
+                self.connection.commit() 
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in deleteUser", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
