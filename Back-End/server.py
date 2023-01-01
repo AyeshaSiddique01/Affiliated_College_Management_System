@@ -14,7 +14,7 @@ CORS(app)
 
 @app.route('/SignUpPersonalInfo', methods=["POST", "GET"])
 def SignUpPersonalInfo() :
-	usr_name = request.form["usr_name"]
+	usr_name = request.form['usr_name']
 	usr_cnic = request.form["usr_cnic"]
 	usr_email = request.form["usr_email"]
 	usr_address = request.form["usr_address"]
@@ -23,8 +23,9 @@ def SignUpPersonalInfo() :
 	usr_password = request.form["usr_password"]
 	usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
 	usr_active_status = True
-	data = User(usr_name, usr_password, usr_cnic, usr_profile_pic, 
-	usr_address, usr_email, usr_active_status, usr_bio, usr_gender)
+	# print(usr_name)
+	data = User(usr_name, usr_password, usr_cnic, usr_profile_pic, usr_address, usr_email, usr_active_status, usr_bio, usr_gender)
+	print(data.usr_name)
 	m = model()
 	if (m.checkEmailExist(usr_email)) :
 		user_id = m.InsertUser(data)  		#insertion function return userid
