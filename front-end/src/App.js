@@ -1,28 +1,26 @@
-import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from "react-router-dom";  //npm i react-router-dom 
-import { Switch } from '@mui/material';
 import './App.css';
-import Login from './Components/Login';
-import Sidebar from './Components/Sidebar';
-import SignupPersonalInfo from './Components/SignupPersonalInfo';
-import SignupExaminerInfo from './Components/SignupExaminerInfo';
-import ExaminerQualification from './Components/ExaminerQualification';
-import ExaminerExp from './Components/ExaminerExp';
-import Profile from './Components/Profile';
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import SignupPersonalInfo from './components/SignupPersonalInfo';
+import SignupExaminerInfo from './components/SignupExaminerInfo';
+import ExaminerQualification from './components/ExaminerQualification';
+import ExaminerExp from './components/ExaminerExp';
+import Profile from './components/Profile';
 
 function App() {
   return (
     <div className="App">
-      {/* <Sidebar /> */}
+      {/* <Router>
+      <Sidebar>
+         <Routes>
+          <Route path="/" element={<> not found</>} />
+        </Routes> 
+      </Sidebar>
+    </Router> */}
       {/* <Login /> */}
       {/* <SignupPersonalInfo /> */}
       {/* <SignupExaminerInfo /> */}
       <ExaminerQualification />
-      {/* <Sidebar /> */}
       {/* <Router>
           <Switch>
               <Route exact path="" 
