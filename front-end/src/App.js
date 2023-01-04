@@ -2,9 +2,9 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
+    Routes,
     Link
 } from "react-router-dom";  //npm i react-router-dom 
-import { Switch } from '@mui/material';
 import './App.css';
 import Login from './Components/Login';
 import Sidebar from './Components/Sidebar';
@@ -17,13 +17,18 @@ import Profile from './Components/Profile';
 function App() {
   return (
     <div className="App">
-      {/* <Sidebar /> */}
+    {/* <Router>
+      <Sidebar>
+         <Routes>
+          <Route path="/" element={<> not found</>} />
+        </Routes> 
+      </Sidebar>
+    </Router> */}
       {/* <Login /> */}
-      {/* <SignupPersonalInfo /> */}
+      <SignupPersonalInfo />
       {/* <SignupExaminerInfo /> */}
       {/* <ExaminerQualification /> */}
-      <ExaminerExp />
-      {/* <Sidebar /> */}
+      {/* <ExaminerExp /> */}
       {/* <Router>
           <Switch>
               <Route exact path="" 

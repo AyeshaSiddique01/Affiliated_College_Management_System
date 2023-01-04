@@ -1,4 +1,5 @@
 import React from 'react'
+import { BiFontSize } from 'react-icons/bi';
 import '../App.css';
 
 function Login() {
@@ -27,23 +28,26 @@ function Login() {
             </style>
             <div className="bg-img">
                 <div className="content">
-                    <header>Login Examiner</header>
+                <header><h1 style={{color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"900"}}>Log IN form</h1></header>
+                    <header type="LI">Enter your registered mail and password:</header>
                     <form action="http://localhost:5000//ExaminerLogin" method='post'>
-                        <div className="field">
+                        
+                        <div className="maindiv">
                             <span className="fa fa-user"></span>
-                            <input type="text" name='email' placeholder='Enter Email' required />
+                            <input type="text" name='email' className="fa input-box" placeholder='Enter Email' required />
                         </div>
-                        <div className="field space">
+                        
+                        <div className="maindiv">
                             <span className='fa fa-lock'></span>
-                            <input type="password" className='pass-key' name='password' required placeholder='Password' />
+                            <input type="password" className="pass-key" name='password' placeholder='Password' required/>
                             <span className='show'>Show</span>
                         </div>
+
                         <div className="pass">
                             <a href="/">Forgot Password? Get Lost.</a>
                         </div>
-                        <div className="field">
-                            <input type="submit" value="Login" />
-                        </div>
+                        
+                            <button type="submit" className="submit-btn" >Login</button>
                     </form>
                 </div>
             </div>
