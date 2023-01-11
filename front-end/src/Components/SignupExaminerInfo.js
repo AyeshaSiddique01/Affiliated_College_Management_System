@@ -5,19 +5,19 @@ function SignupExaminerInfo() {
     <div className='FormBg'>
         <div className='bg-img'>
             <div className="content" style={{width:"510px"}}>
-                <header>Examiner Information</header>
+                <header type="EI">Examiner Information</header>
                 <form action="http://localhost:5000//SignUpExaminerInfo" method='post' enctype="multipart/form-data">    
-                    <div className="field">
+                    
+                <div className="maindiv">
                         <span></span>
-                        <input type="text" placeholder='Enter Your Institution Name' name='institution' required />
-                    </div>                    
-                    <div className="field">
+                        <input type="text" className="input-box" placeholder='Enter Your Institution Name' name='institution' required />
+                </div>              
+                    
+                    
                         <span></span>
                         <input type="file" name="resume" className="form-control" required />
-                    </div>      
-                    <div className="field">
-                        <input type="submit" value="Next" />
-                    </div>
+                          
+                    <button type="submit" className="submit-btn" >Next</button>
                 </form>
             </div>
         </div>

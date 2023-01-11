@@ -2,9 +2,9 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
+    Routes,
     Link
 } from "react-router-dom";  //npm i react-router-dom 
-import { Switch } from '@mui/material';
 import './App.css';
 import Login from './Components/Login';
 import Sidebar from './Components/Sidebar';
@@ -17,14 +17,19 @@ import Profile from './Components/Profile';
 function App() {
   return (
     <div className="App">
-      {/* <Sidebar /> */}
-      {/* <Login /> */}
+    {/* <Router>
+      <Sidebar>
+         <Routes>
+          <Route path="/" element={<> not found</>} />
+        </Routes> 
+      </Sidebar>
+    </Router> */}
+      <Login />
       {/* <SignupPersonalInfo /> */}
       {/* <SignupExaminerInfo /> */}
-      <ExaminerQualification />
+      {/* <ExaminerQualification /> */}
       {/* <ExaminerExp /> */}
-      {/* <Sidebar /> */}
-      <Router>
+      {/* <Router>
           <Switch>
               <Route exact path="" 
                   component={Login} />
@@ -44,9 +49,9 @@ function App() {
               <Route exact path="/Profile" 
                   component={Profile} />
           </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 }
 
-export default App;
+export default App
