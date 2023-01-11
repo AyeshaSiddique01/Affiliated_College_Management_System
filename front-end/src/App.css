@@ -324,7 +324,6 @@ i span {
   color: transparent;
   background: transparent;
   outline: 0;
-  background: #f4f5f6;
 }
 
 .AddBtn input {
@@ -332,7 +331,7 @@ i span {
   border: none;
   font-size: medium;
   font-family: sans-serif;
-  background: rgb(29 29 29 / 20%);
+  background: rgb(170 170 170);
 }
 
 .Buttons {
@@ -391,7 +390,7 @@ i span {
 
 /* Modal Content */
 .modal-content {
-  background-color: #29363e;
+  background-color: #242626;
   margin: auto;
   padding: 20px;
   /* border: 1px solid #888; */

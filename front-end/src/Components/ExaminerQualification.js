@@ -8,36 +8,37 @@ function ExaminerQualification() {
     // const coursesPage = () => {
     //     history.push("/ExaminerExp")
     // }
-    // const modal = document.getElementById("AddNewQualification");
 
-    // const btn = document.getElementById("myBtn");
+    const modal = document.getElementById("AddNewQualification");
+    const btn = document.getElementById("myBtn");
 
-    // const span = document.getElementsByClassName("close")[0];
+    const span = document.getElementsByClassName("close")[0];
 
-    // btn.onclick = function () {
-    //     modal.style.display = "block";
-    // }
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
-    // span.onclick = function () {
-    //     modal.style.display = "none";
-    // }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
-    // window.onclick = function (event) {
-    //     if (event.target === modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
-    const [data, setData] = useState([]);
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // const [data, setData] = useState([]);
   
-    useEffect(() => {
-       fetch("http://127.0.0.1:3000//userdata") // or fetch("http://localhost:3000/userdata")
-         .then((response) => response.json())
-         .then((json) => {
-           setData(json);
-           alert("data = ", json);
-        //    console.log(data.name)
-         });
-     }, []);
+    // useEffect(() => {
+    //    fetch("http://127.0.0.1:3000//userdata") // or fetch("http://localhost:3000/userdata")
+    //      .then((response) => response.json())
+    //      .then((json) => {
+    //        setData(json);
+    //        alert("data = ", json);
+    //     //    console.log(data.name)
+    //      });
+    //  }, []);
 
     return (
         <div className='FormBg'>
@@ -75,24 +76,24 @@ function ExaminerQualification() {
                                     <span class="close">&times;</span>
                                     <div>
                                         <form action="http://localhost:5000//ExaminerQualification" method='post'>
-                                            <div className="field">
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" placeholder='Enter Degree Title' name='degree_title' required />
+                                                <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' required />
                                             </div>
-                                            <div className="field">
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" placeholder='Enter Institute Name' name='institution' required />
+                                                <input type="text" className='input-box' placeholder='Enter Institute Name' name='institution' required />
                                             </div>
-                                            <div className="field">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input class="form-control" type="date" name="starting_date" runat="server"
+                                                <input className="form-control input-box" type="date" name="starting_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="field">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input class="form-control" type="date" name="ending_date" runat="server"
+                                                <input className="form-control input-box" type="date" name="ending_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="AddBtn">
