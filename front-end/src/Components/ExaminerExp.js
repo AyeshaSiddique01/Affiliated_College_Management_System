@@ -79,13 +79,13 @@ function ExaminerExp() {
                                             <div className="field">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input class="form-control" type="date" name="starting_date" runat="server" value="<%=DateTime.Now%>"
+                                                <input class="form-control" type="date" name="starting_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="field">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input class="form-control" type="date" name="ending_date" runat="server" value="<%=DateTime.Now%>"
+                                                <input class="form-control" type="date" name="ending_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="AddBtn">

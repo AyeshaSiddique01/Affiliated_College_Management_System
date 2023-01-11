@@ -21,10 +21,10 @@ function App() {
       {/* <Login /> */}
       {/* <SignupPersonalInfo /> */}
       {/* <SignupExaminerInfo /> */}
-      {/* <ExaminerQualification /> */}
-      <ExaminerExp />
+      <ExaminerQualification />
+      {/* <ExaminerExp /> */}
       {/* <Sidebar /> */}
-      {/* <Router>
+      <Router>
           <Switch>
               <Route exact path="" 
                   component={Login} />
@@ -44,7 +44,7 @@ function App() {
               <Route exact path="/Profile" 
                   component={Profile} />
           </Switch>
-      </Router> */}
+      </Router>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import { useHistory } from "react-router-dom";
 
 function ExaminerQualification() {
@@ -8,25 +8,36 @@ function ExaminerQualification() {
     // const coursesPage = () => {
     //     history.push("/ExaminerExp")
     // }
-    const modal = document.getElementById("AddNewQualification");
+    // const modal = document.getElementById("AddNewQualification");
 
-    const btn = document.getElementById("myBtn");
+    // const btn = document.getElementById("myBtn");
 
-    const span = document.getElementsByClassName("close")[0];
+    // const span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
 
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
 
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function (event) {
+    //     if (event.target === modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
+    const [data, setData] = useState([]);
+  
+    useEffect(() => {
+       fetch("http://127.0.0.1:3000//userdata") // or fetch("http://localhost:3000/userdata")
+         .then((response) => response.json())
+         .then((json) => {
+           setData(json);
+           alert("data = ", json);
+        //    console.log(data.name)
+         });
+     }, []);
 
     return (
         <div className='FormBg'>
@@ -51,7 +62,6 @@ function ExaminerQualification() {
                             <td className='EditBtn'>Edit</td>
                         </tr>
                     </table>
-
                     <div className="container Buttons">
                         <div>
                             {/* <form action='http://localhost:3000/ExaminerExp'> */}
@@ -76,13 +86,13 @@ function ExaminerQualification() {
                                             <div className="field">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input class="form-control" type="date" name="starting_date" runat="server" value="<%=DateTime.Now%>"
+                                                <input class="form-control" type="date" name="starting_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="field">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input class="form-control" type="date" name="ending_date" runat="server" value="<%=DateTime.Now%>"
+                                                <input class="form-control" type="date" name="ending_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="AddBtn">

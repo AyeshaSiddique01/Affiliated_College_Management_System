@@ -8,7 +8,7 @@ class model:
                 database="ACMS",            #write your Dbname
                 host="localhost",
                 user="postgres",
-                password="aiman12345",      #write your dbPassword
+                password="Ayesha@1306",      #write your dbPassword
                 port="5432")
         except Exception as e:
             print(str(e))
@@ -22,12 +22,12 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f'''insert into public.user(usr_name,usr_password,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
-	                        values ('{user.usr_name}', '{user.usr_password}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
+                query = f'''insert into public.user(usr_name,usr_password,usr_profile_pic,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
+	                        values ('{user.usr_name}', '{user.usr_password}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
                             '''
                 cursor.execute(query)
                 self.connection.commit()
-                id = model.getUserID(user.usr_email)  
+                id = model.getUserID(self ,user.usr_email) 
                 return id
             else:
                 return 0
@@ -82,7 +82,7 @@ class model:
                             '''
                 cursor.execute(query)
                 self.connection.commit()
-                id = model.getExaminerID(examiner.user_id)  
+                id = model.getExaminerID(self, examiner.user_id)  
                 return id
             else:
                 return 0
@@ -120,10 +120,10 @@ class model:
                 cursor = self.connection.cursor()
                 cursor.execute(f'''select usr_password from public.user where "usr_email" = '{email}';''')
                 pwd = cursor.fetchone()
-                if(pwd == password):
-                    uID = model.getUserID(email)
-                    eID = model.getExaminerID(uID)
-                    return eID[0]
+                if(pwd[0].strip() == password.strip()):  
+                    uID = model.getUserID(self, email)
+                    eID = model.getExaminerID(self, uID)
+                    return eID
                 return 0
             else:
                 return 0

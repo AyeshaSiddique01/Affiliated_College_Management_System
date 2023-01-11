@@ -11,6 +11,8 @@ from BusinessObjects import *
 
 app = Flask(__name__)
 CORS(app)
+app.config.from_object("config")
+app.secret_key = app.config["SECRET_KEY"]
 
 @app.route('/SignUpPersonalInfo', methods=["POST", "GET"])
 def SignUpPersonalInfo() :
@@ -23,14 +25,21 @@ def SignUpPersonalInfo() :
 	usr_password = request.form["usr_password"]
 	usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
 	usr_active_status = True
-	# print(usr_name)
-	data = User(usr_name, usr_password, usr_cnic, usr_profile_pic, usr_address, usr_email, usr_active_status, usr_bio, usr_gender)
-	print(data.usr_name)
+	
+	data = User()
+	data.usr_name = usr_name
+	data.usr_password = usr_password
+	data.usr_cnic = usr_cnic
+	data.usr_profile_pic = usr_profile_pic
+	data.usr_address = usr_address
+	data.usr_email = usr_email
+	data.usr_active_status = usr_active_status
+	data.usr_bio = usr_bio
+	data.usr_gender = usr_gender
 	m = model()
-	if (m.checkEmailExist(usr_email)) :
+	if (m.checkEmailExist(usr_email) == False) :
 		user_id = m.InsertUser(data)  		#insertion function return userid
 		session["user_id"] = user_id
-		print("User inserted")
 		return jsonify("SignUpExaminerInfo")
 	else :
 		return jsonify("EmailExist")
@@ -41,7 +50,7 @@ def SignUpExaminerInfo() :
 	institution = request.form["institution"]
 	# Get File and Save in a directory 
 	f = request.files["resume"]    
-	resume = f"Static\Resumes\{user_id}"
+	resume = f"Static\Resumes\{user_id}.pdf"
 	if Path(resume).is_file() :
 		os.remove(resume)
 	f.save(resume) 
@@ -54,7 +63,7 @@ def SignUpExaminerInfo() :
 	examiner_id = m.InsertExaminer(data)
 	session["examiner_id"] = examiner_id
 	print("Examiner inserted")
-	return jsonify("home") #ya abhi nae ata
+	return jsonify("ExaminerQualification") #ya abhi nae ata
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification() :
@@ -99,7 +108,16 @@ def ExaminerLogin() :
 			return jsonify("Invalid Password")
 	else :
 		return jsonify("Email does not exist")
-
+@app.route('/userdata', methods=['GET'])
+def userdata():
+    userdata = {
+        'name': 'John',
+        'age': '43',
+        'status': 'Active',
+        'password': 'ABC123',
+        'email': 'john@example.com'
+    }
+    return jsonify(userdata)
 # Running app
 if __name__ == '__main__':
 	app.run(debug=True)
