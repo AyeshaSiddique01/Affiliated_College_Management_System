@@ -24,8 +24,8 @@ function App() {
         </Routes> 
       </Sidebar>
     </Router> */}
-      <Login />
-      {/* <SignupPersonalInfo /> */}
+      {/*<Login />*/}
+      <SignupPersonalInfo /> 
       {/* <SignupExaminerInfo /> */}
       {/* <ExaminerQualification /> */}
       {/* <ExaminerExp /> */}
