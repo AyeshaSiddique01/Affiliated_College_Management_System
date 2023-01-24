@@ -19,14 +19,14 @@ function App() {
   return (
     <div className="App">
       {/* <Sidebar /> */}
-      {/* <Notifications /> */}
-    <Router>
+      <Notifications />
+    {/* <Router>
       <Sidebar>
          <Routes>
           <Route path="/" element={<> not found</>} />
         </Routes> 
       </Sidebar>
-    </Router>
+    </Router> */}
       {/* <Login /> */}
       {/* <SignupPersonalInfo />  */}
       {/* <SignupExaminerInfo /> */}
