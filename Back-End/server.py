@@ -7,6 +7,9 @@ from flask_cors import CORS
 from fileinput import filename
 import os
 from pathlib import Path
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from BusinessObjects import *
 
 app = Flask(__name__)
@@ -40,6 +43,8 @@ def SignUpPersonalInfo() :
 	if (m.checkEmailExist(usr_email) == False) :
 		user_id = m.InsertUser(data)  		#insertion function return userid
 		session["user_id"] = user_id
+		session["usr_email"] = usr_email
+		session["usr_name"] = usr_name		
 		return jsonify("SignUpExaminerInfo")
 	else :
 		return jsonify("EmailExist")
@@ -90,6 +95,22 @@ def ExaminerExperience() :
 	m = model()
 	m.InsertExaminerExperience(data)
 	print("Experience inserted")
+	name = session.get("usr_name")
+	# Email = session.get("usr_email")
+	Email = "bitf19a008@pucit.edu.pk"
+	text = '''\
+                <html>
+                <body>
+                    <p>Hi <b>{name}</b>,<br><br>
+                    Welcome to Affliated college management system...!!<br>
+                    Hope you have a great experience :)
+                    </p>
+                </body>
+                </html>
+                '''
+	text = MIMEText(text.format(name = name),"html")
+	mail(Email,text)
+	print("succeed")
 	return jsonify("home") #ya abhi nae ata
 
 @app.route('/ExaminerLogin', methods=["POST", "GET"])
@@ -118,6 +139,19 @@ def userdata():
         'email': 'john@example.com'
     }
     return jsonify(userdata)
+
+def mail(email,text):
+        senderMail = "ayeshasiddique1306@gmail.com"
+        message = MIMEMultipart("alternative")
+        message.attach(text)
+        message = message.as_string()
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(senderMail, "Ayesha@1284356", True)
+            server.sendmail(
+                senderMail, email, message
+            )
+
 # Running app
 if __name__ == '__main__':
 	app.run(debug=True)

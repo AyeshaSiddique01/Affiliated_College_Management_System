@@ -13,19 +13,22 @@ import SignupExaminerInfo from './Components/SignupExaminerInfo';
 import ExaminerQualification from './Components/ExaminerQualification';
 import ExaminerExp from './Components/ExaminerExp';
 import Profile from './Components/Profile';
+import Notifications from './Components/Notifications'
 
 function App() {
   return (
     <div className="App">
-    {/* <Router>
+      {/* <Sidebar /> */}
+      {/* <Notifications /> */}
+    <Router>
       <Sidebar>
          <Routes>
           <Route path="/" element={<> not found</>} />
         </Routes> 
       </Sidebar>
-    </Router> */}
-      {/*<Login />*/}
-      <SignupPersonalInfo /> 
+    </Router>
+      {/* <Login /> */}
+      {/* <SignupPersonalInfo />  */}
       {/* <SignupExaminerInfo /> */}
       {/* <ExaminerQualification /> */}
       {/* <ExaminerExp /> */}

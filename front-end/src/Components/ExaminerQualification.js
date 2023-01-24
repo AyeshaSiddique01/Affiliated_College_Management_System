@@ -28,17 +28,17 @@ function ExaminerQualification() {
         }
     }
 
-    // const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
   
-    // useEffect(() => {
-    //    fetch("http://127.0.0.1:3000//userdata") // or fetch("http://localhost:3000/userdata")
-    //      .then((response) => response.json())
-    //      .then((json) => {
-    //        setData(json);
-    //        alert("data = ", json);
-    //     //    console.log(data.name)
-    //      });
-    //  }, []);
+    useEffect(() => {
+       fetch("http://127.0.0.1:3000/userdata") // or fetch("http://localhost:3000/userdata")
+         .then((response) => response.json())
+         .then((json) => {
+           setData(json);
+           alert("data = ", json);
+           console.log(data.name);
+         });
+     }, []);
 
     return (
         <div className='FormBg'>
