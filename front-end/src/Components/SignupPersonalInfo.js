@@ -7,7 +7,7 @@ export default function SignupPersonalInfo() {
             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
         </style>
         <div className='bg-img'>
-            <div className="content" style={{height: "530px", width: "510px"}} >
+            <div className="content" style={{height: "590px", width: "510px"}} >
             <h1 style={{marginBottom:"25px", color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"900"}}>Sign Up form</h1>
                 <header type="PI"> Put your Personal Information to Sign Up!</header>
                 <form action="http://localhost:5000//SignUpPersonalInfo" method='post'>    

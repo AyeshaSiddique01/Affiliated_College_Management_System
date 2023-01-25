@@ -16,17 +16,17 @@ const routes = [
     icon: <FaHome/>,
   },
   {
-    path: "/profile",
+    path: "/Profile",
     name: "Profile",
     icon: <CgProfile/>,
   },
   {
-    path: "/allrequest",        //AllRequests
+    path: "/Notifications",        //AllRequests
     name: "Requests", 
     icon: <MdMessage/>,
   },
   {
-    path: "/acceptedRequests",          //AcceptedRequests
+    path: "/DashBoard",          //AcceptedRequests
     name: "DashBoard", 
     icon: <MdAssignment/>,
   },

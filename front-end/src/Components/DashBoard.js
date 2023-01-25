@@ -2,14 +2,14 @@ import React from 'react'
 import { BiFontSize } from 'react-icons/bi';
 import '../App.css';
 
-function Notifications() {
+function DashBoard() {
 
     return (
         <div className='Mybody'>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment'>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Object Oriented programming
@@ -24,7 +24,7 @@ function Notifications() {
                         
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Introduction to Computing
@@ -38,7 +38,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block" type="Practical">
                         <div className='CourseTitle'>
                             Basic Electronics
@@ -53,7 +53,7 @@ function Notifications() {
                         
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Web Engineering
@@ -67,7 +67,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Analysis of Algorithms
@@ -81,7 +81,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Computer Networks
@@ -95,7 +95,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Artificial Intelligence
@@ -109,7 +109,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Programming Fundamentals
@@ -123,7 +123,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Object Oriented programming
@@ -137,7 +137,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Calculus-||
@@ -151,7 +151,7 @@ function Notifications() {
                         </div>
                     </div>
                     </a>
-                    <a href='http://localhost:3000/RequestRecieved'>
+                    <a href='http://localhost:3000/AcceptedRequest'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                              Database systems
@@ -172,4 +172,4 @@ function Notifications() {
     )
 }
 
-export default Notifications
+export default DashBoard

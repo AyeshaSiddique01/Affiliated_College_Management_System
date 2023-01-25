@@ -39,7 +39,7 @@
   z-index: 999;
   text-align: center;
   padding: 60px 82px;
-  width: 430px;
+  width: 520px;
   color: white;
   transform: translate(-50%, -50%);
   /*background-image: url("/src/Static/Light.png");
@@ -398,6 +398,7 @@ i span {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
+
 /* Modal Content */
 .modal-content {
   background-color: #29363e;
@@ -451,7 +452,8 @@ main {
 .sidebar {
   background: #161d24;
   color: white;
-  height: 100vh;
+  height: 100%;
+  position: fixed;
   overflow-y: auto;
 }
 
@@ -525,20 +527,21 @@ main {
   font-size: 15px;
 }
 
-.notification_block {
+/* .notification_block {
   margin: 10px;
   height: max-content;
-  background-color: #8181b7;
+  background-color: #203342;
   color: white;
   border-style: solid;
   border-width: thin;
   border-radius: 10px;
-  width: 320px;
-  padding-bottom: 15px;
-}
+  width: 490px;
+  padding-bottom: 25px;
+} */
 
 .Mybody {
   color: white;
+  padding-left: 100px
 }
 
 .Requestheader {
@@ -594,4 +597,93 @@ main {
   padding: 8px 8px 0px 8px;
   text-align: center;
   box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+}
+
+
+
+/* /////////////////////// */
+
+button[type="deatils"] {
+  width: 18%;
+  background: rgb(107, 75, 75);
+  border: 1px solid #fff;
+  margin: 5px;
+  height: 45px;
+  font-size: 17px;
+  font-family: cursive;
+  border-radius: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  float: right;
+
+}
+
+button[type="deatils"]:hover {
+  background: rgb(20, 20, 20);
+}
+
+.adjustment{
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  z-index: 999;
+}
+
+.notification_block {
+  margin: 20px;
+  height: max-content;
+  background-color: rgb(31, 30, 30);
+  background-image: url("/src/Static/grey.jpg");
+  color: white;
+  border-width: thin;
+  border-radius: 20px;
+  width: 800px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-style: inset;
+  outline: none;
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+}
+
+.notification_block[type=Practical] {
+  margin: 20px;
+  height: max-content;
+  background-color: #2f4050;
+  background-image: url("/src/Static/GREEN.jpg");
+  color: white;
+  border-width: thin;
+  border-radius: 5px;
+  width: 800px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-style: inset;
+  outline: none;
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+}
+
+.CourseTitle{
+  width: 100%;
+  /* background: black; */
+  margin: 6px 0; 
+  padding: 0 10px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: cursive;
+  font-style: normal;
+}
+
+.papertype{
+  text-align: center;
+  font-style: italic;
+}
+
+.date{
+  text-align: center;
 }

@@ -16,6 +16,7 @@ import Profile from './Components/Profile';
 import Notifications from './Components/Notifications'
 import RequestRecieved from './Components/RequestRecieved'
 import AcceptedRequest from './Components/AcceptedRequest'
+import DashBoard from './Components/DashBoard'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/RequestRecieved" element={<RequestRecieved/>} />
           <Route path="/Notifications" element={<Notifications/>} />
           <Route path="/Profile" element={<Profile/>} />
+          <Route path="/DashBoard" element={<DashBoard/>} />
         </Routes> 
       </Sidebar>
     </Router>      
