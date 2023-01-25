@@ -39,7 +39,8 @@
   z-index: 999;
   text-align: center;
   padding: 60px 82px;
-  width: 370px;
+  width: 430px;
+  color: white;
   transform: translate(-50%, -50%);
   /*background-image: url("/src/Static/Light.png");
   /*background: rgb(48, 22, 22);
@@ -167,7 +168,8 @@ select {
 
 .show {
   position: absolute;
-  right: 13px;
+  /* right: 13px; */
+  padding: 7px 0px 0px 246px;
   font-size: 13px;
   font-weight: 700;
   color: #fff;
@@ -263,7 +265,6 @@ button[type="submit"]:hover {
   position: absolute;
   right: -1px;
   top: -1px;
-
 }
 
 input[type="file"] {
@@ -349,7 +350,10 @@ i span {
 }
 
 .NextBtn {
-  margin-top: 10px;
+  width: 250px;
+  position: relative;
+  right: -73px;
+  float: right;
 }
 
 .NextBtn button {
@@ -394,14 +398,11 @@ i span {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
-
 /* Modal Content */
 .modal-content {
-  background-color: #242626;
+  background-color: #29363e;
   margin: auto;
-  padding: 20px;
-  /* border: 1px solid #888; */
-  width: 80%;
+  padding: 0;
 }
 
 /* The Close Button */
@@ -558,11 +559,10 @@ main {
 }
 
 .requestBody {
-  /* width: 90%; */
   text-align: left;
-  font-size: 15px;
+  font-size: 16px;
   font-family: system-ui;
-  font-weight: 300;
+  font-weight: 400;
   border-radius: 10px;
   left: 50%;
   z-index: 999;
@@ -572,8 +572,8 @@ main {
 
 .outlineTitle {
   display: block;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 27px;
+  font-weight: 500;
 }
 
 .requestFooter {
@@ -585,12 +585,13 @@ main {
   width: fit-content;
   padding: 5px 20px 20px 20px;
 }
+
 .uploadPaper {
   border: white;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 10px;
-    padding: 8px 8px 0px 8px;
-    text-align: center;
-    box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+  border-style: solid;
+  border-width: thin;
+  border-radius: 10px;
+  padding: 8px 8px 0px 8px;
+  text-align: center;
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
 }

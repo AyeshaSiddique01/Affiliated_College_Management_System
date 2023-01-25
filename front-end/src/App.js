@@ -15,19 +15,26 @@ import ExaminerExp from './Components/ExaminerExp';
 import Profile from './Components/Profile';
 import Notifications from './Components/Notifications'
 import RequestRecieved from './Components/RequestRecieved'
-import RequestsAccepted from './Components/RequestsAccepted'
+import AcceptedRequest from './Components/AcceptedRequest'
 
 function App() {
   return (
     <div className="App">    
-    <RequestsAccepted/>  
-    {/* <Router>
+    <Router>
       <Sidebar>
          <Routes>
-          <Route path="/" element={<RequestsAccepted/>} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} />
+          <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo/>} />
+          <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
+          <Route path="/ExaminerExp" element={<ExaminerExp/>} />
+          <Route path="/AcceptedRequest" element={<AcceptedRequest/>} />
+          <Route path="/RequestRecieved" element={<RequestRecieved/>} />
+          <Route path="/Notifications" element={<Notifications/>} />
+          <Route path="/Profile" element={<Profile/>} />
         </Routes> 
       </Sidebar>
-    </Router>       */}
+    </Router>      
     </div>
   );
 }

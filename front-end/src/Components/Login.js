@@ -1,5 +1,4 @@
 import React from 'react'
-import { BiFontSize } from 'react-icons/bi';
 import '../App.css';
 
 function Login() {
@@ -12,8 +11,8 @@ function Login() {
             </style>
             <div className="bg-img">
                 <div className="content">
-                <header><h1 style={{color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"900"}}>Log In form</h1></header>
-                    <header type="LI">Enter your registered mail and password:</header>
+                <header><h1 style={{color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"500"}}>Log In form</h1></header>
+                    <header type="LI" style={{color:"white"}}>Enter your registered mail and password:</header>
                     <form action="http://localhost:5000//ExaminerLogin" method='post'>
                         
                         <div className="maindiv">

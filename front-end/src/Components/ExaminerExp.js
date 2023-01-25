@@ -32,7 +32,9 @@ function ExaminerExp() {
         <div className='FormBg'>
             <div className='bg-img'>
                 <div className="content" style={{ width: "510px", height: "77%" }}>
-                    <header>Experience</header>
+                    <header>
+                    <h1 style={{ color: "white", fontFamily: "'Poppins', sans-serif", fontWeight: "500" }}>Experience</h1>
+                    </header>
                     <table className='TableStyle' border="1">
                         <tr>
                             <th>Sr #</th>
@@ -97,11 +99,11 @@ function ExaminerExp() {
                             </div>
                         </div>
                         <div>
-                            <form action='http://localhost:3000/Profile'>
+                            <a href='http://localhost:3000/Profile'>
                                 <div className='NextBtn'>
                                     <button type="submit">Next Page</button>
                                 </div>
-                            </form>
+                            </a>
                         </div>
                     </div>
                 </div>

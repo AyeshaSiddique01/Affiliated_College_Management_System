@@ -9,42 +9,44 @@ function ExaminerQualification() {
     //     history.push("/ExaminerExp")
     // }
 
-    const modal = document.getElementById("AddNewQualification");
-    const btn = document.getElementById("myBtn");
+    // const modal = document.getElementById("AddNewQualification");
+    // const btn = document.getElementById("myBtn");
 
-    const span = document.getElementsByClassName("close")[0];
+    // const span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
 
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
 
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function (event) {
+    //     if (event.target === modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 
-    const [data, setData] = useState([]);
-  
-    useEffect(() => {
-       fetch("http://127.0.0.1:3000/userdata") // or fetch("http://localhost:3000/userdata")
-         .then((response) => response.json())
-         .then((json) => {
-           setData(json);
-           alert("data = ", json);
-           console.log(data.name);
-         });
-     }, []);
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //    fetch("http://127.0.0.1:3000/userdata") // or fetch("http://localhost:3000/userdata")
+    //      .then((response) => response.json())
+    //      .then((json) => {
+    //        setData(json);
+    //        alert("data = ", json);
+    //        console.log(data.name);
+    //      });
+    //  }, []);
 
     return (
         <div className='FormBg'>
             <div className='bg-img'>
                 <div className="content" style={{ width: "510px", height: "77%" }}>
-                    <header>Qualification</header>
+                    <header>
+                        <h1 style={{ color: "white", fontFamily: "'Poppins', sans-serif", fontWeight: "500" }}>Qualification</h1>
+                    </header>
                     <table className='TableStyle' border="1">
                         <tr>
                             <th>Sr #</th>
@@ -65,12 +67,9 @@ function ExaminerQualification() {
                     </table>
                     <div className="container Buttons">
                         <div>
-                            {/* <form action='http://localhost:3000/ExaminerExp'> */}
-                                <div className='NextBtn'>
-                                    <button type="button" id='myBtn'>Add New</button>
-                                    {/* <button type="submit"></button> */}
-                                </div>
-                            {/* </form> */}
+                            <div className='NextBtn'>
+                                <button type="button" id='myBtn'>Add New</button>
+                            </div>
                             <div id="AddNewQualification" class="modal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
@@ -104,12 +103,10 @@ function ExaminerQualification() {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <form action='http://localhost:3000/ExaminerExp'>
-                                <div className='NextBtn'>
-                                    <button type="submit">Next Page</button>
-                                </div>
-                            </form>
+                        <div className='NextBtn'>
+                            <a href="http://localhost:3000/ExaminerExp">
+                            <button type="submit">Next Page</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -117,5 +114,4 @@ function ExaminerQualification() {
         </div>
     )
 }
-
 export default ExaminerQualification
