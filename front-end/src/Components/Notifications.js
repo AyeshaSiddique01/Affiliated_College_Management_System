@@ -1,5 +1,4 @@
 import React from 'react'
-import { BiFontSize } from 'react-icons/bi';
 import '../App.css';
 
 function Notifications() {

@@ -14,45 +14,20 @@ import ExaminerQualification from './Components/ExaminerQualification';
 import ExaminerExp from './Components/ExaminerExp';
 import Profile from './Components/Profile';
 import Notifications from './Components/Notifications'
+import RequestRecieved from './Components/RequestRecieved'
+import RequestsAccepted from './Components/RequestsAccepted'
 
 function App() {
   return (
-    <div className="App">
-      {/* <Sidebar /> */}
-      <Notifications />
+    <div className="App">    
+    <RequestsAccepted/>  
     {/* <Router>
       <Sidebar>
          <Routes>
-          <Route path="/" element={<> not found</>} />
+          <Route path="/" element={<RequestsAccepted/>} />
         </Routes> 
       </Sidebar>
-    </Router> */}
-      {/* <Login /> */}
-      {/* <SignupPersonalInfo />  */}
-      {/* <SignupExaminerInfo /> */}
-      {/* <ExaminerQualification /> */}
-      {/* <ExaminerExp /> */}
-      {/* <Router>
-          <Switch>
-              <Route exact path="" 
-                  component={Login} />
-
-              <Route exact path="/SignupPersonalInfo" 
-                  component={SignupPersonalInfo} />
-
-              <Route exact path="/SignupExaminerInfo" 
-                  component={SignupExaminerInfo} />
-
-              <Route exact path="/ExaminerQualification" 
-                  component={ExaminerQualification} />
-
-              <Route exact path="/ExaminerExp" 
-                  component={ExaminerExp} />
-
-              <Route exact path="/Profile" 
-                  component={Profile} />
-          </Switch>
-      </Router> */}
+    </Router>       */}
     </div>
   );
 }

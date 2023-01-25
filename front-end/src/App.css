@@ -247,6 +247,8 @@ button[type="submit"]:hover {
 
 .submit-btn {
   position: relative;
+  width: fit-content;
+  padding-right: 46px;
 }
 
 .submit-btn::after {
@@ -532,4 +534,63 @@ main {
   border-radius: 10px;
   width: 320px;
   padding-bottom: 15px;
+}
+
+.Mybody {
+  color: white;
+}
+
+.Requestheader {
+  padding: 10px 0px 6px 8px;
+}
+
+.courseTitle {
+  font-weight: 400;
+  font-size: 34px;
+  font-family: system-ui;
+  float: left;
+}
+
+.deadline {
+  font-size: 18px;
+  float: right;
+  padding-top: 16px;
+}
+
+.requestBody {
+  /* width: 90%; */
+  text-align: left;
+  font-size: 15px;
+  font-family: system-ui;
+  font-weight: 300;
+  border-radius: 10px;
+  left: 50%;
+  z-index: 999;
+  padding: 60px 82px;
+  box-shadow: 0 0 40px 20px rgb(0 0 0 / 26%);
+}
+
+.outlineTitle {
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.requestFooter {
+  float: right;
+  margin-top: 12px;
+}
+
+.AcceptBtn {
+  width: fit-content;
+  padding: 5px 20px 20px 20px;
+}
+.uploadPaper {
+  border: white;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+    padding: 8px 8px 0px 8px;
+    text-align: center;
+    box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
 }
