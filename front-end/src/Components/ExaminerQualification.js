@@ -74,7 +74,7 @@ function ExaminerQualification() {
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
                                     <div>
-                                        <form action="http://localhost:5000//ExaminerQualification" method='post'>
+                                        <form action="http://localhost:5000//ExaminerQualification" method='post'  enctype="multipart/form-data">
                                             <div className="maindiv">
                                                 <span></span>
                                                 <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' required />
@@ -94,6 +94,10 @@ function ExaminerQualification() {
                                                 <label className='label_' for="ending_date">Ending Date:</label>
                                                 <input className="form-control input-box" type="date" name="ending_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
+                                            </div>
+                                            <div className="maindiv">
+                                            <label className='label_' for="Certificate">Transcript: </label>
+                                            <input type="file" name="Certificate" className="form-control" required />
                                             </div>
                                             <div className="AddBtn">
                                                 <input type="submit" value="Add" />

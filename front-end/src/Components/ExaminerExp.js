@@ -90,6 +90,10 @@ function ExaminerExp() {
                                                 <input class="form-control" type="date" name="ending_date" runat="server"
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
+                                            <div className="maindiv">
+                                            <label className='label_' for="ExperianceLetter">Experiance Letter: </label>
+                                            <input type="file" name="ExperianceLetter" className="form-control" required />
+                                            </div>
                                             <div className="AddBtn">
                                                 <input type="submit" value="Add" />
                                             </div>
