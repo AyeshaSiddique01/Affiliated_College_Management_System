@@ -121,7 +121,7 @@ def ExaminerLogin() :
 	#chk email exist
 	if (m.checkEmailExist(email)) :
 		examiner_id = m.ValidatePassword(email, password)
-		if (examiner_id > 0) :									# 0 sy shuru hota ya 1
+		if (examiner_id > 0) :									
 			session["examiner_id"] = examiner_id
 			print("logged in")
 			return jsonify("dashboard")
@@ -129,6 +129,7 @@ def ExaminerLogin() :
 			return jsonify("Invalid Password")
 	else :
 		return jsonify("Email does not exist")
+
 @app.route('/userdata', methods=['GET'])
 def userdata():
     userdata = {

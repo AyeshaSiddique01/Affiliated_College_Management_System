@@ -9,24 +9,24 @@ function ExaminerQualification() {
     //     history.push("/ExaminerExp")
     // }
 
-    // const modal = document.getElementById("AddNewQualification");
-    // const btn = document.getElementById("myBtn");
+    const modal = document.getElementById("AddNewQualification");
+    const btn = document.getElementById("myBtn");
 
-    // const span = document.getElementsByClassName("close")[0];
+    const span = document.getElementsByClassName("close")[0];
 
-    // btn.onclick = function () {
-    //     modal.style.display = "block";
-    // }
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
-    // span.onclick = function () {
-    //     modal.style.display = "none";
-    // }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
-    // window.onclick = function (event) {
-    //     if (event.target === modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
 
     // const [data, setData] = useState([]);
 

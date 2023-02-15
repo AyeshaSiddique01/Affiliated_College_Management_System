@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css';
 
-function AcceptedRequest() {
+function UploadResult() {
 
     return (
         <div className='Mybody'>
@@ -34,9 +34,9 @@ function AcceptedRequest() {
                         </div>
                     </div>
                     <div className="col-4 uploadPaper" style={{marginTop:  "10px"}}>
-                        <form action="http://localhost:5000//UploadPaper" method='post' enctype="multipart/form-data">
-                            <input type="file" name="Paper" className="form-control" required />
-                            <button type="submit" className="submit-btn" >Upload Paper</button>
+                        <form action="http://localhost:5000//UploadResult" method='post' enctype="multipart/form-data">
+                            <input type="file" name="Result" className="form-control" required />
+                            <button type="submit" className="submit-btn" >Upload Result</button>
                         </form>                        
                     </div>
                 </div>
@@ -45,4 +45,4 @@ function AcceptedRequest() {
     )
 }
 
-export default AcceptedRequest
+export default UploadResult

@@ -16,11 +16,17 @@ import Profile from './Components/Profile';
 import Notifications from './Components/Notifications'
 import RequestRecieved from './Components/RequestRecieved'
 import AcceptedRequest from './Components/AcceptedRequest'
-import DashBoard from './Components/DashBoard'
+import UploadResult from './Components/UploadPaper'
+import Home from './Components/Home';
 
 function App() {
   return (
-    <div className="App">    
+    <div className="App"> 
+    {/* <Login/> */}
+    {/* <SignupPersonalInfo/> */}
+    {/* <SignupExaminerInfo/> */}
+    {/* <ExaminerQualification/> */}
+    {/* <ExaminerExp/> */}
     <Router>
       <Sidebar>
          <Routes>
@@ -33,7 +39,10 @@ function App() {
           <Route path="/RequestRecieved" element={<RequestRecieved/>} />
           <Route path="/Notifications" element={<Notifications/>} />
           <Route path="/Profile" element={<Profile/>} />
-          <Route path="/DashBoard" element={<DashBoard/>} />
+          <Route path="/Home" element={<Home/>} />
+          <Route path="/DuePaper" element={<Home/>} />
+          <Route path="/ResultPending" element={<Home/>} />
+          <Route path="/UploadResult" element={<UploadResult/>} />
         </Routes> 
       </Sidebar>
     </Router>      

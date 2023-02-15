@@ -11,7 +11,7 @@ function Login() {
             </style>
             <div className="bg-img">
                 <div className="content">
-                <header><h1 style={{color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"500"}}>Log In form</h1></header>
+                <header><h1 style={{color:"white", fontFamily: "'Poppins', sans-serif", fontWeight:"600"}}>Log In form</h1></header>
                     <header type="PI" style={{color:"white"}}>Enter your registered mail and password:</header>
                     <form action="http://localhost:5000//ExaminerLogin" method='post'>
                         

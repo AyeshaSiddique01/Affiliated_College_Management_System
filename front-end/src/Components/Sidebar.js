@@ -26,8 +26,13 @@ const routes = [
     icon: <MdMessage/>,
   },
   {
-    path: "/DashBoard",          //AcceptedRequests
-    name: "DashBoard", 
+    path: "/DuePaper",          //AcceptedRequests
+    name: "Due Paper", 
+    icon: <MdAssignment/>,
+  },
+  {
+    path: "/ResultPending",          //AcceptedRequests
+    name: "Result Pending", 
     icon: <MdAssignment/>,
   },
   {
