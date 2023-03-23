@@ -118,6 +118,7 @@ def ExaminerLogin() :
 	email = request.form["email"]
 	password = request.form["password"]
 	m = model()
+	m.getUserID(email)
 	#chk email exist
 	if (m.checkEmailExist(email)) :
 		examiner_id = m.ValidatePassword(email, password)

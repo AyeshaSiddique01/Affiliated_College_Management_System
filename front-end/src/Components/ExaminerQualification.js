@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from 'react'
-// import { useHistory } from "react-router-dom";
 
 function ExaminerQualification() {
-    // alert("YES!!")
-    // const history = useHistory();
-
-    // const coursesPage = () => {
-    //     history.push("/ExaminerExp")
-    // }
-
     const modal = document.getElementById("AddNewQualification");
     const btn = document.getElementById("myBtn");
-
     const span = document.getElementsByClassName("close")[0];
-
+    
     btn.onclick = function () {
         modal.style.display = "block";
     }
-
     span.onclick = function () {
         modal.style.display = "none";
     }
-
     window.onclick = function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     }
-
+    
     // const [data, setData] = useState([]);
 
     // useEffect(() => {
@@ -39,7 +28,6 @@ function ExaminerQualification() {
     //        console.log(data.name);
     //      });
     //  }, []);
-
     return (
         <div className='FormBg'>
             <div className='bg-img'>

@@ -23,11 +23,11 @@ function App() {
   return (
     <div className="App"> 
     {/* <Login/> */}
-    {/* <SignupPersonalInfo/> */}
+    <SignupPersonalInfo/>
     {/* <SignupExaminerInfo/> */}
     {/* <ExaminerQualification/> */}
     {/* <ExaminerExp/> */}
-    <Router>
+    {/* <Router>
       <Sidebar>
          <Routes>
           <Route path="/" element={<Login/>} />
@@ -45,7 +45,7 @@ function App() {
           <Route path="/UploadResult" element={<UploadResult/>} />
         </Routes> 
       </Sidebar>
-    </Router>      
+    </Router>       */}
     </div>
   );
 }
