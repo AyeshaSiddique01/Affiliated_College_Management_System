@@ -87,7 +87,7 @@ const ExaminerQualification = () => {
                                             </div>
                                             <div className="maindiv">
                                             <label className='label_' for="Certificate">Transcript: </label>
-                                            <input type="file" name="Certificate" className="form-control" required />
+                                            <input type="file" name="transcript" className="form-control" required />
                                             </div>
                                             <div className="AddBtn">
                                                 <input type="submit" value="Add" />

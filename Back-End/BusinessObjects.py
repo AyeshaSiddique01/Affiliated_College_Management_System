@@ -107,18 +107,20 @@ class paper:
         self.result = result
 
 class qualification:
-    def __init__(self, examiner_id, degree_title, institution, starting_date, ending_date) -> None:
+    def __init__(self, examiner_id, degree_title, transcript, institution, starting_date, ending_date) -> None:
         self.examiner_id = examiner_id
         self.degree_title = degree_title
+        self.transcript = transcript
         self.institution = institution
         self.starting_date = starting_date
         self.ending_date = ending_date
 
 class experience:
-    def __init__(self, examiner_id, job_title, organization, reference_email, starting_date, ending_date) -> None:
+    def __init__(self, examiner_id, job_title, ExperianceLetter, organization, reference_email, starting_date, ending_date) -> None:
         self.examiner_id = examiner_id
         self.job_title =job_title
         self.organization = organization
+        self.ExperianceLetter = ExperianceLetter
         self.reference_email = reference_email
         self.starting_date = starting_date
         self.ending_date = ending_date

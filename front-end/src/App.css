@@ -690,3 +690,7 @@ button[type="deatils"]:hover {
 .date{
   text-align: center;
 }
+#messageError{
+  color: rgb(133, 48, 48); 
+  font-family:serif;
+}
