@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SignupExaminerInfo() {
+const SignupExaminerInfo = () => {
   return (
     <div className='FormBg'>
       <div className='bg-img'>

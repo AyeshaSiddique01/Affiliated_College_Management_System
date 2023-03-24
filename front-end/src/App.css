@@ -172,7 +172,7 @@ select {
   padding: 7px 0px 0px 246px;
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: #000000;
   display: none;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
@@ -327,7 +327,7 @@ i span {
   /* position: fixed;
     z-index: 999999999; */
   border: none;
-  text-indent: 19.5em;
+  text-indent: 18em;
   font-size: 1.5em;
   color: transparent;
   background: transparent;
@@ -336,6 +336,7 @@ i span {
 
 .AddBtn input {
   height: 40px;
+  width: 50px;
   border: none;
   font-size: medium;
   font-family: sans-serif;
@@ -410,6 +411,7 @@ i span {
 .close {
   color: #aaaaaa;
   float: right;
+  text-indent: 16.5em;
   font-size: 28px;
   font-weight: bold;
 }

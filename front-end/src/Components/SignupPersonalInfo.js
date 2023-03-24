@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SignupPersonalInfo() {
+const SignupPersonalInfo = () => {
   return (
     <div className='FormBg'>
         <style>
@@ -65,3 +65,4 @@ export default function SignupPersonalInfo() {
     </div>
   )
 }
+export default SignupPersonalInfo

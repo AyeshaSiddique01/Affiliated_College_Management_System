@@ -1,8 +1,7 @@
 import React from 'react'
 import '../App.css';
 
-function AcceptedRequest() {
-
+const AcceptedRequest = () => {
     return (
         <div className='Mybody'>
             <div className='container'>

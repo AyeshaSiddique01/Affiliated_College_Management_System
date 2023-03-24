@@ -1,8 +1,7 @@
 import React from 'react'
 import '../App.css';
 
-function UploadResult() {
-
+const UploadResult = () => {
     return (
         <div className='Mybody'>
             <div className='container'>

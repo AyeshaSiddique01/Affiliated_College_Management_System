@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Profile() {
+const Profile = () => {
   return (
     <div className='FormBg'>
         Profile        
