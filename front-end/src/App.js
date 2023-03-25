@@ -18,6 +18,8 @@ import RequestRecieved from './Components/RequestRecieved'
 import AcceptedRequest from './Components/AcceptedRequest'
 import UploadResult from './Components/UploadPaper'
 import Home from './Components/Home';
+import Navbar from './Components/Navbar'
+import 'boxicons'
 
 function App() {
   return (
@@ -27,7 +29,8 @@ function App() {
     {/* <SignupExaminerInfo/> */}
     {/* <ExaminerQualification/> */}
     {/* <ExaminerExp/> */}
-    <Router>
+    <Navbar></Navbar>
+    {/* <Router>
       <Sidebar>
          <Routes>
           <Route path="/" element={<Login/>} />
@@ -45,7 +48,7 @@ function App() {
           <Route path="/UploadResult" element={<UploadResult/>} />
         </Routes> 
       </Sidebar>
-    </Router>      
+    </Router>       */}
     </div>
   );
 }
