@@ -1,5 +1,5 @@
 import React from 'react'
-
+import ReactDOM from 'react-dom';
 const SignupExaminerInfo = () => {
   return (
     <div className='FormBg'>
@@ -21,4 +21,5 @@ const SignupExaminerInfo = () => {
   )
 }
 
-export default SignupExaminerInfo
+ReactDOM.render(<SignupExaminerInfo />, document.getElementById('root'));
+// export default SignupExaminerInfo

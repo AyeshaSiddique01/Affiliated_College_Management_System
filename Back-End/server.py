@@ -17,7 +17,7 @@ CORS(app)
 app.config.from_object("config")
 app.secret_key = app.config["SECRET_KEY"]
 
-@app.route('/SignUpPersonalInfo', methods=["POST", "GET"])
+@app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo() :
 	usr_name = request.form['usr_name']
 	usr_cnic = request.form["usr_cnic"]
@@ -45,7 +45,7 @@ def SignUpPersonalInfo() :
 		session["user_id"] = user_id
 		session["usr_email"] = usr_email
 		session["usr_name"] = usr_name		
-		return jsonify("SignUpExaminerInfo")
+		return render_template("SignupExaminerInfo.html")
 	else :
 		return jsonify("EmailExist")
 
