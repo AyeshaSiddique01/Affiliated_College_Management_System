@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const SignupPersonalInfo = () => {
     useEffect(() => {
         var password = document.getElementById("pass");
         var passwordC = document.getElementById("passC");
-        passwordC.addEventListener("keyup", function(){
+        passwordC.addEventListener("keyup", function () {
             if (password.value !== passwordC.value) {
                 document.getElementById("messageError").innerHTML = "Password does not match<br />";
             } else {
@@ -68,10 +68,9 @@ const SignupPersonalInfo = () => {
                     </form>
                     <div className="pass">
                         <a href="/">Already have an account? Log in</a>
-                    </div>
-                </div>
+                    </div>                    
             </div>
         </div>
-    )
+    </div >
+  )
 }
-export default SignupPersonalInfo

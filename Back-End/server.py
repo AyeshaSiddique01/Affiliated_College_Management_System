@@ -1,4 +1,5 @@
 from flask import *
+from flask import Flask, request, session, jsonify
 from werkzeug.wrappers import response
 from Model import model
 from datetime import datetime
@@ -17,7 +18,7 @@ CORS(app)
 app.config.from_object("config")
 app.secret_key = app.config["SECRET_KEY"]
 
-@app.route('/SignUpPersonalInfo', methods=["POST"])
+@app.route('/SignUpPersonalInfo', methods=["POST", "GET"])
 def SignUpPersonalInfo() :
 	usr_name = request.form['usr_name']
 	usr_cnic = request.form["usr_cnic"]
@@ -47,7 +48,7 @@ def SignUpPersonalInfo() :
 		session["user_id"] = user_id
 		session["usr_email"] = usr_email
 		session["usr_name"] = usr_name		
-		return render_template("SignupExaminerInfo.html")
+		return jsonify("SignUpExaminerInfo")
 	else :
 		return jsonify("EmailExist")
 
@@ -78,13 +79,12 @@ def ExaminerQualification() :
 	institution = request.form["institution"]
 	starting_date = request.form["starting_date"]
 	ending_date = request.form["ending_date"]
-	transcript = request.form["transcript"]
 	examiner_id = session.get("examiner_id")
-	data = qualification(examiner_id, degree_title, transcript, institution, starting_date, ending_date)
+	data = qualification(examiner_id, degree_title, institution, starting_date, ending_date)
 	m = model()
 	m.InsertExaminerQualification(data)
 	print("Qualification inserted")
-	return jsonify("Home") 
+	return jsonify("Home") #ya abhi nae ata
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience() :
@@ -93,9 +93,8 @@ def ExaminerExperience() :
 	reference_email = request.form["reference_email"]
 	starting_date = request.form["starting_date"]
 	ending_date = request.form["ending_date"]
-	ExperianceLetter = request.form["ExperianceLetter"]
 	examiner_id = session.get("examiner_id")
-	data = experience(examiner_id, job_title, ExperianceLetter, organization, reference_email, starting_date, ending_date)
+	data = experience(examiner_id, job_title, organization, reference_email, starting_date, ending_date)
 	m = model()
 	m.InsertExaminerExperience(data)
 	print("Experience inserted")
@@ -157,6 +156,10 @@ def mail(email,text):
             server.sendmail(
                 senderMail, email, message
             )
+
+# @app.route('/profile',methods=['GET','POST'])
+# def profile():
+
 
 # Running app
 if __name__ == '__main__':

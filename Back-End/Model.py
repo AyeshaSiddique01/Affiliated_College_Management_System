@@ -8,8 +8,9 @@ class model:
                 database="ACMS",            #write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",      #write your dbPassword
-                port="5432")
+                password="aiman12345",      #write your dbPassword
+                port="5432"
+                )
         except Exception as e:
             print(str(e))
     
@@ -22,8 +23,8 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f'''insert into public.user(usr_name,usr_password,usr_profile_pic,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
-	                        values ('{user.usr_name}', '{user.usr_password}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
+                query = f'''insert into public.user(usr_name,usr_password,usr_phoneno,usr_profile_pic,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
+	                        values ('{user.usr_name}', '{user.usr_password}','{user.usr_phoneno}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
                             '''
                 cursor.execute(query)
                 self.connection.commit()
@@ -141,8 +142,8 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f'''insert into public.qualification("examiner_id", "degree_title", "institution", "starting_date", "ending_date") 
-                values('{qualification.examiner_id}', '{qualification.degree_title}', '{qualification.institution}', '{qualification.starting_date}', '{qualification.ending_date}');
+                query = f'''insert into public.qualification("examiner_id", "degree_title", "institution", "starting_date", "ending_date","transcript") 
+                values('{qualification.examiner_id}', '{qualification.degree_title}', '{qualification.institution}', '{qualification.starting_date}', '{qualification.ending_date}','{qualification.transcript}');
                 '''
                 cursor.execute(query)
                 self.connection.commit()
@@ -158,8 +159,8 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f'''insert into public.experience("examiner_id", "job_title", "organization", "reference_email", "starting_date", "ending_date") 
-                        values('{experience.examiner_id}', '{experience.job_title}', '{experience.organization}','{experience.reference_email}' ,'{experience.starting_date}', '{experience.ending_date}');
+                query = f'''insert into public.experience("examiner_id", "job_title", "organization", "reference_email", "starting_date", "ending_date","experiance_letter") 
+                        values('{experience.examiner_id}', '{experience.job_title}', '{experience.organization}','{experience.reference_email}' ,'{experience.starting_date}', '{experience.ending_date}', '{experience.experiance_letter}');
                         '''
                 cursor.execute(query)
                 self.connection.commit()
@@ -252,3 +253,18 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    def getDataofExaminer(self, tableName, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select * from public.{tableName} where examiner_id = {examiner_id};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getDataofExaminer", str(e))
+            return False
+        finally:
+            if cursor:
+                cursor.close()

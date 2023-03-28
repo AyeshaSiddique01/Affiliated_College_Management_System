@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
-const ExaminerQualification = () => {
-    useEffect(() => {
-        const modal = document.getElementById("AddNewQualification");
-        const btn = document.getElementById("myBtn");
-        const span = document.getElementsByClassName("close")[0];
-        
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-        span.onclick = function () {
+function ExaminerQualification() {
+    const modal = document.getElementById("AddNewQualification");
+    const btn = document.getElementById("myBtn");
+    const span = document.getElementsByClassName("close")[0];
+    
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-        
-    });
+    }
+    
     // const [data, setData] = useState([]);
 
     // useEffect(() => {
@@ -87,7 +85,7 @@ const ExaminerQualification = () => {
                                             </div>
                                             <div className="maindiv">
                                             <label className='label_' for="Certificate">Transcript: </label>
-                                            <input type="file" name="transcript" className="form-control" required />
+                                            <input type="file" name="Certificate" className="form-control" required />
                                             </div>
                                             <div className="AddBtn">
                                                 <input type="submit" value="Add" />

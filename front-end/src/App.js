@@ -18,11 +18,6 @@ import RequestRecieved from './Components/RequestRecieved'
 import AcceptedRequest from './Components/AcceptedRequest'
 import UploadResult from './Components/UploadPaper'
 import Home from './Components/Home';
-import Navbar from './Components/Navbar'
-import DuePaper from './Components/DuePaper';
-import ResultPending from './Components/ResultPending';
-import Settings from './Components/Settings';
-import 'boxicons'
 
 function App() {
   return (
@@ -31,12 +26,9 @@ function App() {
     <SignupPersonalInfo/>
     {/* <SignupExaminerInfo/> */}
     {/* <ExaminerQualification/> */}
-    {/* <Notifications/> */}
-    {/* <Home></Home> */}
     {/* <ExaminerExp/> */}
-    {/* <Navbar></Navbar> */}
     {/* <Router>
-      <Navbar>
+      <Sidebar>
          <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} />
@@ -52,24 +44,8 @@ function App() {
           <Route path="/ResultPending" element={<Home/>} />
           <Route path="/UploadResult" element={<UploadResult/>} />
         </Routes> 
-      </Navbar>
-    </Router>      
-     */}
-     {/* <Router>
-      <Navbar>
-         <Routes>
-          <Route path="/Home" component={Home} />
-          <Route path="/Notifications" component={Notifications} />
-          <Route path="/DuePaper" component={DuePaper} />
-          <Route path="/ResultPending" component={ResultPending} />
-          <Route path="/Profile" component={Profile} />
-          <Route path="/SignupPersonalInfo" component={SignupPersonalInfo} />
-          <Route path="/Settings" component={Settings} />
-          <Route path="/SignupExaminerInfo" component={SignupExaminerInfo} />
-          <Route path="/Login" component={Login} />
-        </Routes> 
-      </Navbar>
-    </Router> */}
+      </Sidebar>
+    </Router>       */}
     </div>
   );
 }

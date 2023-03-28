@@ -1,6 +1,6 @@
 # personal info and all imp cant be null 
 class User:
-    def init(self, usr_name, usr_password, usr_phoneno, usr_cnic, usr_profile_pic, usr_address,
+    def _init_(self, usr_name, usr_password, usr_phoneno, usr_cnic, usr_profile_pic, usr_address,
     usr_email, usr_active_status, usr_bio, usr_gender):
         self.usr_name = usr_name
         self.usr_password = usr_password
@@ -108,23 +108,23 @@ class paper:
         self.result = result
 
 class qualification:
-    def __init__(self, examiner_id, degree_title, transcript, institution, starting_date, ending_date) -> None:
+    def __init__(self, examiner_id, degree_title, institution, starting_date, ending_date,transcript) -> None:
         self.examiner_id = examiner_id
         self.degree_title = degree_title
-        self.transcript = transcript
         self.institution = institution
         self.starting_date = starting_date
         self.ending_date = ending_date
+        self.transcript = transcript
 
 class experience:
-    def __init__(self, examiner_id, job_title, ExperianceLetter, organization, reference_email, starting_date, ending_date) -> None:
+    def __init__(self, examiner_id, job_title, organization, reference_email, starting_date, ending_date,experiance_letter) -> None:
         self.examiner_id = examiner_id
         self.job_title =job_title
         self.organization = organization
-        self.ExperianceLetter = ExperianceLetter
         self.reference_email = reference_email
         self.starting_date = starting_date
         self.ending_date = ending_date
+        self.experiance_letter = experiance_letter
         
 class college_review:
     def __init__(self, examiner_id, cr_complain, ac_id) -> None:
