@@ -1,4 +1,5 @@
 from flask import *
+from flask import Flask, request, session, jsonify
 from werkzeug.wrappers import response
 from Model import model
 from datetime import datetime
@@ -153,6 +154,10 @@ def mail(email,text):
             server.sendmail(
                 senderMail, email, message
             )
+
+# @app.route('/profile',methods=['GET','POST'])
+# def profile():
+
 
 # Running app
 if __name__ == '__main__':
