@@ -1,8 +1,9 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .App {
   width: 100vw;
   height: 100vh;
@@ -12,8 +13,8 @@
 @import url("https://fonts.googleapis.com/css?family-Montserrat:400,500,600,700|Poppins:408,500&display=swap");
 
 
-.Navbar{
-  height: 75px;
+.Navbar {
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,70 +51,70 @@
 }
     */
 
-    .VerNavbar {
-      position: fixed;
-      top: 75px;
-      left: 0;
-      bottom: 0;
-      width: 250px;
-      background-color: #11161b;
-      box-shadow: 10px 10px 100px black;
-    }
-    
-    .vernav {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 20px 10px;
-      margin: 8px;
-    }
-    
-    .vernav a {
-      display: block;
-      padding: 10px;
-      width: 220px;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 22px;
-    font-weight: 700;
-    font-family: poppin serif;
-    opacity: 0.9;
-    border-radius: 5px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    margin: 10px;
-    }
-    
-    .vernav a:hover {
-      opacity: 1;
-  background:#0a0a0a;
-    }
+.VerNavbar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #11161b;
+  box-shadow: 10px 10px 100px black;
+}
 
-    .vernav a::before{
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-    background: #ffffff;
-    transition: all .45s ease;
-    }
-    
-    .vernav a:hover::before{
-      width: 100%;
-    }
+.vernav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px 10px;
+  margin: 8px;
+}
 
-    .vernav a.active {
-      background-color: #ddd;
-      color: #333;
-    }
-
-.nav-logo{
+.vernav a {
+  display: block;
+  padding: 10px;
+  width: 220px;
   color: #ffffff;
-  font-size: 35px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: poppin serif;
+  opacity: 0.9;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  margin: 10px;
+}
+
+.vernav a:hover {
+  opacity: 1;
+  background: #0a0a0a;
+}
+
+.vernav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: all .45s ease;
+}
+
+.vernav a:hover::before {
+  width: 100%;
+}
+
+.vernav a.active {
+  background-color: #ddd;
+  color: #333;
+}
+
+.nav-logo {
+  color: #ffffff;
+  font-size: 32px;
   font-weight: 800;
   font-family: poppin serif;
   margin: 10px;
@@ -132,28 +133,28 @@
   border-radius: 5px;
 }
 
-.nav-items a:hover{
+.nav-items a:hover {
   opacity: 1;
-  background:#0a0a0a;
+  background: #0a0a0a;
 }
 
 
-.nav-items a::before{
+.nav-items a::before {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 0;
   height: 2px;
-background: #ffffff;
-transition: all .45s ease;
+  background: #ffffff;
+  transition: all .45s ease;
 }
 
-.nav-items a:hover::before{
+.nav-items a:hover::before {
   width: 100%;
 }
 
-.header-btn .progap{
+.header-btn .progap {
   background: #0a0a0a;
   border: 1px solid rgb(131, 127, 127);
   border-radius: 30px;
@@ -163,13 +164,13 @@ transition: all .45s ease;
   transition: all .8s ease;
 }
 
-.header-btn .progap:hover{
+.header-btn .progap:hover {
   background: #ffffff;
   border-radius: 20%;
   padding: 18px 40px;
 }
 
-.header-btn a{
+.header-btn a {
   padding: 8px 12px;
   color: #ffffff;
   font-size: 20px;
@@ -177,7 +178,7 @@ transition: all .45s ease;
   font-family: poppin serif;
 }
 
-.header-btn .signlog{
+.header-btn .signlog {
   background: #0a0a0a;
   border: 2px solid transparent;
   border-radius: 5px;
@@ -185,7 +186,7 @@ transition: all .45s ease;
   margin: 0 8px;
 }
 
-.header-btn .signlog:hover{
+.header-btn .signlog:hover {
   background: #0e6e26;
   border: 2px solid transparent;
 }
@@ -738,7 +739,7 @@ main {
 .courseTitle {
   font-weight: 400;
   font-size: 34px;
-  font-family:system-ui;
+  font-family: system-ui;
   float: left;
 }
 
@@ -777,7 +778,7 @@ main {
 }
 
 .uploadPaper {
-  border: white;    
+  border: white;
   height: fit-content;
   border-style: solid;
   border-width: thin;
@@ -814,7 +815,7 @@ button[type="deatils"]:hover {
   background: rgb(20, 20, 20);
 }
 
-.adjustment{
+.adjustment {
   position: absolute;
   top: 20%;
   left: 15%;
@@ -855,10 +856,10 @@ button[type="deatils"]:hover {
   box-shadow: 0 0 40px 40px rgba(0, 0, 0, 0.26);
 }
 
-.CourseTitle{
+.CourseTitle {
   width: 100%;
   /* background: black; */
-  margin: 6px 0; 
+  margin: 6px 0;
   padding: 0 10px;
   color: #fff;
   font-size: 30px;
@@ -867,16 +868,17 @@ button[type="deatils"]:hover {
   font-style: normal;
 }
 
-.papertype{
-  text-align:center;
+.papertype {
+  text-align: center;
   font-style: italic;
   font-size: 22px;
 }
 
-.date{
+.date {
   text-align: center;
 }
-#messageError{
-  color: rgb(133, 48, 48); 
-  font-family:serif;
+
+#messageError {
+  color: rgb(133, 48, 48);
+  font-family: serif;
 }

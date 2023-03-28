@@ -35,6 +35,10 @@ const SignupPersonalInfo = () => {
                             <input type="text" className="input-box" placeholder='Enter CNIC' name='usr_cnic' required />
                         </div>
                         <div className="maindiv">
+                            <span className="fa fa-id-card"></span>
+                            <input type="text" className="input-box" placeholder='Enter Phone Number' name='usr_phone' required />
+                        </div>
+                        <div className="maindiv">
                             <span className="fa fa-home"></span>
                             {/* <FontAwesomeIcon icon="fa-solid fa-location-dot" /> */}
                             <input type="text" className="input-box" placeholder='Enter Address' name='usr_address' required />
