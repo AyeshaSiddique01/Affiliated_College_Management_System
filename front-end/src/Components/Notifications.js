@@ -1,8 +1,7 @@
 import React from 'react'
-import { BiFontSize } from 'react-icons/bi';
 import '../App.css';
 
-function Notifications() {
+const Notifications = () => {
 
     return (
         <div className='Mybody'>
@@ -96,6 +95,21 @@ function Notifications() {
                     </div>
                     </a>
                     <a href='http://localhost:3000/RequestRecieved'>
+                    <div className="notification_block" type="Practical">
+                        <div className='CourseTitle'>
+                            Basic Electronics
+                        </div>
+                        <div className='papertype'>
+                            Practical EXAM
+                            <button className='detail-btn' type="deatils" >See Details</button>
+                        </div>
+                        <div className='date'>
+                            Saturday, June 13, 2023
+                        </div>
+                        
+                    </div>
+                    </a>
+                    <a href='http://localhost:3000/RequestRecieved'>
                     <div className="notification_block">
                         <div className='CourseTitle'>
                             Artificial Intelligence
@@ -149,6 +163,21 @@ function Notifications() {
                         <div className='date'>
                             Saturday, June 13, 2023
                         </div>
+                    </div>
+                    </a>
+                    <a href='http://localhost:3000/RequestRecieved'>
+                    <div className="notification_block" type="Practical">
+                        <div className='CourseTitle'>
+                            Basic Electronics
+                        </div>
+                        <div className='papertype'>
+                            Practical EXAM
+                            <button className='detail-btn' type="deatils" >See Details</button>
+                        </div>
+                        <div className='date'>
+                            Saturday, June 13, 2023
+                        </div>
+                        
                     </div>
                     </a>
                     <a href='http://localhost:3000/RequestRecieved'>

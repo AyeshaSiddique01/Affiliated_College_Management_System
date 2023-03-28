@@ -1,6 +1,6 @@
 import React from 'react'
-
-function SignupExaminerInfo() {
+import ReactDOM from 'react-dom';
+const SignupExaminerInfo = () => {
   return (
     <div className='FormBg'>
       <div className='bg-img'>
@@ -21,4 +21,5 @@ function SignupExaminerInfo() {
   )
 }
 
-export default SignupExaminerInfo
+ReactDOM.render(<SignupExaminerInfo />, document.getElementById('root'));
+// export default SignupExaminerInfo

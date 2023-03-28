@@ -1,9 +1,194 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   width: 100vw;
   height: 100vh;
+  background-image: url("/src/Static/login.jpg");
 }
 
 @import url("https://fonts.googleapis.com/css?family-Montserrat:400,500,600,700|Poppins:408,500&display=swap");
+
+
+.Navbar{
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #11161b;
+  box-shadow: 10px 10px 100px black;
+}
+
+/* .VerNavbar{
+  display: flex;
+			flex-direction: column;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 300px;
+			padding: 10px;
+  background: #11161b;
+  box-shadow: 10px 10px 100px black;
+}
+
+.vernav a{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: poppin serif;
+  padding: 20px 25px;
+  margin: 0 15px;
+  position: relative;
+  opacity: 0.9;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  
+}
+    */
+
+    .VerNavbar {
+      position: fixed;
+      top: 75px;
+      left: 0;
+      bottom: 0;
+      width: 250px;
+      background-color: #11161b;
+      box-shadow: 10px 10px 100px black;
+    }
+    
+    .vernav {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 20px 10px;
+      margin: 8px;
+    }
+    
+    .vernav a {
+      display: block;
+      padding: 10px;
+      width: 220px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 22px;
+    font-weight: 700;
+    font-family: poppin serif;
+    opacity: 0.9;
+    border-radius: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    margin: 10px;
+    }
+    
+    .vernav a:hover {
+      opacity: 1;
+  background:#0a0a0a;
+    }
+
+    .vernav a::before{
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+    background: #ffffff;
+    transition: all .45s ease;
+    }
+    
+    .vernav a:hover::before{
+      width: 100%;
+    }
+
+    .vernav a.active {
+      background-color: #ddd;
+      color: #333;
+    }
+
+.nav-logo{
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 800;
+  font-family: poppin serif;
+  margin: 10px;
+}
+
+.nav-items a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: poppin serif;
+  padding: 20px 25px;
+  margin: 0 5px;
+  position: relative;
+  opacity: 0.9;
+  border-radius: 5px;
+}
+
+.nav-items a:hover{
+  opacity: 1;
+  background:#0a0a0a;
+}
+
+
+.nav-items a::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+background: #ffffff;
+transition: all .45s ease;
+}
+
+.nav-items a:hover::before{
+  width: 100%;
+}
+
+.header-btn .progap{
+  background: #0a0a0a;
+  border: 1px solid rgb(131, 127, 127);
+  border-radius: 30px;
+  transition: all .50s ease;
+  margin: 5px;
+  padding: 15px 12px;
+  transition: all .8s ease;
+}
+
+.header-btn .progap:hover{
+  background: #ffffff;
+  border-radius: 20%;
+  padding: 18px 40px;
+}
+
+.header-btn a{
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: poppin serif;
+}
+
+.header-btn .signlog{
+  background: #0a0a0a;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: all .50s ease;
+  margin: 0 8px;
+}
+
+.header-btn .signlog:hover{
+  background: #0e6e26;
+  border: 2px solid transparent;
+}
 
 .FormBg {
   margin: 0;
@@ -172,7 +357,7 @@ select {
   padding: 7px 0px 0px 246px;
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: #000000;
   display: none;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
@@ -327,7 +512,7 @@ i span {
   /* position: fixed;
     z-index: 999999999; */
   border: none;
-  text-indent: 19.5em;
+  text-indent: 18em;
   font-size: 1.5em;
   color: transparent;
   background: transparent;
@@ -336,6 +521,7 @@ i span {
 
 .AddBtn input {
   height: 40px;
+  width: 50px;
   border: none;
   font-size: medium;
   font-family: sans-serif;
@@ -410,6 +596,7 @@ i span {
 .close {
   color: #aaaaaa;
   float: right;
+  text-indent: 16.5em;
   font-size: 28px;
   font-weight: bold;
 }
@@ -551,7 +738,7 @@ main {
 .courseTitle {
   font-weight: 400;
   font-size: 34px;
-  font-family: system-ui;
+  font-family:system-ui;
   float: left;
 }
 
@@ -607,17 +794,17 @@ main {
 button[type="deatils"] {
   width: 18%;
   background: rgb(107, 75, 75);
-  border: 1px solid #fff;
-  margin: 5px;
-  height: 45px;
-  font-size: 17px;
-  font-family: cursive;
+  border: 2px solid #fff;
+  margin: 0 15px;
+  height: 50px;
+  font-size: 20px;
+  font-family: poppins;
   border-radius: 40px;
   padding: 0 10px;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   transition: 0.3s ease;
   float: right;
 
@@ -629,8 +816,8 @@ button[type="deatils"]:hover {
 
 .adjustment{
   position: absolute;
-  top: 10%;
-  left: 20%;
+  top: 20%;
+  left: 15%;
   z-index: 999;
 }
 
@@ -642,8 +829,8 @@ button[type="deatils"]:hover {
   color: white;
   border-width: thin;
   border-radius: 20px;
-  width: 800px;
-  padding-bottom: 20px;
+  width: 1050px;
+  padding-bottom: 15px;
   box-sizing: border-box;
   border: 1px solid #fff;
   border-style: inset;
@@ -659,13 +846,13 @@ button[type="deatils"]:hover {
   color: white;
   border-width: thin;
   border-radius: 5px;
-  width: 800px;
-  padding-bottom: 20px;
+  width: 1050px;
+  padding-bottom: 15px;
   box-sizing: border-box;
   border: 1px solid #fff;
   border-style: inset;
   outline: none;
-  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 0 40px 40px rgba(0, 0, 0, 0.26);
 }
 
 .CourseTitle{
@@ -674,17 +861,22 @@ button[type="deatils"]:hover {
   margin: 6px 0; 
   padding: 0 10px;
   color: #fff;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
-  font-family: cursive;
+  font-family: Poppins;
   font-style: normal;
 }
 
 .papertype{
-  text-align: center;
+  text-align:center;
   font-style: italic;
+  font-size: 22px;
 }
 
 .date{
   text-align: center;
+}
+#messageError{
+  color: rgb(133, 48, 48); 
+  font-family:serif;
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Profile = () => {
+const DuePaper = () => {
   return (
     <div className='FormBg'>
-        Profile        
+        DuePaper       
     </div>
   )
 }
 
-export default Profile
+export default DuePaper
