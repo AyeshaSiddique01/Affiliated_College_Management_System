@@ -24,7 +24,7 @@ class model:
             if self.connection != None:
                 cursor = self.connection.cursor()
                 query = f'''insert into public.user(usr_name,usr_password,usr_phoneno,usr_profile_pic,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
-	                        values ('{user.usr_name}', '{user.usr_password}',{user.usr_phoneno}, '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
+	                        values ('{user.usr_name}', '{user.usr_password}','{user.usr_phoneno}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
                             '''
                 cursor.execute(query)
                 self.connection.commit()
