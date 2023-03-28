@@ -777,7 +777,7 @@ main {
 }
 
 .uploadPaper {
-  border: white;    
+  border: white;
   height: fit-content;
   border-style: solid;
   border-width: thin;
@@ -814,7 +814,7 @@ button[type="deatils"]:hover {
   background: rgb(20, 20, 20);
 }
 
-.adjustment{
+.adjustment {
   position: absolute;
   top: 20%;
   left: 15%;
@@ -855,10 +855,10 @@ button[type="deatils"]:hover {
   box-shadow: 0 0 40px 40px rgba(0, 0, 0, 0.26);
 }
 
-.CourseTitle{
+.CourseTitle {
   width: 100%;
   /* background: black; */
-  margin: 6px 0; 
+  margin: 6px 0;
   padding: 0 10px;
   color: #fff;
   font-size: 30px;
@@ -873,7 +873,7 @@ button[type="deatils"]:hover {
   font-size: 22px;
 }
 
-.date{
+.date {
   text-align: center;
 }
 #messageError{

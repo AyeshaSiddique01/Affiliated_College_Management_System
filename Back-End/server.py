@@ -27,6 +27,7 @@ def SignUpPersonalInfo() :
 	usr_bio = request.form["usr_bio"]
 	usr_gender = request.form["usr_gender"]
 	usr_password = request.form["usr_password"]
+	usr_phone = request.form["usr_phone"]
 	usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
 	usr_active_status = True
 	
@@ -40,6 +41,7 @@ def SignUpPersonalInfo() :
 	data.usr_active_status = usr_active_status
 	data.usr_bio = usr_bio
 	data.usr_gender = usr_gender
+	data.usr_phoneno = usr_phone
 	m = model()
 	if (m.checkEmailExist(usr_email) == False) :
 		user_id = m.InsertUser(data)  		#insertion function return userid

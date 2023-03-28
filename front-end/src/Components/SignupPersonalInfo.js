@@ -4,7 +4,7 @@ const SignupPersonalInfo = () => {
     useEffect(() => {
         var password = document.getElementById("pass");
         var passwordC = document.getElementById("passC");
-        passwordC.addEventListener("keyup", function(){
+        passwordC.addEventListener("keyup", function () {
             if (password.value !== passwordC.value) {
                 document.getElementById("messageError").innerHTML = "Password does not match<br />";
             } else {
@@ -33,6 +33,10 @@ const SignupPersonalInfo = () => {
                         <div className="maindiv">
                             <span className="fa fa-id-card"></span>
                             <input type="text" className="input-box" placeholder='Enter CNIC' name='usr_cnic' required />
+                        </div>
+                        <div className="maindiv">
+                            <span className="fa fa-id-card"></span>
+                            <input type="text" className="input-box" placeholder='Enter Phone Number' name='usr_phone' required />
                         </div>
                         <div className="maindiv">
                             <span className="fa fa-home"></span>
@@ -64,10 +68,10 @@ const SignupPersonalInfo = () => {
                     </form>
                     <div className="pass">
                         <a href="/">Already have an account? Log in</a>
-                    </div>
-                </div>
+                    </div>                    
             </div>
         </div>
-    )
+    </div >
+  )
 }
 export default SignupPersonalInfo
