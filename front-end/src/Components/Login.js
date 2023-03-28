@@ -17,7 +17,7 @@ const Login = () => {
                 pass_field.type = "password";
                 showBtn.textContent = "Show";
                 showBtn.style.color = "#222";
-            }
+            } 
         });
     });
     

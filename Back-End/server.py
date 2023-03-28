@@ -159,8 +159,32 @@ def mail(email,text):
                 senderMail, email, message
             )
 
-# @app.route('/profile',methods=['GET','POST'])
-# def profile():
+@app.route('/profile',methods=['GET','POST'])
+def profile():
+	examiner_id = session.get("examiner_id")
+	m = model()
+	user_ = m.getDataofUser("user", session.get("user_id"))
+	examiner_ = m.getDataofExaminer("examiner",examiner_id)
+	data = {
+		"usr_name" : user_.usr_name,
+		"usr_phoneno" : user_.usr_phoneno,
+		"usr_cnic" : user_.usr_cnic,
+		"usr_address" : user_.usr_address,
+		"usr_email" : user_.usr_email,
+		"usr_profile_pic" : user_.usr_profile_pic,
+		"usr_bio" : user_.usr_bio,
+		"usr_gender" : user_.usr_gender,
+		"usr_active_status" : user_.usr_active_status,
+		"institution" : examiner_.institution,
+		"availability" : examiner_.availability,
+		"ranking" : examiner_.ranking,
+		"resume" : examiner_.resume,
+		"acceptance_count" : examiner_.acceptance_count,
+		"rejection_count" : examiner_.rejection_count,
+		"qualification" : m.getDataofExaminer("qualification",examiner_id),
+		"experience" : m.getDataofExaminer("experience",examiner_id)
+	}
+	return jsonify(data)
 
 
 # Running app
