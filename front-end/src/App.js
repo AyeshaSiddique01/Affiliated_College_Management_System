@@ -34,8 +34,8 @@ function App() {
     {/* <Notifications/> */}
     {/* <Home></Home> */}
     {/* <ExaminerExp/> */}
-    <Navbar></Navbar>
-    {/* <Router>
+    {/* <Navbar></Navbar> */}
+    <Router>
       <Navbar>
          <Routes>
           <Route path="/" element={<Login/>} />
@@ -54,7 +54,6 @@ function App() {
         </Routes> 
       </Navbar>
     </Router>      
-     */}
      {/* <Router>
       <Navbar>
          <Routes>
