@@ -58,6 +58,24 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    def getUserPassword(self, email):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(
+                    f'''select usr_password from public.user where usr_email = '{email}';''')
+                password = cursor.fetchone()
+                return password[0]
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in getUserPassword", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()        
+
     def getExaminerID(self, userid):
         cursor = None
         try:
@@ -273,12 +291,12 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getDataofUser(self, tableName, usr_id):
+    def getDataofUser(self, usr_id):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select * from public.{tableName} where usr_id = {usr_id};'''
+                query = f'''select * from public.user where usr_id = {usr_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data

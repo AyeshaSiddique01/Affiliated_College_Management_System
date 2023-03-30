@@ -12,6 +12,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from BusinessObjects import *
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 CORS(app)
@@ -30,10 +31,12 @@ def SignUpPersonalInfo() :
 	usr_phone = request.form["usr_phone"]
 	usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
 	usr_active_status = True
-	
+
+	_hashed_password = generate_password_hash(usr_password)
+
 	data = User()
 	data.usr_name = usr_name
-	data.usr_password = usr_password
+	data.usr_password = _hashed_password
 	data.usr_cnic = usr_cnic
 	data.usr_profile_pic = usr_profile_pic
 	data.usr_address = usr_address
@@ -123,14 +126,18 @@ def ExaminerLogin() :
 	email = request.form["email"]
 	password = request.form["password"]
 	m = model()
-	m.getUserID(email)
+	usrID = m.getUserID(email)
 	#chk email exist
 	if (m.checkEmailExist(email)) :
-		examiner_id = m.ValidatePassword(email, password)
-		if (examiner_id > 0) :									
-			session["examiner_id"] = examiner_id
-			print("logged in")
-			return jsonify("dashboard")
+		usr_pass = m.getUserPassword(email)
+		if check_password_hash(usr_pass, password):
+			examiner_id = m.ValidatePassword(email, usr_pass)
+			if (examiner_id > 0) :									
+				session["examiner_id"] = examiner_id
+				print("logged in")
+				return jsonify("dashboard")
+			else :
+				return jsonify("Invalid Password")
 		else :
 			return jsonify("Invalid Password")
 	else :
@@ -163,7 +170,7 @@ def mail(email,text):
 def profile():
 	examiner_id = session.get("examiner_id")
 	m = model()
-	user_ = m.getDataofUser("user", session.get("user_id"))
+	user_ = m.getDataofUser( session.get("user_id"))
 	examiner_ = m.getDataofExaminer("examiner",examiner_id)
 	data = {
 		"usr_name" : user_.usr_name,
