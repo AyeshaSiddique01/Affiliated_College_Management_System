@@ -35,13 +35,14 @@ function App() {
     {/* <Home></Home> */}
     {/* <ExaminerExp/> */}
     {/* <Navbar></Navbar> */}
-    <Router>
+    <Settings></Settings>
+    {/* <Router>
       <Navbar>
          <Routes>
           <Route path="/" element={<Login/>} />
-          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} />
+          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} /> */}
           {/* <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo/>} /> */}
-          <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
+          {/* <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
           <Route path="/ExaminerExp" element={<ExaminerExp/>} />
           <Route path="/AcceptedRequest" element={<AcceptedRequest/>} />
           <Route path="/RequestRecieved" element={<RequestRecieved/>} />
@@ -53,7 +54,7 @@ function App() {
           <Route path="/UploadResult" element={<UploadResult/>} />
         </Routes> 
       </Navbar>
-    </Router>      
+    </Router>       */}
      {/* <Router>
       <Navbar>
          <Routes>
