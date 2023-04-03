@@ -21,5 +21,5 @@ const SignupExaminerInfo = () => {
   )
 }
 
-ReactDOM.render(<SignupExaminerInfo />, document.getElementById('root'));
-// export default SignupExaminerInfo
+// ReactDOM.render(<SignupExaminerInfo />, document.getElementById('root'));
+export default SignupExaminerInfo

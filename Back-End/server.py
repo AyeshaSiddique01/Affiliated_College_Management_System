@@ -193,6 +193,23 @@ def profile():
 	}
 	return jsonify(data)
 
+@app.route('/requestsRecieved',methods=['GET'])
+def requestsRecieved():						# not accepted or rejected yet
+	pass
+
+@app.route('/acceptedRequests',methods=['GET'])
+def acceptedRequests():						# accepted but haven't uploaded paper
+	pass
+
+@app.route('/duePaperRequests',methods=['GET'])
+def duePaperRequests():						# accepted and uploaded paper and paper is not taken yet
+	pass
+
+@app.route('/dueResultRequests',methods=['GET'])
+def dueResultRequests():					# paper done upload paper now
+	pass
+
+
 
 # Running app
 if __name__ == '__main__':

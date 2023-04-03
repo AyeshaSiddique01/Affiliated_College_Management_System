@@ -1,12 +1,17 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .App {
-  width: 100vw;
-  height: 100vh;
   background-image: url("/src/Static/login.jpg");
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 @import url("https://fonts.googleapis.com/css?family-Montserrat:400,500,600,700|Poppins:408,500&display=swap");
@@ -127,7 +132,7 @@ button[type="submit"]:hover {
   }
 } */
 
-.Navbar{
+.Navbar {
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -165,68 +170,68 @@ button[type="submit"]:hover {
 }
     */
 
-    .VerNavbar {
-      position: fixed;
-      top: 75px;
-      left: 0;
-      bottom: 0;
-      width: 250px;
-      background-color: #171d1f;
-      box-shadow: 10px 10px 100px black;
-    }
-    
-    .vernav {
-      display: flex;
-      flex-direction:column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 30px 10px;
-      margin: 8px;
-    }
-    
-    .vernav a {
-      display: block;
-      padding: 10px;
-      width: 212px;
-      color: #DDDBCB;
-      text-decoration: none;
-      font-size: 22px;
-    font-weight: 700;
-    font-family: poppin serif;
-    opacity: 0.9;
-    border-radius: 5px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    margin: 10px;
-    }
-    
-    .vernav a:hover {
-      opacity: 1;
-  background:#0a0a0a;
-    }
+.VerNavbar {
+  position: fixed;
+  top: 75px;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #171d1f;
+  box-shadow: 10px 10px 100px black;
+}
 
-    .vernav a::before{
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0px;
-      height: 2px;
-    background: #DDDBCB;
-    transition: all .45s ease;
-    }
-    
-    .vernav a:hover::before{
-      width: 100%;
-    }
+.vernav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 30px 10px;
+  margin: 8px;
+}
 
-    .vernav a.active {
-      background-color: #ddd;
-      color: #333;
-    }
+.vernav a {
+  display: block;
+  padding: 10px;
+  width: 212px;
+  color: #DDDBCB;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: poppin serif;
+  opacity: 0.9;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  margin: 10px;
+}
 
-.nav-logo{
+.vernav a:hover {
+  opacity: 1;
+  background: #0a0a0a;
+}
+
+.vernav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0px;
+  height: 2px;
+  background: #DDDBCB;
+  transition: all .45s ease;
+}
+
+.vernav a:hover::before {
+  width: 100%;
+}
+
+.vernav a.active {
+  background-color: #ddd;
+  color: #333;
+}
+
+.nav-logo {
   color: #DDDBCB;
   font-size: 35px;
   font-weight: 800;
@@ -247,24 +252,24 @@ button[type="submit"]:hover {
   border-radius: 5px;
 }
 
-.nav-items a:hover{
+.nav-items a:hover {
   opacity: 1;
-  background:#0a0a0a;
+  background: #0a0a0a;
 }
 
 
-.nav-items a::before{
+.nav-items a::before {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 0;
   height: 2px;
-background: #DDDBCB;
-transition: all .45s ease;
+  background: #DDDBCB;
+  transition: all .45s ease;
 }
 
-.nav-items a:hover::before{
+.nav-items a:hover::before {
   width: 100%;
 }
 
@@ -292,17 +297,18 @@ transition: all .45s ease;
   font-family: poppin serif;
 } */
 
-.header-btn a{
+.header-btn a {
   padding: 8px 12px;
   color: #DDDBCB;
   font-size: 20px;
   font-weight: 600;
   font-family: poppin serif;
   margin: 20px;
-}  
+}
 
 .header-btn .progap {
-  position: relative; /* Add a relative position to the link container */
+  position: relative;
+  /* Add a relative position to the link container */
   background: #0a0a0a;
   border: 1px solid rgb(131, 127, 127);
   border-radius: 50px;
@@ -324,11 +330,13 @@ transition: all .45s ease;
 }
 
 .header-btn .progap:hover box-icon {
-  display: none; /* Hide the box-icon on hover */
+  display: none;
+  /* Hide the box-icon on hover */
 }
 
 .header-btn .progap:hover::before {
-  content: "Profile"; /* Display the value of the data-text attribute as the text */
+  content: "Profile";
+  /* Display the value of the data-text attribute as the text */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -365,20 +373,20 @@ transition: all .45s ease;
   border: 2px solid transparent;
 } */
 
-.header-btn .signlog{
+.header-btn .signlog {
   background: #0a0a0a;
   border: 1px solid #ffffff;
-  border-radius:5px;
+  border-radius: 5px;
   transition: all .50s ease;
   max-height: 500px;
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
 }
 
-.header-btn .signlog:hover{
+.header-btn .signlog:hover {
   background: #115c30;
   border: 1px solid white;
   box-shadow: 3px 3px #11161b, 6px 6px 0 0 #DDDBCB;
-  transform: translate(-3px,-3px);
+  transform: translate(-3px, -3px);
 }
 
 /*.search-bar{
@@ -416,7 +424,7 @@ transition: all .45s ease;
   cursor: pointer;
 } */
 
-.btnsubmit{
+.btnsubmit {
   border: 0;
   border-radius: 50%;
   width: 60px;
@@ -426,7 +434,7 @@ transition: all .45s ease;
   margin: 5px;
 }
 
-.inputsearch{
+.inputsearch {
   flex: 1;
   border: 0;
   outline: none;
@@ -434,13 +442,13 @@ transition: all .45s ease;
   font-size: 18px;
   color: #cac7ff;
   font-family: poppin serif;
-  border-radius: 60px; 
+  border-radius: 60px;
   max-width: 400px;
   background: rgba(225, 225, 225, 0.2);
   margin-bottom: 10px;
 }
 
-::placeholder{
+::placeholder {
   color: #cac7ff;
   font-family: poppin serif;
 }
@@ -993,7 +1001,7 @@ main {
 .courseTitle {
   font-weight: 400;
   font-size: 34px;
-  font-family:system-ui;
+  font-family: system-ui;
   float: left;
 }
 
@@ -1122,8 +1130,8 @@ button[type="deatils"]:hover {
   font-style: normal;
 }
 
-.papertype{
-  text-align:center;
+.papertype {
+  text-align: center;
   font-style: italic;
   font-size: 22px;
 }
@@ -1131,7 +1139,8 @@ button[type="deatils"]:hover {
 .date {
   text-align: center;
 }
-#messageError{
-  color: rgb(133, 48, 48); 
-  font-family:serif;
+
+#messageError {
+  color: rgb(133, 48, 48);
+  font-family: serif;
 }

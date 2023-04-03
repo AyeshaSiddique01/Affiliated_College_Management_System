@@ -27,22 +27,14 @@ import 'boxicons'
 function App() {
   return (
     <div className="App"> 
-    {/* <Login/> */}
-    {/* <SignupPersonalInfo/> */}
-    {/* <SignupExaminerInfo/> */}
-    {/* <ExaminerQualification/> */}
-    {/* <Notifications/> */}
-    {/* <Home></Home> */}
-    {/* <ExaminerExp/> */}
-    {/* <Navbar></Navbar> */}
-    <Settings></Settings>
+    {/* <Settings></Settings> */}
     {/* <Router>
       <Navbar>
          <Routes>
           <Route path="/" element={<Login/>} />
-          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} /> */}
-          {/* <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo/>} /> */}
-          {/* <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
+          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo/>} />
+          <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo/>} />
+          <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
           <Route path="/ExaminerExp" element={<ExaminerExp/>} />
           <Route path="/AcceptedRequest" element={<AcceptedRequest/>} />
           <Route path="/RequestRecieved" element={<RequestRecieved/>} />
@@ -55,6 +47,7 @@ function App() {
         </Routes> 
       </Navbar>
     </Router>       */}
+    <Navbar></Navbar>
      {/* <Router>
       <Navbar>
          <Routes>
