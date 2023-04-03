@@ -195,21 +195,39 @@ def profile():
 
 @app.route('/requestsRecieved',methods=['GET'])
 def requestsRecieved():						# not accepted or rejected yet
-	pass
+	examiner_id = session.get("examiner_id")
+	m = model()
+	# return requests whose status is false*
+	duties = m.getRequestsRecieved(examiner_id)		
+	return jsonify(duties)
 
 @app.route('/acceptedRequests',methods=['GET'])
 def acceptedRequests():						# accepted but haven't uploaded paper
-	pass
+	examiner_id = session.get("examiner_id")
+	m = model()
+	# return requested recieved and status is true and 
+	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
+	# paper table does not has the entity has the same duty id  
+	duties = m.getAcceptedRequests(examiner_id)		
+	return jsonify(duties)
 
 @app.route('/duePaperRequests',methods=['GET'])
 def duePaperRequests():						# accepted and uploaded paper and paper is not taken yet
-	pass
+	examiner_id = session.get("examiner_id")
+	m = model()
+	# paper table has the entity has the same duty id 
+	# and paper_date in exam_duty table is after today 
+	duties = m.getDuePaperRequests(examiner_id)		
+	return jsonify(duties)
 
 @app.route('/dueResultRequests',methods=['GET'])
 def dueResultRequests():					# paper done upload paper now
-	pass
-
-
+	examiner_id = session.get("examiner_id")
+	m = model()
+	# paper table has the entity has the same duty id has null result column
+	# and result_date in exam_duty table is after today 
+	duties = m.DueResultRequests(examiner_id)		
+	return jsonify(duties)
 
 # Running app
 if __name__ == '__main__':

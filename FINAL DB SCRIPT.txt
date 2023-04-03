@@ -25,9 +25,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public."user"
     OWNER to postgres;
 	
-	
-	
-
 -- Table: public.examiner
 
 -- DROP TABLE IF EXISTS public.examiner;
@@ -54,12 +51,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.examiner
     OWNER to postgres;
 	
-	
-	
-	
-	
-	
-
 -- Table: public.admin
 
 -- DROP TABLE IF EXISTS public.admin;
@@ -81,9 +72,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.admin
     OWNER to postgres;
 	
-	
-	
-	
 -- Table: public.affiliated_colleges
 
 -- DROP TABLE IF EXISTS public.affiliated_colleges;
@@ -104,10 +92,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.affiliated_colleges
     OWNER to postgres;
 	
-	
-	
-	
-
 -- Table: public.roadmap
 
 -- DROP TABLE IF EXISTS public.roadmap;
@@ -132,11 +116,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.roadmap
     OWNER to postgres;
 	
-	
-	
-	
-
-
 -- Table: public.practical_duty
 
 -- DROP TABLE IF EXISTS public.practical_duty;
@@ -155,8 +134,8 @@ CREATE TABLE IF NOT EXISTS public.practical_duty
     rd_dept character(2) COLLATE pg_catalog."default" NOT NULL,
     rd_year character(4) COLLATE pg_catalog."default" NOT NULL,
     rd_crs_code text COLLATE pg_catalog."default" NOT NULL,
-    prac_paper text COLLATE pg_catalog."default",
-    prac_result text COLLATE pg_catalog."default",
+    paper_upload_deadline text COLLATE pg_catalog."default" NOT NULL,
+    result_upload_deadline text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT practical_duty_pkey PRIMARY KEY (prac_duty_id),
     CONSTRAINT pd_fk1 FOREIGN KEY (ac_id)
         REFERENCES public.affiliated_colleges (ac_id) MATCH SIMPLE
@@ -180,13 +159,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.practical_duty
     OWNER to postgres;
-	
-	
-	
-	
-
-
-
+    
 -- Table: public.exam_duty
 
 -- DROP TABLE IF EXISTS public.exam_duty;
@@ -195,26 +168,26 @@ CREATE TABLE IF NOT EXISTS public.exam_duty
 (
     exam_duty_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     examiner_id integer NOT NULL,
-    deadline date NOT NULL,
+    paper_upload_deadline date NOT NULL,
     status_req boolean NOT NULL,
     rd_id integer NOT NULL,
     rd_dept character(2) COLLATE pg_catalog."default" NOT NULL,
     rd_year character(4) COLLATE pg_catalog."default" NOT NULL,
     rd_crs_code text COLLATE pg_catalog."default" NOT NULL,
+    paper_date date NOT NULL,
+    result_upload_deadline date NOT NULL,
     CONSTRAINT " exam_duty_pkey" PRIMARY KEY (exam_duty_id),
     CONSTRAINT ed_fk1 FOREIGN KEY (rd_id, rd_year, rd_dept, rd_crs_code)
         REFERENCES public.roadmap (rd_id, rd_year, rd_dept, rd_crs_code) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.exam_duty
-    OWNER to postgres;	
-	
-	
+    OWNER to postgres;
+
 -- Table: public.batch_enrollment
 
 -- DROP TABLE IF EXISTS public.batch_enrollment;
@@ -233,11 +206,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.batch_enrollment
     OWNER to postgres;
 	
-	
-	
-	
-	
-	
 -- Table: public.departments
 
 -- DROP TABLE IF EXISTS public.departments;
@@ -253,12 +221,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.departments
     OWNER to postgres;
-	
-	
-	
-	
-
-
 
 -- Table: public.enrolled_department
 
@@ -285,10 +247,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.enrolled_department
     OWNER to postgres;
-	
-	
-	
-	
 
 -- Table: public.examiner_courses
 
@@ -311,11 +269,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.examiner_courses
     OWNER to postgres;
 	
-	
-	
-	
-	
-	
 -- Table: public.paper
 
 -- DROP TABLE IF EXISTS public.paper;
@@ -325,7 +278,7 @@ CREATE TABLE IF NOT EXISTS public.paper
     paper_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     duty_id integer NOT NULL,
     paper text COLLATE pg_catalog."default" NOT NULL,
-    result text COLLATE pg_catalog."default" NOT NULL,
+    result text COLLATE pg_catalog."default",
     CONSTRAINT paper_pkey PRIMARY KEY (paper_id),
     CONSTRAINT paper_duty_id_fkey FOREIGN KEY (duty_id)
         REFERENCES public." exam_duty" (exam_duty_id) MATCH SIMPLE
@@ -338,9 +291,27 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.paper
     OWNER to postgres;
 	
-	
-	
-	
+    -- Table: public.practical_paper
+
+-- DROP TABLE IF EXISTS public.practical_paper;
+
+CREATE TABLE IF NOT EXISTS public.practical_paper
+(
+    practical_paper_id integer NOT NULL,
+    duty_id integer NOT NULL,
+    paper text COLLATE pg_catalog."default" NOT NULL,
+    result text COLLATE pg_catalog."default",
+    CONSTRAINT practical_paper_pkey PRIMARY KEY (practical_paper_id),
+    CONSTRAINT practical_paper_duty FOREIGN KEY (duty_id)
+        REFERENCES public.practical_duty (prac_duty_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.practical_paper
+    OWNER to postgres;
 
 -- Table: public.qualification
 
@@ -366,9 +337,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.qualification
     OWNER to postgres;
-	
-	
-	
 
 -- Table: public.experience
 
@@ -395,9 +363,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.experience
     OWNER to postgres;
-	
-	
-	
 
 -- Table: public.college_review
 
@@ -425,10 +390,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.college_review
     OWNER to postgres;
 	
-	
-	
-	
-
 -- Table: public.teacher_feedback
 
 -- DROP TABLE IF EXISTS public.teacher_feedback;

@@ -15,8 +15,8 @@ import ExaminerExp from './Components/ExaminerExp';
 import Profile from './Components/Profile';
 import Notifications from './Components/Notifications'
 import RequestRecieved from './Components/RequestRecieved'
-import AcceptedRequest from './Components/AcceptedRequest'
-import UploadResult from './Components/UploadPaper'
+import UploadPaper from './Components/UploadPaper'
+import UploadResult from './Components/UploadResult'
 import Home from './Components/Home';
 import Navbar from './Components/Navbar'
 import DuePaper from './Components/DuePaper';
@@ -27,6 +27,7 @@ import 'boxicons'
 function App() {
   return (
     <div className="App"> 
+    <UploadPaper></UploadPaper>
     {/* <Settings></Settings> */}
     {/* <Router>
       <Navbar>
@@ -47,7 +48,6 @@ function App() {
         </Routes> 
       </Navbar>
     </Router>       */}
-    <Navbar></Navbar>
      {/* <Router>
       <Navbar>
          <Routes>
