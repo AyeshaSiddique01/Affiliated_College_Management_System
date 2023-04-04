@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import '../App.css';
+import './login.css';
 
 const Login = () => {
 
@@ -30,8 +30,8 @@ const Login = () => {
                     </style>
                     <div className="bg-img">
                         <div className="content">
-                            <header><h1 style={{ color: "white", fontFamily: "'Poppins', sans-serif", fontWeight: "600" }}>Log In form</h1></header>
-                            <header type="PI" style={{ color: "white" }}>Enter your registered mail and password:</header>
+                            <header><h1 style={{ color: "white", fontFamily: "Poppins", fontWeight: "600" }}>Log In form</h1></header>
+                            <header type="PI" style={{ fontFamily: "Poppins", color: "white" }}>Enter your registered mail and password:</header>
                             <form action="http://localhost:5000//ExaminerLogin" method='post'>
 
                                 <div className="maindiv">

@@ -1,10 +1,13 @@
 import React from 'react'
-import '../App.css';
+import './home.css';
 
 const Home = () => {
 
     return (
         <div className='Mybody'>
+            <div class="subject-box">
+                <h2 class="subject-name">HOME</h2>
+            </div>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment'>

@@ -1,7 +1,8 @@
 import React from 'react'
-import '../App.css';
+import './requestReceived.css';
 
-const UploadPaper = () => {
+const RequestReceived = () => {
+
     return (
         <div className='Mybody'>
             <div className='container'>
@@ -13,8 +14,8 @@ const UploadPaper = () => {
                         Tuesday, 13th faburary, 2023
                     </div>
                 </div>
-                <div className="row requestBody">
-                    <div className="col-8">
+                <div className="row">
+                    <div className="requestBody">
                         <div className="bookRecomended">
                             <label className='outlineTitle'>Book recomended: </label>
                             Nell Dale, John Lewis, Computer Science Illuminated, 5th Edition,
@@ -32,16 +33,14 @@ const UploadPaper = () => {
                             HTML.
                         </div>
                     </div>
-                    <div className="col-4 uploadPaper" style={{marginTop:  "10px"}}>
-                        <form action="http://localhost:5000//UploadPaper" method='post' enctype="multipart/form-data">
-                            <input type="file" name="Paper" className="form-control" required />
-                            <button type="submit" className="submit-btn" >Upload Paper</button>
-                        </form>                        
-                    </div>
+                </div>
+                <div className="row requestFooter">
+                    <button className='col-4 AcceptBtn'>Accept</button>
+                    <button className='col-4 AcceptBtn'>Reject</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default UploadPaper
+export default RequestReceived
