@@ -7,6 +7,9 @@ const Home = () => {
         <div className='Mybody'>
             <div class="subject-box">
                 <h2 class="subject-name">HOME</h2>
+                <div class="subject-description">
+                    <p>description if needed.</p>
+                 </div>
             </div>
             <div className='container'>
                 <div className="row">

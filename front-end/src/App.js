@@ -15,10 +15,10 @@ import {
 // import Profile from './Components/Profile';
 // import Notifications from './Components/Notifications'
 // import RequestRecieved from './Components/RequestRecieved'
-import UploadPaper from './Components/UploadPaper/UploadPaper'
+// import UploadPaper from './Components/UploadPaper/UploadPaper'
 // import UploadResult from './Components/UploadResult'
 // import Home from './Components/Home';
-// import Navbar from './Components/Navbar'
+// import Navbar from './Components/Navbar/Navbar';
 // import DuePaper from './Components/DuePaper';
 // import ResultPending from './Components/ResultPending';
 // import Settings from './Components/Settings';
@@ -31,6 +31,7 @@ function App() {
     {/* <UploadPaper></UploadPaper> */}
     {/* <Settings></Settings> */}
     <Home></Home>
+    {/* <Navbar></Navbar> */}
     {/* <Router>
       <Navbar>
          <Routes>
