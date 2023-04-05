@@ -14,24 +14,28 @@ import {
 // import ExaminerExp from './Components/ExaminerExp';
 // import Profile from './Components/Profile';
 // import Notifications from './Components/Notifications'
-// import RequestRecieved from './Components/RequestRecieved'
+// import RequestReceived from './Components/RequestReceived/RequestReceived'
 // import UploadPaper from './Components/UploadPaper/UploadPaper'
-// import UploadResult from './Components/UploadResult'
+// import UploadResult from './Components/UploadResult/UploadResult'
 // import Home from './Components/Home';
 // import Navbar from './Components/Navbar/Navbar';
 // import DuePaper from './Components/DuePaper';
-// import ResultPending from './Components/ResultPending';
+import ResultPending from './Components/ResultPending/ResultPending';
 // import Settings from './Components/Settings';
 import 'boxicons'
-import Home from './Components/Home/Home';
+// import Home from './Components/Home/Home';
+// import DuePaper from './Components/DuePaper/DuePaper';
 
 function App() {
   return (
     <div className="App"> 
     {/* <UploadPaper></UploadPaper> */}
     {/* <Settings></Settings> */}
-    <Home></Home>
+    {/* <Home></Home> */}
+    {/* <DuePaper></DuePaper> */}
     {/* <Navbar></Navbar> */}
+    {/* <RequestReceived></RequestReceived> */}
+    <ResultPending></ResultPending>
     {/* <Router>
       <Navbar>
          <Routes>

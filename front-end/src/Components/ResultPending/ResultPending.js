@@ -1,12 +1,11 @@
 import React from 'react'
-import './home.css';
+import './resultPending.css'
 
-const Home = () => {
-
-    return (
-        <div className='Mybody'>
+const ResultPending = () => {
+  return (
+    <div className='Mybody'>
             <div class="subject-box">
-                <h2 class="subject-name">HOME</h2>
+                <h2 class="subject-name">Result Pending</h2>
                 <div class="subject-description">
                     <p>description if needed.</p>
                  </div>
@@ -174,7 +173,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default Home
+export default ResultPending

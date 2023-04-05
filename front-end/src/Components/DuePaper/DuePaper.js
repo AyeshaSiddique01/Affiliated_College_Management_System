@@ -1,12 +1,11 @@
 import React from 'react'
-import './home.css';
+import './duePaper.css'
 
-const Home = () => {
-
-    return (
-        <div className='Mybody'>
+const DuePaper = () => {
+  return (
+    <div className='Mybody'>
             <div class="subject-box">
-                <h2 class="subject-name">HOME</h2>
+                <h2 class="subject-name">Due Paper</h2>
                 <div class="subject-description">
                     <p>description if needed.</p>
                  </div>
@@ -174,7 +173,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default Home
+export default DuePaper

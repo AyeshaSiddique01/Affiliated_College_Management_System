@@ -60,62 +60,31 @@
     padding: 5px 20px 20px 20px;
   }
 
-  button {
-    width: 50%;
+  button[type="accept"] {
+    width: 170px;
     background: rgb(17, 17, 17);
     border: 1px solid #fff;
-    margin: 8px 0 10px;
-    height: 40px;
+    margin-right: 20px;
+    margin-top: 15px;
+    height: 50px;
     font-size: 18px;
     border-radius: 20px;
-    padding: 0 10px;
+    padding: 0 20px;
     box-sizing: border-box;
     outline: none;
     color: #fff;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    border: 2px solid #fff;
   
   }
   
-  button[type="submit"]:hover {
+  button[type="accept"]:hover {
     background: rgb(5, 4, 4);
-  }
-
-  .submit-btn {
-    position: relative;
-    width: fit-content;
-    padding-right: 46px;
-  }
-  
-  .submit-btn::after {
-    content: "\27a4";
-    color: #333;
-    line-height: 40px;
-    font-size: 20px;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background: #fff;
-    position: absolute;
-    right: -1px;
-    top: -1px;
-  }
-
-  input[type="file"] {
-    width: 100%;
-    background: transparent;
-    border: 1px solid #fff;
-    border-style: inset;
-    /* margin: 6px 0; */
-    height: 32px;
-    border-radius: 20px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    outline: none;
-    text-align: center;
-    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   }
   
   .form-control {
