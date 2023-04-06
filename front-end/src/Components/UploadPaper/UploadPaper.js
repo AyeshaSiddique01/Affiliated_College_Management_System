@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App.css';
+import './uploadPaper.css';
 
 const UploadPaper = () => {
     return (

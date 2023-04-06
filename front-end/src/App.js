@@ -5,30 +5,37 @@ import {
     Routes,
     Link
 } from "react-router-dom";  //npm i react-router-dom 
-import './App.css';
-import Login from './Components/Login';
-import Sidebar from './Components/Sidebar';
-import SignupPersonalInfo from './Components/SignupPersonalInfo';
-import SignupExaminerInfo from './Components/SignupExaminerInfo';
-import ExaminerQualification from './Components/ExaminerQualification';
-import ExaminerExp from './Components/ExaminerExp';
-import Profile from './Components/Profile';
-import Notifications from './Components/Notifications'
-import RequestRecieved from './Components/RequestRecieved'
-import UploadPaper from './Components/UploadPaper'
-import UploadResult from './Components/UploadResult'
-import Home from './Components/Home';
-import Navbar from './Components/Navbar'
-import DuePaper from './Components/DuePaper';
-import ResultPending from './Components/ResultPending';
-import Settings from './Components/Settings';
+ import './App.css';
+// import Login from './Components/Login';
+// import Sidebar from './Components/Sidebar';
+// import SignupPersonalInfo from './Components/SignupPersonalInfo';
+// import SignupExaminerInfo from './Components/SignupExaminerInfo';
+// import ExaminerQualification from './Components/ExaminerQualification';
+// import ExaminerExp from './Components/ExaminerExp';
+// import Profile from './Components/Profile';
+// import Notifications from './Components/Notifications'
+// import RequestReceived from './Components/RequestReceived/RequestReceived'
+// import UploadPaper from './Components/UploadPaper/UploadPaper'
+// import UploadResult from './Components/UploadResult/UploadResult'
+// import Home from './Components/Home';
+// import Navbar from './Components/Navbar/Navbar';
+// import DuePaper from './Components/DuePaper';
+import ResultPending from './Components/ResultPending/ResultPending';
+// import Settings from './Components/Settings';
 import 'boxicons'
+// import Home from './Components/Home/Home';
+// import DuePaper from './Components/DuePaper/DuePaper';
 
 function App() {
   return (
     <div className="App"> 
-    <UploadPaper></UploadPaper>
+    {/* <UploadPaper></UploadPaper> */}
     {/* <Settings></Settings> */}
+    {/* <Home></Home> */}
+    {/* <DuePaper></DuePaper> */}
+    {/* <Navbar></Navbar> */}
+    {/* <RequestReceived></RequestReceived> */}
+    <ResultPending></ResultPending>
     {/* <Router>
       <Navbar>
          <Routes>

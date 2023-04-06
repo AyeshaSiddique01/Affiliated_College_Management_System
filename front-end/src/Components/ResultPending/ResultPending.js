@@ -1,10 +1,15 @@
 import React from 'react'
-import '../App.css';
+import './resultPending.css'
 
-const Home = () => {
-
-    return (
-        <div className='Mybody'>
+const ResultPending = () => {
+  return (
+    <div className='Mybody'>
+            <div class="subject-box">
+                <h2 class="subject-name">Result Pending</h2>
+                <div class="subject-description">
+                    <p>description if needed.</p>
+                 </div>
+            </div>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment'>
@@ -15,7 +20,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -30,7 +35,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -44,7 +49,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Practical EXAM
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -59,7 +64,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -73,7 +78,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -87,7 +92,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -101,7 +106,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -115,7 +120,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -129,7 +134,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -143,7 +148,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -157,7 +162,7 @@ const Home = () => {
                                 </div>
                                 <div className='papertype'>
                                     Theory paper
-                                    <button className='detail-btn' type="deatils" >See Details</button>
+                                    <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
                                 <div className='date'>
                                     Saturday, June 13, 2023
@@ -168,7 +173,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default Home
+export default ResultPending

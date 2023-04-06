@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import './signupPersonalInfo.css'
 
 const SignupPersonalInfo = () => {
     useEffect(() => {
@@ -19,7 +20,7 @@ const SignupPersonalInfo = () => {
             </style>
             <div className='bg-img'>
                 <div className="content" style={{ height: "590px", width: "510px" }} >
-                    <h1 style={{ marginBottom: "25px", color: "white", fontFamily: "'Poppins', sans-serif", fontWeight: "900" }}>Sign Up form</h1>
+                    <h1 style={{marginTop: "1px", marginBottom: "20px", color: "white", fontFamily: "Poppins", fontWeight: "900" }}>Sign Up form</h1>
                     <header type="PI"> Put your Personal Information to Sign Up!</header>
                     <form action="http://localhost:5000//SignUpPersonalInfo" method='post'>
                         <div className="maindiv">

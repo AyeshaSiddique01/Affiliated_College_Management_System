@@ -9,7 +9,7 @@
 // }
 
 import React, { useState } from "react";
-import "./Settings.css";
+import './settings.css'
 
 function Settings() {
   const [darkMode, setDarkMode] = useState(false);
@@ -24,16 +24,16 @@ function Settings() {
       <form>
         <h2>Profile</h2>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" />
+        <input type="texts" id="name" name="name" />
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" />
+        <input type="emails" id="email" name="email" />
 
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="password" />
+        <input type="passwords" id="password" name="password" />
 
         <label htmlFor="profile-pic">Profile Picture</label>
-        <input type="file" id="profile-pic" name="profile-pic" />
+        <input type="files" id="profile-pic" name="profile-pic" />
 
         <h2>Notifications</h2>
         <div className="notification">
@@ -68,7 +68,7 @@ function Settings() {
           />
         </div>
 
-        <button type="submit">Save Settings</button>
+        <button type="submits">Save Settings</button>
       </form>
     </div>
   );

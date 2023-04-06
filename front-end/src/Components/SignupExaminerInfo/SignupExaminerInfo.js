@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
+import './signupExaminerInfo.css'
 const SignupExaminerInfo = () => {
   return (
     <div className='FormBg'>

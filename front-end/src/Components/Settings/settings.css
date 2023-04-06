@@ -156,10 +156,10 @@
     margin-bottom: 5px;
   }
   
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="file"] {
+  input[type="texts"],
+  input[type="emails"],
+  input[type="passwords"],
+  input[type="files"] {
     padding: 10px;
     margin-bottom: 20px;
     border: none;
@@ -185,7 +185,7 @@
     margin-bottom: 20px;
   }
   
-  button[type="submit"] {
+  button[type="submits"] {
     background-color: #ff6a3d;
     color: #fff;
     border: none;
@@ -196,7 +196,7 @@
     transition: background-color 0.2s ease;
   }
   
-  button[type="submit"]:hover {
+  button[type="submits"]:hover {
     background-color: #ff7f50;
   }
   
@@ -219,10 +219,10 @@
       font-size: 0.875rem;
     }
   
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="file"] {
+    input[type="texts"],
+    input[type="emails"],
+    input[type="passwords"],
+    input[type="files"] {
       margin-bottom: 10px;
     }
   
@@ -230,7 +230,7 @@
       margin-bottom: 5px;
     }
   
-    button[type="submit"] {
+    button[type="submits"] {
       margin-top: 10px;
     }
   }
