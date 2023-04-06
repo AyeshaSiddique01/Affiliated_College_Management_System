@@ -4,38 +4,102 @@
 }
 
 .subject-box {
+  background-color: #f2f2f2;
+  background-image: url("/src/Static/texture2.jpg");
+  width: 65%;
+  margin-left: 270px;
+  margin-right: 0px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;  */
+  display: flex;
+  align-items: flex-start; /* Aligns contents to the top */
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; /* make the subject-box a positioned container */
+}
+
+.subject-name {
+  color: #fff;
+  font-size: 48px;
+  margin: 0 12px 0;
+  font-family: Poppins;
+  font-weight: 600;
+  margin-top: 80px;
+  margin-bottom: 2px;
+  margin-right: auto;
+  
+}
+
+box-icon[name='home-smile'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 50px;
+  margin-right: 200px;
+}
+
+.subject-description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  margin-top: auto;
+}
+
+
+/* .subject-box {
     background-color: #f2f2f2;
     background-image: url("/src/Static/texture2.jpg");
     width: 65%;
-    height: 200px;
+    height: 300px;
     margin-left: 270px;
     margin-right: 0px;
     border: 1px solid #e8e8e8;
     border-radius: 8px;
     padding: 24px;
     margin-bottom: 24px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     /* background-repeat: no-repeat;
     background-size: cover;
     background-position: top;  */
-  }
+    /* display: flex;
+    align-items: flex-start; 
+    flex-direction: column;
+    justify-content: space-between; */
+    /* height: 100%; */
+  /* } */
   
-  .subject-name {
+  /* .subject-name {
     color: #fff;
     font-size: 48px;
-    margin: 0 0 12px 0;
+    margin: 0 12px 0;
     font-family: Poppins;
     font-weight: 600;
     margin-top: 80px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
+    margin-right: auto;
     
+  }
+
+  box-icon[name='home-smile'] {
+    margin-left:69%;
+    width: 100px; 
+    height: 100px;
   }
 
   .subject-description {
     font-size: 16px;
     line-height: 1.5;
     color: #fff;
-  }
+    margin-top: auto;
+  } */
 
 button[type="deatils"] {
     width: 18%;

@@ -5,8 +5,9 @@ const Home = () => {
 
     return (
         <div className='Mybody'>
-            <div class="subject-box">
+            <div class="subject-box" >
                 <h2 class="subject-name">HOME</h2>
+                <box-icon name='home-smile' animation='tada' size='190px' color="#202124"></box-icon>
                 <div class="subject-description">
                     <p>description if needed.</p>
                  </div>

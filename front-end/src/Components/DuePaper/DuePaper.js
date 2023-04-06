@@ -6,6 +6,13 @@ const DuePaper = () => {
     <div className='Mybody'>
             <div class="subject-box">
                 <h2 class="subject-name">Due Paper</h2>
+                <box-icon name='sort-a-z' animation='' size='90px' color="#ffffff"></box-icon>
+                <box-icon name='task' animation='flashing' size='90px' color="#ffffff"></box-icon>
+                <box-icon name='pencil' animation='tada' size='90px' color="#ffffff"></box-icon>
+                <box-icon type='solid' name='keyboard' animation='' size='70px' color="#ffffff"></box-icon>
+                {/* <box-icon name='calculator'></box-icon>
+                <box-icon name='detail'></box-icon>
+                <box-icon type='logo' name='deezer'></box-icon> */}
                 <div class="subject-description">
                     <p>description if needed.</p>
                  </div>

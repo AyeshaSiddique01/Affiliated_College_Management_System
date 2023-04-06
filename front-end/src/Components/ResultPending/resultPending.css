@@ -4,6 +4,86 @@
 }
 
 .subject-box {
+  background-color: #f2f2f2;
+  background-image: url("/src/Static/texture5.jpg");
+  width: 65%;
+  margin-left: 270px;
+  margin-right: 0px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;  */
+  display: flex;
+  align-items: flex-start; /* Aligns contents to the top */
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; /* make the subject-box a positioned container */
+}
+
+.subject-name {
+  color: #fff;
+  font-size: 48px;
+  margin: 0 12px 0;
+  font-family: Poppins;
+  font-weight: 600;
+  margin-top: 80px;
+  margin-bottom: 2px;
+  margin-right: auto;
+  
+}
+
+box-icon[name='receipt'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 30px;
+  margin-right: 200px;
+}
+
+box-icon[name='search-alt-2'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 20px;
+  margin-right: 100px;
+}
+
+box-icon[name='book-open'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 100px;
+  margin-right: 250px;
+}
+
+box-icon[name='math'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 100px;
+  margin-right: 150px;
+}
+
+.subject-description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  margin-top: auto;
+}
+
+/* .subject-box {
     background-color: #f2f2f2;
     background-image: url("/src/Static/texture5.jpg");
     width: 65%;
@@ -18,9 +98,9 @@
     /* background-repeat: no-repeat;
     background-size: cover;
     background-position: top;  */
-  }
+  /* } */
   
-  .subject-name {
+  /* .subject-name {
     color: #fff;
     font-size: 48px;
     margin: 0 0 12px 0;
@@ -35,7 +115,7 @@
     font-size: 16px;
     line-height: 1.5;
     color: #fff;
-  }
+  }  */
 
 button[type="deatils"] {
     width: 18%;
@@ -56,7 +136,6 @@ button[type="deatils"] {
     transition: all 0.3s ease;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
     float: right;
-  
   }
   
   button[type="deatils"]:hover {
@@ -134,7 +213,7 @@ button[type="deatils"] {
     font-size: 30px;
     font-weight: 700;
     font-family: Poppins;
-    font-style: normal;
+    font-style:italic;
   }
   
   .papertype{
