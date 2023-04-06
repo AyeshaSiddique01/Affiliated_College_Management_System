@@ -8,9 +8,11 @@ const UploadPaper = () => {
                 <div className="row Requestheader">
                     <div className="courseTitle col-9">
                         CMP-100 Introduction to Computing
+                        <br></br>
+                        <label>requested date</label>      
                     </div>
                     <div className="deadline col-3">
-                        Tuesday, 13th faburary, 2023
+                        paper upload deadline
                     </div>
                 </div>
                 <div className="row requestBody">
@@ -33,7 +35,7 @@ const UploadPaper = () => {
                         </div>
                     </div>
                     <div className="col-4 uploadPaper" style={{marginTop:  "10px"}}>
-                        <form action="http://localhost:5000//UploadPaper" method='post' enctype="multipart/form-data">
+                        <form action="http://localhost:5000//GetPaper" method='post' enctype="multipart/form-data">
                             <input type="file" name="Paper" className="form-control" required />
                             <button type="submit" className="submit-btn" >Upload Paper</button>
                         </form>                        

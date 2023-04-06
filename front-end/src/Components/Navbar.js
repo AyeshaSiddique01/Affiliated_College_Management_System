@@ -3,11 +3,38 @@ import 'boxicons'
 import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 
+const routes = [
+  {
+    path: "/home",
+    name: "Home"
+  },
+  {
+    path: "/Profile",
+    name: "Profile"
+  },
+  {
+    path: "/Notifications",        //AllRequests
+    name: "Requests"
+  },
+  {
+    path: "/DuePaper",          //AcceptedRequests
+    name: "Due Paper",
+  },
+  {
+    path: "/ResultPending",          //AcceptedRequests
+    name: "Result Pending"
+  },
+  {
+    path: "/startpage",          //Firstpage
+    name: "Logout"
+  },
+
+]
 const Navbar = () => {
   return (
     <div className='Navbar row'>
       <div className="col-3">
-      <a href="#" className='nav-logo'><box-icon type='logo' name='edge' animation='tada' color='#DDDBCB' size='45px'></box-icon>xaminer Portal</a>
+      <a href="/" className='nav-logo'><box-icon type='logo' name='edge' animation='tada' color='#DDDBCB' size='45px'></box-icon>xaminer Portal</a>
       </div>
       <div className='nav-items col-4'>
         <form action="post">

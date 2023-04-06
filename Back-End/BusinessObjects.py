@@ -49,14 +49,13 @@ class roadmap:
         self.rd_crs_outlline = rd_crs_outlline
 
 class practical_duty:
-    def __init__(self, admin_id, prac_date, prac_time, prac_duty_status,
-     ac_id, prac_ntf_status, examiner_id, rd_id, rd_dept, rd_year, rd_crs_code, prac_paper, prac_result) -> None:
+    def __init__(self, admin_id, prac_date, prac_time, ac_id, prac_duty_status, prac_ntf_status, 
+                 request_date, paper_upload_deadline, result_upload_deadline, 
+                 examiner_id, rd_id, rd_dept, rd_year, rd_crs_code, paper, result) -> None:
         self.prac_date = prac_date
         self.prac_time = prac_time
         self.prac_duty_status = prac_duty_status
         self.prac_ntf_status = prac_ntf_status
-        self.prac_paper = prac_paper
-        self.prac_result = prac_result
         self.admin_id = admin_id
         self.examiner_id = examiner_id
         self.ac_id = ac_id
@@ -64,16 +63,27 @@ class practical_duty:
         self.rd_dept = rd_dept
         self.rd_year = rd_year
         self.rd_crs_code = rd_crs_code
+        self.paper_upload_deadline = paper_upload_deadline
+        self.result_upload_deadline = result_upload_deadline
+        self.paper = paper
+        self.result = result
+        self.request_date = request_date
 
 class exam_duty:
-    def __init__(self , examiner_id, deadline, status_req, rd_id, rd_dept, rd_year, rd_crs_code) -> None:
+    def __init__(self , examiner_id, request_date, paper_upload_deadline, paper_date, result_upload_deadline,
+                 paper, result, status_req, rd_id, rd_dept, rd_year, rd_crs_code) -> None:
         self.examiner_id = examiner_id
-        self.deadline = deadline
+        self.paper_upload_deadline = paper_upload_deadline
         self.status_req = status_req
         self.rd_id = rd_id
         self.rd_dept = rd_dept
         self.rd_year = rd_year
-        self.rd_crs_code = rd_crs_code       
+        self.rd_crs_code = rd_crs_code   
+        self.paper_date = paper_date
+        self.result_upload_deadline = result_upload_deadline
+        self.paper = paper
+        self.result = result
+        self.request_date = request_date
 '''
 SELECT exam_duty.examiner_id, exam_duty.deadline, exam_duty.status_req, roadmap.rd_dept, roadmap.rd_year, roadmap.rd_crs_code
     exam_duty INNER JOIN roadmap
@@ -101,12 +111,6 @@ class examiner_courses:
         self.examiner_id = examiner_id
         self.rd_id = rd_id
 
-class paper:
-    def __init__(self, duty_id, paper, result) -> None:
-        self.duty_id = duty_id
-        self.paper = paper
-        self.result = result
-
 class qualification:
     def __init__(self, examiner_id, degree_title, transcript, institution, starting_date, ending_date) -> None:
         self.examiner_id = examiner_id
@@ -126,7 +130,6 @@ class experience:
         self.reference_email = reference_email
         self.starting_date = starting_date
         self.ending_date = ending_date
-
         
 class college_review:
     def __init__(self, examiner_id, cr_complain, ac_id) -> None:
@@ -141,4 +144,15 @@ class teacher_feedback:
         self.tf_apparatus = tf_apparatus
         self.tf_teacher_attitude = tf_teacher_attitude
         self.tf_rate_duty = tf_rate_duty
-        self.tf_complain = tf_complain        
+        self.tf_complain = tf_complain 
+
+class duty_details :
+    def __init__(self, crs_code, crs_title, requested_date, paper_upload_deadline, books, outline, prac_date, prac_time) -> None:
+        self.crs_code = crs_code
+        self.crs_title = crs_title
+        self.requested_date = requested_date
+        self.paper_upload_deadline = paper_upload_deadline
+        self.books = books
+        self.outline = outline
+        self.prac_date = prac_date
+        self.prac_time = prac_time

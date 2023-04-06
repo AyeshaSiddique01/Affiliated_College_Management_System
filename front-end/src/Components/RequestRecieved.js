@@ -9,9 +9,11 @@ const RequestRecieved = () => {
                 <div className="row Requestheader">
                     <div className="courseTitle col-9">
                         CMP-100 Introduction to Computing
+                        <br></br>
+                        requested date
                     </div>
                     <div className="deadline col-3">
-                        Tuesday, 13th faburary, 2023
+                        deadline of paper upload
                     </div>
                 </div>
                 <div className="row">

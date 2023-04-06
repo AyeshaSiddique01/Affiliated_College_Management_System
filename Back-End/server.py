@@ -78,13 +78,17 @@ def SignUpExaminerInfo() :
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification() :
+	examiner_id = session.get("examiner_id")
 	degree_title = request.form["degree_title"]
 	institution = request.form["institution"]
 	starting_date = request.form["starting_date"]
 	ending_date = request.form["ending_date"]
-	transcript = request.form["transcript"]
-	examiner_id = session.get("examiner_id")
-	data = qualification(examiner_id, degree_title, transcript, institution, starting_date, ending_date)
+	f = request.files["transcript"]
+	transcripts = f"Static\transcripts\{examiner_id}.pdf"
+	if Path(transcripts).is_file() :
+		os.remove(transcripts)
+	f.save(transcripts) 
+	data = qualification(examiner_id, degree_title, f, institution, starting_date, ending_date)
 	m = model()
 	m.InsertExaminerQualification(data)
 	print("Qualification inserted")
@@ -92,13 +96,17 @@ def ExaminerQualification() :
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience() :
+	examiner_id = session.get("examiner_id")
 	job_title = request.form["job_title"]
 	organization = request.form["organization"]
 	reference_email = request.form["reference_email"]
 	starting_date = request.form["starting_date"]
 	ending_date = request.form["ending_date"]
-	ExperianceLetter = request.form["ExperianceLetter"]
-	examiner_id = session.get("examiner_id")
+	ExperianceLetter = request.files["ExperianceLetter"]
+	ExperianceLetters = f"Static\ExperianceLetters\{examiner_id}.pdf"
+	if Path(ExperianceLetters).is_file() :
+		os.remove(ExperianceLetters)
+	ExperianceLetter.save(ExperianceLetters) 
 	data = experience(examiner_id, job_title, ExperianceLetter, organization, reference_email, starting_date, ending_date)
 	m = model()
 	m.InsertExaminerExperience(data)
@@ -228,6 +236,78 @@ def dueResultRequests():					# paper done upload paper now
 	# and result_date in exam_duty table is after today 
 	duties = m.DueResultRequests(examiner_id)		
 	return jsonify(duties)
+
+@app.route("/RequestRecieved",methods=['GET','POST'])
+def RequestRecieved() :
+	d_id = 1 								# ya front end sy get kr lean gy
+	session["d_id"] = d_id
+	m = model()
+	# => using course code get crs code, crs title, 
+	# => request date, paper upload deadline from exam/duty table
+	# => using rd_id get crs_book and crs_outline from both tables
+	# => get prac_date, time and institute by using ac_id get name and location of 
+	# institute from affiliated_colleges table 
+	dutyDetails = m.getUploadPaperDutyDetails(d_id)
+	return jsonify(dutyDetails)
+
+@app.route("/UploadPaper",methods=['GET','POST'])
+def UploadPaper() :
+	d_id = 1 								# ya front end sy get kr lean gy
+	session["d_id"] = d_id
+	m = model()
+	# => using course code get crs code, crs title, 
+	# => request date, paper upload deadline from exam/duty table
+	# => using rd_id get crs_book and crs_outline from both tables
+	# => get prac_date, time and institute by using ac_id get name and location of 
+	# institute from affiliated_colleges table 
+	dutyDetails = m.getUploadPaperDutyDetails(d_id)
+	if dutyDetails.prc_time != None :
+		session["duty_type"] = "exam_duty"
+	else :
+		session["duty_type"] = "practical_duty"
+	return jsonify(dutyDetails)
+
+@app.route("/UploadResult",methods=['GET','POST'])
+def UploadResult() :
+	d_id = 1 								# ya front end sy get kr lean gy
+	session["d_id"] = d_id
+	m = model()
+	# => using course code get crs code, crs title, 
+	# => request date, result upload deadline from exam/duty table
+	# => using rd_id get crs_book and crs_outline from both tables
+	# => get prac_date, time and institute by using ac_id get name and location of 
+	# institute from affiliated_colleges table 
+	dutyDetails = m.getUploadResultDutyDetails(d_id)
+	if dutyDetails.prc_time != None :
+		session["duty_type"] = "exam_duty"
+	else :
+		session["duty_type"] = "practical_duty"
+	return jsonify(dutyDetails)
+
+@app.route("/GetPaper",methods=['GET'])
+def GetPaper() :
+	d_id = session.get('d_id')
+	paper = request.files["Paper"]
+	papers = f"Static\papers\{d_id}.pdf"
+	if Path(papers).is_file() :
+		os.remove(papers)
+	paper.save(papers)
+	m = model()
+	# havn't 
+	m.uploadPaper(d_id, papers, session.get("duty_type"))
+	return jsonify("Uploaded")
+
+@app.route("/GetResult",methods=['GET'])
+def GetResult() :
+	d_id = session.get('d_id')
+	result = request.files["result"]
+	results = f"Static\results\{d_id}.pdf"
+	if Path(results).is_file() :
+		os.remove(results)
+	result.save(results)
+	m = model()
+	m.uploadResult(d_id, results, session.get("duty_type"))
+	return jsonify("Uploaded")
 
 # Running app
 if __name__ == '__main__':

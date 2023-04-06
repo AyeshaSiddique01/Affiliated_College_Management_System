@@ -8,9 +8,11 @@ const UploadResult = () => {
                 <div className="row Requestheader">
                     <div className="courseTitle col-9">
                         CMP-100 Introduction to Computing
+                        <br></br>
+                        <label>requested date</label>                        
                     </div>
                     <div className="deadline col-3">
-                        Tuesday, 13th faburary, 2023
+                        result upload deadline
                     </div>
                 </div>
                 <div className="row requestBody">
@@ -32,11 +34,11 @@ const UploadResult = () => {
                             HTML.
                         </div>
                     </div>
-                    <div className="col-4 uploadPaper" style={{marginTop:  "10px"}}>
-                        <form action="http://localhost:5000//UploadResult" method='post' enctype="multipart/form-data">
-                            <input type="file" name="Result" className="form-control" required />
+                    <div className="col-4 uploadPaper" style={{ marginTop: "10px" }}>
+                        <form action="http://localhost:5000//GetResult" method='post' enctype="multipart/form-data">
+                            <input type="file" name="result" className="form-control" required />
                             <button type="submit" className="submit-btn" >Upload Result</button>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>

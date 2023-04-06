@@ -37,7 +37,7 @@ function App() {
           <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo/>} />
           <Route path="/ExaminerQualification" element={<ExaminerQualification/>} />
           <Route path="/ExaminerExp" element={<ExaminerExp/>} />
-          <Route path="/AcceptedRequest" element={<AcceptedRequest/>} />
+          <Route path="/UploadPaper" element={<UploadPaper/>} />
           <Route path="/RequestRecieved" element={<RequestRecieved/>} />
           <Route path="/Notifications" element={<Notifications/>} />
           <Route path="/Profile" element={<Profile/>} />
