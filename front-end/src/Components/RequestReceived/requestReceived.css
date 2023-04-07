@@ -1,10 +1,12 @@
 .Mybody {
     color: white;
+    background-image: url("/src/Static/login.jpg");
     padding-left: 100px
   }
   
   .Requestheader {
     padding: 10px 0px 6px 8px;
+    margin-right: 20px;
   }
   
   .courseTitle {

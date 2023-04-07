@@ -6,6 +6,10 @@ const ResultPending = () => {
     <div className='Mybody'>
             <div class="subject-box">
                 <h2 class="subject-name">Result Pending</h2>
+                <box-icon name='receipt' animation='' size='90px' color="#ffffff"></box-icon>
+                <box-icon name='search-alt-2' animation='tada' size='120px' color="#ffffff"></box-icon>
+                <box-icon name='math' animation='tada' size='120px' color="#ffffff"></box-icon>
+                <box-icon name='book-open' animation='tada' size='100px' color="#ffffff"></box-icon>
                 <div class="subject-description">
                     <p>description if needed.</p>
                  </div>
