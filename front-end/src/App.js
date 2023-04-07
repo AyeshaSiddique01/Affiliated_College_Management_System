@@ -5,26 +5,24 @@ import {
     Routes,
     Link
 } from "react-router-dom";  //npm i react-router-dom 
- import './App.css';
-// import Login from './Components/Login';
-// import Sidebar from './Components/Sidebar';
-// import SignupPersonalInfo from './Components/SignupPersonalInfo';
-// import SignupExaminerInfo from './Components/SignupExaminerInfo';
-// import ExaminerQualification from './Components/ExaminerQualification';
-// import ExaminerExp from './Components/ExaminerExp';
-// import Profile from './Components/Profile';
-// import Notifications from './Components/Notifications'
-// import RequestReceived from './Components/RequestReceived/RequestReceived'
-// import UploadPaper from './Components/UploadPaper/UploadPaper'
-// import UploadResult from './Components/UploadResult/UploadResult'
-// import Home from './Components/Home';
-// import Navbar from './Components/Navbar/Navbar';
-// import DuePaper from './Components/DuePaper';
+import './App.css';
+import DuePaper from './Components/DuePaper/DuePaper';
+import Home from './Components/Home/Home';
+import Login from './Components/Login/Login';
+import Navbar from './Components/Navbar/Navbar';
+import Notifications from './Components/Notifications/Notifications';
+import RequestReceived from './Components/RequestReceived/RequestReceived';
 import ResultPending from './Components/ResultPending/ResultPending';
-// import Settings from './Components/Settings';
+import Settings from './Components/Settings/Settings';
+import SignupExaminerInfo from './Components/SignupExaminerInfo/SignupExaminerInfo';
+import SignupPersonalInfo from './Components/SignupPersonalInfo/SignupPersonalInfo';
+import UploadPaper from './Components/UploadPaper/UploadPaper';
+import UploadResult from './Components/UploadResult/UploadResult';
+import ExaminerExp from './Components/ExaminerExp';
+import ExaminerQualification from './Components/ExaminerQualification';
+import Profile from './Components/Profile';
+import Sidebar from './Components/Sidebar';
 import 'boxicons'
-// import Home from './Components/Home/Home';
-// import DuePaper from './Components/DuePaper/DuePaper';
 
 function App() {
   return (
@@ -34,8 +32,10 @@ function App() {
     {/* <Home></Home> */}
     {/* <DuePaper></DuePaper> */}
     {/* <Navbar></Navbar> */}
-    {/* <RequestReceived></RequestReceived> */}
-    <ResultPending></ResultPending>
+    <RequestReceived></RequestReceived>
+    {/* <Login></Login> */}
+    {/* <SignupPersonalInfo></SignupPersonalInfo> */}
+    {/* <ResultPending></ResultPending> */}
     {/* <Router>
       <Navbar>
          <Routes>

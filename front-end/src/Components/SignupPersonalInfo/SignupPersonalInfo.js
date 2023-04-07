@@ -19,8 +19,8 @@ const SignupPersonalInfo = () => {
                 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
             </style>
             <div className='bg-img'>
-                <div className="content" style={{ height: "590px", width: "510px" }} >
-                    <h1 style={{marginTop: "1px", marginBottom: "20px", color: "white", fontFamily: "Poppins", fontWeight: "900" }}>Sign Up form</h1>
+                <div className="content">
+                    <h1 className='headtxt'>Sign Up form</h1>
                     <header type="PI"> Put your Personal Information to Sign Up!</header>
                     <form action="http://localhost:5000//SignUpPersonalInfo" method='post'>
                         <div className="maindiv">
@@ -65,14 +65,16 @@ const SignupPersonalInfo = () => {
                             <input type="password" id='passC' className="input-box" placeholder='Confirm Password' required />
                         </div>
                         <span id="messageError"></span>
-                        <button type="submit" className="submit-btn" >Next</button>
+                        <div>
+                            <button type="submit" className="submit-btn" >Next</button>
+                        </div>
                     </form>
                     <div className="pass">
                         <a href="/">Already have an account? Log in</a>
-                    </div>                    
+                    </div>
+                </div>
             </div>
-        </div>
-    </div >
-  )
+        </div >
+    )
 }
 export default SignupPersonalInfo

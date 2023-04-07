@@ -6,7 +6,7 @@ const Login = () => {
     useEffect(() => {
         const showBtn = document.getElementById("show");
         showBtn.addEventListener("click", function () {
-            const pass_field = document.getElementById("pass-key");   
+            const pass_field = document.getElementById("pass-key");
             console.log(pass_field.type);
             if (pass_field.type === "password") {
                 pass_field.type = "text";
@@ -17,10 +17,10 @@ const Login = () => {
                 pass_field.type = "password";
                 showBtn.textContent = "Show";
                 showBtn.style.color = "#222";
-            } 
+            }
         });
     });
-    
+
     return (
         <>
             <div className='FormBg'>
@@ -48,8 +48,9 @@ const Login = () => {
                                 <div className="pass">
                                     <a href="/SignupPersonalInfo">Don't have an account? Sign up</a>
                                 </div>
-
-                                <button type="submit" className="submit-btn" >Login</button>
+                                <div>
+                                    <button type="submit" className="submit-btn" >Login</button>
+                                </div>
                             </form>
                         </div>
                     </div>
