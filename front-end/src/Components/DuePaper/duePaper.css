@@ -36,7 +36,7 @@
   
 }
 
-box-icon[name='keyboard'] {
+box-icon[name='calculator'] {
   position: absolute;
   top: 0;
   right: 0;
@@ -72,9 +72,39 @@ box-icon[name='sort-a-z'] {
   right: 0;
   width: 25px; /* Updated size of box-icon */
   height: 12px;
-  margin-top: 30px;
-  margin-right: 80px;
+  margin-top: 20px;
+  margin-right: 110px;
 }
+
+box-icon[name='detail'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 150px;
+  margin-right: 100px;
+}
+
+box-icon[name='graduation'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 130px;
+  margin-right: 220px;
+}
+
+box-icon[name='time-five'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* Updated size of box-icon */
+  height: 12px;
+  margin-top: 20px;
+  margin-right: 280px;
+} 
 
 .subject-description {
   font-size: 16px;
