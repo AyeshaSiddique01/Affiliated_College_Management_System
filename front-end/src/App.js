@@ -10,9 +10,9 @@ import './App.css';
 // import Home from './Components/Home/Home';
 // import Login from './Components/Login/Login';
 // import Navbar from './Components/Navbar/Navbar';
-// import Notifications from './Components/Notifications/Notifications';
+import Notifications from './Components/Notifications/Notifications';
 // import RequestReceived from './Components/RequestReceived/RequestReceived';
-import ResultPending from './Components/ResultPending/ResultPending';
+// import ResultPending from './Components/ResultPending/ResultPending';
 // import Settings from './Components/Settings/Settings';
 // import SignupExaminerInfo from './Components/SignupExaminerInfo/SignupExaminerInfo';
 // import SignupPersonalInfo from './Components/SignupPersonalInfo/SignupPersonalInfo';
@@ -33,7 +33,8 @@ function App() {
     {/* <DuePaper></DuePaper> */}
     {/* <Navbar></Navbar> */}
     {/* <RequestReceived></RequestReceived> */}
-    <ResultPending></ResultPending>
+    {/* <ResultPending></ResultPending> */}
+    <Notifications></Notifications>
     {/* <Router>
       <Navbar>
          <Routes>

@@ -5,6 +5,20 @@ const Notifications = () => {
 
     return (
         <div className='Mybody'>
+                        <div class="subject-box">
+                <h2 class="subject-name">Requests</h2>
+                <box-icon name='sort-a-z' animation='tada' size='120px' color="#ffffff"></box-icon>
+                <box-icon name='time-five' animation='tada' size='50px' color="#ffffff"></box-icon>
+                <box-icon name='task' animation='flashing' size='90px' color="#ffffff"></box-icon>
+                <box-icon name='pencil' animation='tada' size='90px' color="#ffffff"></box-icon>
+                <box-icon name='calculator' animation='' size='70px' color="#ffffff"></box-icon>
+                <box-icon name='detail' animation='' size='70px' color="#ffffff"></box-icon>
+                <box-icon type='solid' name='graduation' animation='flashing' size='110px' color="#ffffff"></box-icon>
+                {/* <box-icon type='logo' name='deezer' animation='flashing' size='70px' color="#ffffff"></box-icon> */}
+                <div class="subject-description">
+                    <p>description if needed.</p>
+                 </div>
+            </div>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment'>
