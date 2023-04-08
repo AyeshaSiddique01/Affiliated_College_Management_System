@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';  //npm i react-router-dom 
+// import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  //npm i react-router-dom 
+
 import DuePaper from './Components/DuePaper/DuePaper';
 import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
@@ -22,23 +23,22 @@ function App() {
     <div className="App">
       <Router>
         <Navbar />
-        {/* <Switch> */}
-          <Route path="/" component={Login} />
-          <Route path="/SignupPersonalInfo" component={SignupPersonalInfo} />
-          <Route path="/SignupExaminerInfo" component={SignupExaminerInfo} />
-          <Route path="/ExaminerQualification" component={ExaminerQualification} />
-          <Route path="/ExaminerExp" component={ExaminerExp} />
-          <Route path="/UploadPaper" component={UploadPaper} />
-          <Route path="/RequestRecieved" component={RequestReceived} />
-          <Route path="/Notifications" component={Notifications} />
-          <Route path="/Profile" component={Profile} />
-          <Route path="/Home" component={Home} />
-          <Route path="/DuePaper" component={Home} />
-          <Route path="/ResultPending" component={Home} />
-          <Route path="/UploadResult" component={UploadResult} />
-        {/* </Switch> */}
-        {/* </Navbar> */}
-      </Router >
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
+            <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+            <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
+            <Route path="/ExaminerExp" element={<ExaminerExp />} />
+            <Route path="/UploadPaper" element={<UploadPaper />} />
+            <Route path="/RequestRecieved" element={<RequestReceived />} />
+            <Route path="/Notifications" element={<Notifications />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/DuePaper" element={<Home />} />
+            <Route path="/ResultPending" element={<Home />} />
+            <Route path="/UploadResult" element={<UploadResult />} />
+          </Routes >
+      </Router>
     </div>
   );
 }
@@ -46,21 +46,21 @@ function App() {
 // function App() {
 //   return (
 //     <Router>
-//          <Navbar />
-//            <Route exact path="/" component={Login} />
-//            <Route path="/SignupPersonalInfo" component={SignupPersonalInfo} />
-//            <Route path="/SignupExaminerInfo" component={SignupExaminerInfo} />
-//            <Route path="/ExaminerQualification" component={ExaminerQualification} />
-//            <Route path="/ExaminerExp" component={ExaminerExp} />
-//            <Route path="/UploadPaper" component={UploadPaper} />
-//            <Route path="/RequestRecieved" component={RequestReceived} />
-//            <Route path="/Notifications" component={Notifications} />
-//            <Route path="/Profile" component={Profile} />
-//            <Route path="/Home" component={Home} />
-//            <Route path="/DuePaper" component={Home} />
-//            <Route path="/ResultPending" component={Home} />
-//            <Route path="/UploadResult" component={UploadResult} />
-//        </Router >
+//       <Navbar />
+//           <Route exact path="/" component={Login} />
+//           <Route path="/SignupPersonalInfo" component={SignupPersonalInfo} />
+//           <Route path="/SignupExaminerInfo" component={SignupExaminerInfo} />
+//           <Route path="/ExaminerQualification" component={ExaminerQualification} />
+//           <Route path="/ExaminerExp" component={ExaminerExp} />
+//           <Route path="/UploadPaper" component={UploadPaper} />
+//           <Route path="/RequestRecieved" component={RequestReceived} />
+//           <Route path="/Notifications" component={Notifications} />
+//           <Route path="/Profile" component={Profile} />
+//           <Route path="/Home" component={Home} />
+//           <Route path="/DuePaper" component={Home} />
+//           <Route path="/ResultPending" component={Home} />
+//           <Route path="/UploadResult" component={UploadResult} />
+//       </Router >
 //   );
 // }
 
