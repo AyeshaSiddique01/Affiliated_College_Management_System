@@ -14,8 +14,8 @@ import SignupPersonalInfo from './Components/SignupPersonalInfo/SignupPersonalIn
 import UploadPaper from './Components/UploadPaper/UploadPaper';
 import UploadResult from './Components/UploadResult/UploadResult';
 import ExaminerExp from './Components/ExaminerExp/ExaminerExp';
-import ExaminerQualification from './Components/ExaminerQualification';
-import Profile from './Components/Profile';
+import ExaminerQualification from './Components/ExaminerQualification/ExaminerQualification';
+import Profile from './Components/Profile/Profile';
 import 'boxicons'
 
 // function App() {
@@ -66,7 +66,7 @@ function App() {
             <Route path="/Settings" element={<Settings />} />
           </Routes >
       </Router> */}
-      <ExaminerExp></ExaminerExp>
+      <ExaminerQualification></ExaminerQualification>
     </div>
   );
 }

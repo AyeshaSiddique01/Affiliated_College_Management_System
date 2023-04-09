@@ -1,11 +1,11 @@
-.FormBgEE {
+.FormBgEQ {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     user-select: none;
   }
   
-  .bg-imgEE {
+  .bg-imgEQ {
     background-image: url("/src/Static/login11.jpg");
     background-color: #2f4050;
     height: 100vh;
@@ -13,7 +13,7 @@
     background-position: center;
   }
 
-  .contentEE {
+  .contentEQ {
     margin-top: 0px;
     /*10px*/
     border-radius: 10px;
@@ -33,35 +33,35 @@
     box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
   }
 
-  .TableStyleEE {
+  .TableStyleEQ {
     border-collapse: collapse;
     width: 100%;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
   }
   
-  .TableStyleEE th, .TableStyleEE td {
+  .TableStyleEQ th, .TableStyleEQ td {
     text-align: center;
     padding: 12px;
     border: 1px solid #ddd;
   }
   
-  .TableStyleEE th {
+  .TableStyleEQ th {
     background-color: #282c34;
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
   }
   
-  .TableStyleEE tr:nth-child(even) {
+  .TableStyleEQ tr:nth-child(even) {
     background-color: transparent;
   }
   
-  .TableStyleEE tr:hover {
+  .TableStyleEQ tr:hover {
     background-color: rgb(46, 45, 45);
   }
   
-  .EditBtnEE {
+  .EditBtnEQ {
     background-color: #4caf50;
     color: white;
     padding: 10px;
@@ -70,12 +70,12 @@
     cursor: pointer;
   }
   
-  .EditBtnEE:hover {
+  .EditBtnEQ:hover {
     background-color: #3e8e41;
   }
   
   
-  .ButtonsEE {
+  .ButtonsEQ {
     margin-top: 10px;
     position: absolute;
     right: 0;
@@ -83,7 +83,7 @@
   }
 
     /* The Modal (background) */
-.modalEE {
+.modalEQ {
         display: none;
         position: fixed;
         z-index: 1;
@@ -98,20 +98,20 @@
       }
       
       /* Modal Content */
-.modal-contentEE {
+.modal-contentEQ {
         background-color: #29363e;
         margin: auto;
         padding: 0;
       }
   
-.NextBtnEE {
+.NextBtnEQ {
         width: 250px;
         position: relative;
         right: -73px;
         float: right;
       }
       
-.NextBtnEE button {
+.NextBtnEQ button {
         height: 50px;
         background-color: rgb(20, 20, 20);
         color: white;
@@ -126,13 +126,13 @@
     font-family: poppins;
       }
 
-.NextBtnEE :hover{
+.NextBtnEQ :hover{
     background: rgb(20, 20, 20);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-.maindivEE {
+.maindivEQ {
         display: flex;
         margin: 12px;
       }
@@ -152,7 +152,7 @@
         cursor: pointer;
       }
       
-.input-boxEE {
+.input-boxEQ {
         width: 100%;
         background: transparent;
         border: 1px solid #fff;
@@ -167,11 +167,11 @@
         color: #fff;
       }
 
-.form-controlEE {
+.form-controlEQ {
         background-color: #1f1e1e;
       }
   
-.AddBtnEE {
+.AddBtnEQ {
         /* position: fixed;
           z-index: 999999999; */
         border: none;
@@ -182,7 +182,7 @@
         outline: 0;
       }
       
-.AddBtnEE input {
+.AddBtnEQ input {
         height: 40px;
         width: 50px;
         border: none;
