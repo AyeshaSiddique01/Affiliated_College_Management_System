@@ -8,16 +8,24 @@ from flask_cors import CORS
 from fileinput import filename
 import os
 from pathlib import Path
-import smtplib, ssl
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import smtplib, ssl , random,string
+from flask_mail import Mail, Message
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
 from BusinessObjects import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 app.config.from_object("config")
 app.secret_key = app.config["SECRET_KEY"]
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'elite.express243@gmail.com'
+app.config['MAIL_PASSWORD'] = 'auba1422'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app) 
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo() :
@@ -48,9 +56,16 @@ def SignUpPersonalInfo() :
 	m = model()
 	if (m.checkEmailExist(usr_email) == False) :
 		user_id = m.InsertUser(data)  		#insertion function return userid
+		verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
 		session["user_id"] = user_id
 		session["usr_email"] = usr_email
-		session["usr_name"] = usr_name		
+		session["usr_name"] = usr_name
+		session["verification_code"] = verification_code 
+		verification_link = request.url_root + 'verify?code=' + verification_code
+		message = Message('Verify your email', recipients=[session.get("usr_email")]) 
+		# message.body = f'Click the link to verify your email: {verification_link}'
+		message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+		mail.send(message)				
 		return render_template("SignupExaminerInfo.html")
 	else :
 		return jsonify("EmailExist")
@@ -162,17 +177,17 @@ def userdata():
     }
     return jsonify(userdata)
 
-def mail(email,text):
-        senderMail = "ayeshasiddique1306@gmail.com"
-        message = MIMEMultipart("alternative")
-        message.attach(text)
-        message = message.as_string()
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-            server.login(senderMail, "Ayesha@1284356", True)
-            server.sendmail(
-                senderMail, email, message
-            )
+# def mail(email,text):
+#         senderMail = "ayeshasiddique1306@gmail.com"
+#         message = MIMEMultipart("alternative")
+#         message.attach(text)
+#         message = message.as_string()
+#         context = ssl.create_default_context()
+#         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+#             server.login(senderMail, "Ayesha@1284356", True)
+#             server.sendmail(
+#                 senderMail, email, message
+#             )
 
 @app.route('/profile',methods=['GET','POST'])
 def profile():
@@ -205,8 +220,12 @@ def profile():
 def requestsRecieved():						# not accepted or rejected yet
 	examiner_id = session.get("examiner_id")
 	m = model()
-	# return requests whose status is false*
-	duties = m.getRequestsRecieved(examiner_id)		
+	# return requests whose status is 1 i.e pending
+	# prefer to make two separete functions
+	duties =[]
+	pracDuties = m.getPracRequests(examiner_id, 1)  # 1 for pending status
+	examDuties = m.getTheoryRequests(examiner_id, 1)
+	duties = examDuties + pracDuties
 	return jsonify(duties)
 
 @app.route('/acceptedRequests',methods=['GET'])
@@ -216,7 +235,10 @@ def acceptedRequests():						# accepted but haven't uploaded paper
 	# return requested recieved and status is true and 
 	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
 	# paper table does not has the entity has the same duty id  
-	duties = m.getAcceptedRequests(examiner_id)		
+	duties =[]
+	pracDuties = m.getPracRequests(examiner_id, 2)  # 2 for accepted status
+	examDuties = m.getTheoryRequests(examiner_id, 2)
+	duties = examDuties + pracDuties
 	return jsonify(duties)
 
 @app.route('/duePaperRequests',methods=['GET'])

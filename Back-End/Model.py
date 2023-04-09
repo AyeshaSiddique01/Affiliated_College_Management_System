@@ -306,3 +306,35 @@ class model:
         finally:
             if cursor:
                 cursor.close()
+
+    def getPracRequests(self, examiner_id,status):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select * from practical_duty where examiner_id = {examiner_id} and prac_duty_status = {status};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getPracRequests")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getTheoryRequests(self, examiner_id,status):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select * from exam_duty where examiner_id = {examiner_id} and status_req = {status};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getTheoryRequests")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
