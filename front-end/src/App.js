@@ -26,9 +26,9 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
           <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+          <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
+          <Route path="/ExaminerExp" element={<ExaminerExp />} />
           <Route element={<Navbar />}>
-            <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
-            <Route path="/ExaminerExp" element={<ExaminerExp />} />
             <Route path="/UploadPaper" element={<UploadPaper />} />
             <Route path="/RequestRecieved" element={<RequestReceived />} />
             <Route path="/Notifications" element={<Notifications />} />
