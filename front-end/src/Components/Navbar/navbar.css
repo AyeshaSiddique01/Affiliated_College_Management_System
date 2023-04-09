@@ -163,11 +163,12 @@
 
 .header-btn .progap:hover {
   background: #DDDBCB;
-  border-radius: 30%;
+  /* border-radius: 40%; */
   padding-top: 25px;
   margin-bottom: 55px;
   padding-right: 45px;
   padding-left: 45px;
+  border:1px solid #0a0a0a;
 }
 
 .header-btn .progap:hover box-icon {
@@ -175,9 +176,34 @@
   /* Hide the box-icon on hover */
 }
 
-.header-btn .progap:hover::before {
+.header-btn .progap:nth-child(1):hover::before {
   content: "Profile";
-  /* Display the value of the data-text attribute as the text */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-weight: 800;
+  font-family: poppin serif;
+  color: #0a0a0a;
+  opacity: 0.9;
+}
+
+.header-btn .progap:nth-child(2):hover::before {
+  content: "Recent";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-weight: 800;
+  font-family: poppin serif;
+  color: #0a0a0a;
+  opacity: 0.9;
+}
+
+.header-btn .progap:nth-child(3):hover::before {
+  content: "Settings";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -201,19 +227,6 @@
   text-decoration: none;
 }
 
-/* .header-btn .signlog{
-    background: #0a0a0a;
-    border: 2px solid transparent;
-    border-radius:5px;
-    transition: all .50s ease;
-    max-height: 500px;
-  }
-  
-  .header-btn .signlog:hover{
-    background: #0e6e26;
-    border: 2px solid transparent;
-  } */
-
 .header-btn .signlog {
   background: #0a0a0a;
   border: 1px solid #ffffff;
@@ -221,6 +234,7 @@
   transition: all .50s ease;
   max-height: 500px;
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
+  margin-right: 80px;
 }
 
 .header-btn .signlog:hover {
@@ -229,41 +243,6 @@
   box-shadow: 3px 3px #11161b, 6px 6px 0 0 #DDDBCB;
   transform: translate(-3px, -3px);
 }
-
-/*.search-bar{
-    width: 200%;
-    max-width: 500px;
-    background: rgba(225, 225, 225, 0.2);
-    display: flex;
-    align-items: center;
-    border-radius: 60px;
-    margin: 10px;
-    height: 50px;
-  }
-  
-  .search-bar input{
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    padding: 24px;
-    font-size: 16px;
-    color: #cac7ff;
-  }
-  
-  ::placeholder{
-    color: #cac7ff;
-    font-family: poppin serif;
-  }
-  
-  .search-bar button{
-    border: 0;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    background: #0a0a0a;
-    cursor: pointer;
-  } */
 
 .btnsubmit {
   border: 0;
