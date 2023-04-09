@@ -9,8 +9,9 @@ from fileinput import filename
 import os
 from pathlib import Path
 import smtplib, ssl , random,string
+# pip install flask_mail
 from flask_mail import Mail, Message
-# from email.mime.text import MIMEText
+from email.mime.text import MIMEText
 # from email.mime.multipart import MIMEMultipart
 from BusinessObjects import *
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -28,7 +29,7 @@ jwt = JWTManager(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'elite.express243@gmail.com'
-app.config['MAIL_PASSWORD'] = 'auba1422'
+app.config['MAIL_PASSWORD'] = 'njsopxyyzkkssixt'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app) 
@@ -59,13 +60,13 @@ def SignUpPersonalInfo():
     data.usr_bio = usr_bio
     data.usr_gender = usr_gender
     data.usr_phoneno = usr_phone
-    print(usr_phone)
     m = model()
     if (m.checkEmailExist(usr_email) == False):
         user_id = m.InsertUser(data)  # insertion function return userid
         if user_id != False:
             print("user_id in p: ", user_id)
             session['user_id'] = user_id
+            print(session.get("user_id"))
             session["usr_email"] = usr_email
             session["usr_name"] = usr_name
             access_token = create_access_token(identity=usr_email)
@@ -98,7 +99,7 @@ def SignUpExaminerInfo():
     ranking = 0
     acceptance_count = 0
     rejection_count = 0
-    print(user_id)
+    print("user_id in next func: " , user_id)
     data = examiner(user_id, institution, availability, ranking,
                     resume, acceptance_count, rejection_count)
     m = model()
