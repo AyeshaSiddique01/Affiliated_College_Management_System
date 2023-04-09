@@ -18,34 +18,6 @@ import ExaminerQualification from './Components/ExaminerQualification';
 import Profile from './Components/Profile';
 import 'boxicons'
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
-          <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
-          <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
-          <Route path="/ExaminerExp" element={<ExaminerExp />} />
-          <Route element={<Navbar />}>
-            <Route path="/UploadPaper" element={<UploadPaper />} />
-            <Route path="/RequestRecieved" element={<RequestReceived />} />
-            <Route path="/Notifications" element={<Notifications />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/DuePaper" element={<DuePaper />} />
-            <Route path="/ResultPending" element={<ResultPending />} />
-            <Route path="/UploadResult" element={<UploadResult />} />
-            <Route path="/Settings" element={<Settings />} />
-          </Route>
-        </Routes>
-      </Router>
-    </div>
-  );
-}
-
-
 // function App() {
 //   return (
 //     <div className="App">
@@ -54,9 +26,9 @@ function App() {
 //           <Route path="/" element={<Login />} />
 //           <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
 //           <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+//           <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
+//           <Route path="/ExaminerExp" element={<ExaminerExp />} />
 //           <Route element={<Navbar />}>
-//             <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
-//             <Route path="/ExaminerExp" element={<ExaminerExp />} />
 //             <Route path="/UploadPaper" element={<UploadPaper />} />
 //             <Route path="/RequestRecieved" element={<RequestReceived />} />
 //             <Route path="/Notifications" element={<Notifications />} />
@@ -72,8 +44,6 @@ function App() {
 //     </div>
 //   );
 // }
-
-
 function App() {
   return (
     <div className="App">

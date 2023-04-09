@@ -4,33 +4,6 @@ import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 import "./navbar.css";
 
-const routes = [
-  {
-    path: "/home",
-    name: "Home"
-  },
-  {
-    path: "/Profile",
-    name: "Profile"
-  },
-  {
-    path: "/Notifications",        //AllRequests
-    name: "Requests"
-  },
-  {
-    path: "/DuePaper",          //AcceptedRequests
-    name: "Due Paper",
-  },
-  {
-    path: "/ResultPending",          //AcceptedRequests
-    name: "Result Pending"
-  },
-  {
-    path: "/startpage",          //Firstpage
-    name: "Logout"
-  },
-
-]
 const Navbar = () => {
   return (
     <div className='Navbar'>

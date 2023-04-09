@@ -15,7 +15,7 @@ const Home = () => {
             <div className='container'>
                 <div className="row">
                     <div className='adjustment1'>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Object Oriented programming
@@ -30,7 +30,7 @@ const Home = () => {
 
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Introduction to Computing
@@ -44,7 +44,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1" type="Practical">
                                 <div className='CourseTitle1'>
                                     Basic Electronics
@@ -59,7 +59,7 @@ const Home = () => {
 
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Web Engineering
@@ -73,7 +73,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Analysis of Algorithms
@@ -87,7 +87,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Computer Networks
@@ -101,7 +101,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Artificial Intelligence
@@ -115,7 +115,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Programming Fundamentals
@@ -129,7 +129,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Object Oriented programming
@@ -143,7 +143,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Calculus-||
@@ -157,7 +157,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
                                 <div className='CourseTitle1'>
                                     Database systems

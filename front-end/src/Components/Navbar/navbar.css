@@ -1,5 +1,6 @@
 .Navbar {
   height: 75px;
+  top: 0%;
   width: 1500px;
   display: flex;
   justify-content: space-between;

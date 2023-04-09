@@ -84,7 +84,6 @@ def SignUpPersonalInfo():
     else:
         return jsonify({"error": "Email exists"}), 401
 
-
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 def SignUpExaminerInfo():
     institution = request.form.get("institution")
@@ -111,7 +110,6 @@ def SignUpExaminerInfo():
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
 
-
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification():
     examiner_id = session.get("examiner_id")
@@ -132,7 +130,6 @@ def ExaminerQualification():
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
-
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience():
@@ -172,7 +169,6 @@ def ExaminerExperience():
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
 
-
 @app.route('/ExaminerLogin', methods=["POST"])
 def ExaminerLogin():
     email = request.json.get("email")
@@ -195,18 +191,6 @@ def ExaminerLogin():
             return jsonify({"error": "Invalid Password"}), 401
     else:
         return jsonify({"error": "Email does not exist"}), 401
-
-
-@app.route('/userdata', methods=['GET'])
-def userdata():
-    userdata = {
-        'name': 'John',
-        'age': '43',
-        'status': 'Active',
-        'password': 'ABC123',
-        'email': 'john@example.com'
-    }
-    return jsonify(userdata)
 
 # def mail(email,text):
 #         senderMail = "ayeshasiddique1306@gmail.com"
