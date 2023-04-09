@@ -1,4 +1,4 @@
-.FormBgSP {
+.FormBgSP{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,30 +6,20 @@
 }
 
 .bg-imgSP {
-  background-image: url("/src/Static/login11.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* background-color: #2f4050; */
+  /*background-repeat: no-repeat;
+  background-attachment: fixed; */
   /* height: 100%; */
-  /* background-size: cover; */
-  /* background-position: center; */
+  background-image: url("/src/Static/login11.jpg");
+  background-color: #2f4050;
+  height: 122vh;
+  background-size: cover;
+  background-position: center;
 }
-
-/* .bg-img::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.174);
-  }  */
 .contentSP {
   margin-top: 0px;
-  /*10px*/
   border-radius: 10px;
   position: absolute;
-  top: 65%;
+  top: 62%;
   left: 50%;
   z-index: 999;
   text-align: center;
@@ -263,9 +253,10 @@ input[type="file"] {
   font-family: "Poppins", sans-serif;
 }
 .headtxtSP{
-  margin-top: 1px;
-  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-bottom: 15px;
   color: white;
   font-family: "Poppins";
   font-weight: 900;
+  font-size: 40px;
 }
