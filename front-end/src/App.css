@@ -17,119 +17,13 @@
   @import url("https://fonts.googleapis.com/css?family-Montserrat:400,500,600,700|Poppins:408,500&display=swap");
   
   
-  i span {
-    margin-left: 8px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  .label_ {
-    color: gray;
-    font-size: 17px;
-  }
-  
-  .AddBtn {
-    /* position: fixed;
-      z-index: 999999999; */
-    border: none;
-    text-indent: 18em;
-    font-size: 1.5em;
-    color: transparent;
-    background: transparent;
-    outline: 0;
-  }
-  
-  .AddBtn input {
-    height: 40px;
-    width: 50px;
-    border: none;
-    font-size: medium;
-    font-family: sans-serif;
-    background: rgb(170 170 170);
-  }
-  
-  .Buttons {
-    margin-top: 10px;
-    position: absolute;
-    right: 0;
-    margin-right: 80px;
-  }
-  
-  .NextBtn {
-    width: 250px;
-    position: relative;
-    right: -73px;
-    float: right;
-  }
-  
-  .NextBtn button {
-    height: 50px;
-    background-color: rgb(31, 30, 30);
-    border: none;
-    color: white;
-    font-size: medium;
-    font-family: sans-serif;
-  }
-  
-  .TableStyle {
-    border: #1f1e1e;
-    border-collapse: collapse;
-    width: 100%;
-    color: rgb(20 20 20);
-    background: #f4f5f6;
-    margin-bottom: 6px;
-  }
-  
-  .EditBtn {
-    width: 50px;
-  }
   
   .designLable {
     width: 90px;
     margin-left: 10px;
     padding-left: 5px;
   }
-  
-  /* The Modal (background) */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    background-color: #29363e;
-    margin: auto;
-    padding: 0;
-  }
-  
-  /* The Close Button */
-  .close {
-    color: #aaaaaa;
-    float: right;
-    text-indent: 16.5em;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
+
   body {
     margin: 0;
     padding: 0;
@@ -157,26 +51,7 @@
   .title {
     font-size: 30px;
   }
-  
-  .sidebar {
-    background: #161d24;
-    color: white;
-    height: 100%;
-    position: fixed;
-    overflow-y: auto;
-  }
-  
-  .top_section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 10px;
-  }
-  
-  .logo {
-    font-size: 18px;
-    line-height: 0;
-  }
+
   
   .bars {
     width: 30px;

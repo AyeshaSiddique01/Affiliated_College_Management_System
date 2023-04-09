@@ -13,7 +13,7 @@ import SignupExaminerInfo from './Components/SignupExaminerInfo/SignupExaminerIn
 import SignupPersonalInfo from './Components/SignupPersonalInfo/SignupPersonalInfo';
 import UploadPaper from './Components/UploadPaper/UploadPaper';
 import UploadResult from './Components/UploadResult/UploadResult';
-import ExaminerExp from './Components/ExaminerExp';
+import ExaminerExp from './Components/ExaminerExp/ExaminerExp';
 import ExaminerQualification from './Components/ExaminerQualification';
 import Profile from './Components/Profile';
 import 'boxicons'
@@ -47,7 +47,7 @@ import 'boxicons'
 function App() {
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Navbar />
           <Routes>
             <Route path="/" element={<Login />} />
@@ -65,7 +65,8 @@ function App() {
             <Route path="/UploadResult" element={<UploadResult />} />
             <Route path="/Settings" element={<Settings />} />
           </Routes >
-      </Router>
+      </Router> */}
+      <ExaminerExp></ExaminerExp>
     </div>
   );
 }
