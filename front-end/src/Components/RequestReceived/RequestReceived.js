@@ -40,7 +40,7 @@ const RequestReceived = () => {
                 </div>
                 <div className="row requestFooter">
                     <button type='accept'className='col-4 AcceptBtn'>Accept</button>
-                    <button type='accept'className='col-4 AcceptBtn'>Reject</button>
+                    <button type='accept'className='col-4 RejectBtn'>Reject</button>
                 </div>
             </div>
         </div>
