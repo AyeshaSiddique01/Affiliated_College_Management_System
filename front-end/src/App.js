@@ -22,11 +22,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
-            <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
+          <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+          <Route element={<Navbar />}>
             <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
             <Route path="/ExaminerExp" element={<ExaminerExp />} />
             <Route path="/UploadPaper" element={<UploadPaper />} />
@@ -38,30 +38,37 @@ function App() {
             <Route path="/ResultPending" element={<ResultPending />} />
             <Route path="/UploadResult" element={<UploadResult />} />
             <Route path="/Settings" element={<Settings />} />
-          </Routes >
+          </Route>
+        </Routes>
       </Router>
     </div>
   );
 }
 
+
 // function App() {
 //   return (
-//     <Router>
-//       <Navbar />
-//           <Route exact path="/" component={Login} />
-//           <Route path="/SignupPersonalInfo" component={SignupPersonalInfo} />
-//           <Route path="/SignupExaminerInfo" component={SignupExaminerInfo} />
-//           <Route path="/ExaminerQualification" component={ExaminerQualification} />
-//           <Route path="/ExaminerExp" component={ExaminerExp} />
-//           <Route path="/UploadPaper" component={UploadPaper} />
-//           <Route path="/RequestRecieved" component={RequestReceived} />
-//           <Route path="/Notifications" component={Notifications} />
-//           <Route path="/Profile" component={Profile} />
-//           <Route path="/Home" component={Home} />
-//           <Route path="/DuePaper" component={Home} />
-//           <Route path="/ResultPending" component={Home} />
-//           <Route path="/UploadResult" component={UploadResult} />
-//       </Router >
+//     <div className="App">
+//       <Router>
+//         <Navbar />
+//           <Routes>
+//             <Route path="/" element={<Login />} />
+//             <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
+//             <Route path="/SignupExaminerInfo" element={<SignupExaminerInfo />} />
+//             <Route path="/ExaminerQualification" element={<ExaminerQualification />} />
+//             <Route path="/ExaminerExp" element={<ExaminerExp />} />
+//             <Route path="/UploadPaper" element={<UploadPaper />} />
+//             <Route path="/RequestRecieved" element={<RequestReceived />} />
+//             <Route path="/Notifications" element={<Notifications />} />
+//             <Route path="/Profile" element={<Profile />} />
+//             <Route path="/Home" element={<Home />} />
+//             <Route path="/DuePaper" element={<DuePaper />} />
+//             <Route path="/ResultPending" element={<ResultPending />} />
+//             <Route path="/UploadResult" element={<UploadResult />} />
+//             <Route path="/Settings" element={<Settings />} />
+//           </Routes >
+//       </Router>
+//     </div>
 //   );
 // }
 

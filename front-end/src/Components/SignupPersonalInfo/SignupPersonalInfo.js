@@ -42,64 +42,64 @@ const SignupPersonalInfo = () => {
         });
     });
     return (
-        <div className='FormBg'>
+        <div className='FormBgSP'>
             <style>
                 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
             </style>
-            <div className='bg-img'>
-                <div className="content">
-                    <h1 className='headtxt'>Sign Up form</h1>
+            <div className='bg-imgSP'>
+                <div className="contentSP">
+                    <h1 className='headtxtSP'>Sign Up form</h1>
                     <header type="PI"> Put your Personal Information to Sign Up!</header>
                     <form onSubmit={handleSignUpPersonal}>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-user"></span>
-                            <input type="text" className="input-box" placeholder='Enter User Name' name='name_' onChange={(e) => setUserName(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter User Name' name='name_' onChange={(e) => setUserName(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-mail-bulk"></span>
                             <input type="email" className="input-box" placeholder='Enter Email Address' name='email' onChange={(e) => setEmail(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
                             <input type="text" className="input-box" placeholder='Enter CNIC' name='cnic' onChange={(e) => setCNIC(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
                             <input type="text" className="input-box" placeholder='Enter Phone Number' name='phone' onChange={(e) => setPhone(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-home"></span>
                             <input type="text" className="input-box" placeholder='Enter Address' name='address' onChange={(e) => setAddress(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-male"></span>
-                            <span style={{ width: "fit-content" }} className="input-box" > Gender: </span>
+                            <span style={{ width: "fit-content" }} className="input-boxSP" > Gender: </span>
                             <select class="form-label designLable" name="gender" onChange={(e) => setGender(e.target.value)} >
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-user-edit"></span>
-                            <input type="text" className="input-box" placeholder='Enter Bio' name='bio' onChange={(e) => setBio(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter Bio' name='bio' onChange={(e) => setBio(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-lock"></span>
-                            <input type="password" id='pass' className="input-box" placeholder='Enter Password' name='password' onChange={(e) => setPassword(e.target.value)} required />
+                            <input type="password" id='pass' className="input-boxSP" placeholder='Enter Password' name='password' onChange={(e) => setPassword(e.target.value)} required />
                         </div>
-                        <div className="maindiv">
+                        <div className="maindivSP">
                             <span className="fa fa-lock"></span>
-                            <input type="password" id='passC' className="input-box" placeholder='Confirm Password' required />
+                            <input type="password" id='passC' className="input-boxSP" placeholder='Confirm Password' required />
                         </div>
                         <span id="messageError"></span>
                         <div>
-                            <button type="submit" className="submit-btn" >Next</button>
+                            <button type="submit" className="submit-btnSP" >Next</button>
                         </div>
                         <div>
                             {error && <div>{error}</div>}
                         </div>
                     </form>
-                    <div className="pass">
+                    <div className="passSP">
                         <a href="/">Already have an account? Log in</a>
                     </div>
                 </div>
