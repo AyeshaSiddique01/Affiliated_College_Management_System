@@ -1,95 +1,95 @@
 .Mybody {
-    color: white;
-    background-image: url("/src/Static/login.jpg");
-    padding-left: 100px
-  }
-  
-  .Requestheader {
-    padding: 10px 0px 6px 8px;
-    margin-right: 20px;
-  }
-  
-  .courseTitle {
-    font-weight: 400;
-    font-size: 34px;
-    font-family:'Poppins';
-    float: left;
-    margin-top: 70px;
-  }
-  
-  .deadline {
-    font-size: 18px;
-    float: right;
-    padding-top: 80px;
-  }
-  
-  .requestBody {
-    text-align: left;
-    font-size: 16px;
-    font-family: 'Poppins';
-    font-weight: 400;
-    border-radius: 10px;
-    left: 50%;
-    z-index: 999;
-    padding: 60px 82px;
-    box-shadow: 0 0 40px 20px rgb(0 0 0 / 46%);
-  }
-  
-  .outlineTitle {
-    display: block;
-    font-size: 27px;
-    font-weight: 500;
-  }
+  color: white;
+  background-image: url("/src/Static/login.jpg");
+  padding-left: 100px
+}
 
-  .uploadPaper {
-    border: white;
-    height: fit-content;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 10px;
-    padding: 8px 8px 8px 8px;
-    text-align: center;
-    box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
-  }
+.Requestheader {
+  padding: 10px 0px 6px 8px;
+  margin-right: 20px;
+}
 
-  .requestFooter {
-    float: right;
-    margin-top: 12px;
-  }
-  
-  .AcceptBtn {
-    width: fit-content;
-    padding: 5px 20px 20px 20px;
-  }
+.courseTitle {
+  font-weight: 400;
+  font-size: 34px;
+  font-family: 'Poppins';
+  float: left;
+  margin-top: 70px;
+}
 
-  button[type="accept"] {
-    width: 170px;
-    background: rgb(17, 17, 17);
-    border: 1px solid #fff;
-    margin-right: 20px;
-    margin-top: 15px;
-    height: 50px;
-    font-size: 18px;
-    border-radius: 20px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    outline: none;
-    color: #fff;
-    cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid #fff;
-  
-  }
-  
-  button[type="accept"]:hover {
-    background: rgb(5, 4, 4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  }
-  
-  .form-control {
-    background-color: #1f1e1e;
-  
-  }
+.deadline {
+  font-size: 18px;
+  float: right;
+  padding-top: 80px;
+}
+
+.requestBody {
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Poppins';
+  font-weight: 400;
+  border-radius: 10px;
+  left: 50%;
+  z-index: 999;
+  padding: 60px 82px;
+  box-shadow: 0 0 40px 20px rgb(0 0 0 / 46%);
+}
+
+.outlineTitle {
+  display: block;
+  font-size: 27px;
+  font-weight: 500;
+}
+
+.uploadPaper {
+  border: white;
+  height: fit-content;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 10px;
+  padding: 8px 8px 8px 8px;
+  text-align: center;
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
+}
+
+.requestFooter {
+  float: right;
+  margin-top: 12px;
+}
+
+.AcceptBtn {
+  width: fit-content;
+  padding: 5px 20px 20px 20px;
+}
+
+button[type="accept"] {
+  width: 170px;
+  background: rgb(17, 17, 17);
+  border: 1px solid #fff;
+  margin-right: 20px;
+  margin-top: 15px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid #fff;
+
+}
+
+button[type="accept"]:hover {
+  background: rgb(5, 4, 4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.form-control {
+  background-color: #1f1e1e;
+
+}

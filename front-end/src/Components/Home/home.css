@@ -136,7 +136,9 @@ button[type="deatils"] {
     z-index: 999; */
     margin-bottom: 20px;
   }
-  
+  a {
+    text-decoration: none;
+  }
   /* .notification_block {
     margin: 20px;
     height: max-content;

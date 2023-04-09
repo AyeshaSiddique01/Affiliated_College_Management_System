@@ -6,12 +6,11 @@ class model:
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
-                database="ACMS",  # write your Dbname
+                database="ACMS",            #write your Dbname
                 host="localhost",
                 user="postgres",
-                password="aiman12345",  # write your dbPassword
-                port="5432"
-            )
+                password="Ayesha@1306",      #write your dbPassword
+                port="5432")
         except Exception as e:
             print(str(e))
 
@@ -20,7 +19,7 @@ class model:
             self.connection.close()
 
     def InsertUser(self, user):
-        cursor = None  # not taking profile pic in input
+        cursor = None
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
@@ -100,7 +99,7 @@ class model:
             if self.connection != None:  # there should be a email check weather the user exists or not
                 cursor = self.connection.cursor()
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count") 
-                            values('{examiner.user_id}', '{examiner.institution}', '{examiner.availability}', '{examiner.ranking}', '{examiner.resume}', '{examiner.acceptance_count}', '{examiner.rejection_count}');
+                            values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count});
                             '''
                 cursor.execute(query)
                 self.connection.commit()
