@@ -1,13 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
 // import { useHistory } from "react-router-dom";
 
 const ExaminerExp = () => {
-    // alert("YES!!")
-    // const history = useHistory();
-
-    // const coursesPage = () => {
-    //     history.push("/ExaminerExp")
-    // }
+    const [job_title, set_job_title] = useState('');
+    const [organization, set_organization] = useState('');
+    const [reference_email, set_reference_email] = useState('');
+    const [starting_date, set_starting_date] = useState('');
+    const [ending_date, set_ending_date] = useState('');
+    const fileInputRef = useRef(null);
+    const [error, setError] = useState('');
+    const handleExaminerExper = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('job_title', job_title);
+        formData.append('organization', organization);
+        formData.append('reference_email', reference_email);
+        formData.append('starting_date', starting_date);
+        formData.append('ending_date', ending_date);
+        formData.append('transcript', fileInputRef.current.files[0]);
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData);
+            localStorage.setItem('access_token', response.data.access_token);
+            // Redirect the user to the protected route
+            window.location.href = '/ExaminerExp';
+        } catch (error) {
+            console.error("error: ", error);
+            setError('Some Input is Wrong');
+        }
+    };
     useEffect(() => {
         const modal = document.getElementById("AddNewQualification");
 
@@ -66,37 +87,40 @@ const ExaminerExp = () => {
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
                                     <div>
-                                        <form action="http://localhost:5000//ExaminerExperience" method='post'>
+                                        <form onSubmit={handleExaminerExper}>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-box' placeholder='Enter Job Title' name='job_title' required />
+                                                <input type="text" className='input-box' placeholder='Enter Job Title' name='job_title' onChange={(e) => set_job_title(e.target.value)} required />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-box' placeholder='Enter organization Name' name='organization' required />
+                                                <input type="text" className='input-box' placeholder='Enter organization Name' name='organization' onChange={(e) => set_organization(e.target.value)} required />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-box' placeholder='Enter Reference Email' name='reference_email' required />
+                                                <input type="text" className='input-box' placeholder='Enter Reference Email' name='reference_email' onChange={(e) => set_reference_email(e.target.value)} required />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input className="form-control input-box" type="date" name="starting_date" runat="server"
+                                                <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => set_starting_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input className="form-control input-box" type="date" name="ending_date" runat="server"
+                                                <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => set_ending_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
                                                 <label className='label_' for="ExperianceLetter">Experiance Letter: </label>
-                                                <input type="file" name="ExperianceLetter" className="form-control" required />
+                                                <input type="file" name="ExperianceLetter" className="form-control" ref={fileInputRef} required />
                                             </div>
                                             <div className="AddBtn">
                                                 <input type="submit" value="Add" />
+                                            </div>
+                                            <div>
+                                                {error && <div>{error}</div>}
                                             </div>
                                         </form>
                                     </div>

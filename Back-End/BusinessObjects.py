@@ -4,7 +4,7 @@ class User:
     usr_email, usr_active_status, usr_bio, usr_gender):
         self.usr_name = usr_name
         self.usr_password = usr_password
-        self.phoneno = usr_phoneno
+        self.usr_phoneno = usr_phoneno
         self.usr_cnic = usr_cnic
         self.usr_profile_pic = usr_profile_pic
         self.usr_address = usr_address
