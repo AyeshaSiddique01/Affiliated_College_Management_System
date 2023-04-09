@@ -10,7 +10,9 @@ const RequestReceived = () => {
                     <div className="courseTitle col-9">
                         CMP-100 Introduction to Computing
                         <br></br>
+                        <div className="requestdate col-3">
                         requested date
+                        </div>
                     </div>
                     <div className="deadline col-3">
                         deadline of paper upload

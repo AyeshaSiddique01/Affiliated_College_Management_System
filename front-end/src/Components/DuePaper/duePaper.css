@@ -1,11 +1,11 @@
-.Mybody{
+.My-body2{
     background-color: #fff;
-    margin-top: 200px;
+    margin-top: 100px;
 }
 
-.subject-box {
+.subject2-box {
   background-color: #f2f2f2;
-  background-image: url("/src/Static/texture12.jpg");
+  background-image: url("/src/Static/texture8.jpg");
   width: 65%;
   margin-left: 270px;
   margin-right: 0px;
@@ -24,7 +24,7 @@
   position: relative; /* make the subject-box a positioned container */
 }
 
-.subject-name {
+.subject2-name {
   color: #fff;
   font-size: 48px;
   margin: 0 12px 0;
@@ -106,46 +106,12 @@ box-icon[name='time-five'] {
   margin-right: 280px;
 } 
 
-.subject-description {
+.subject2-description {
   font-size: 16px;
   line-height: 1.5;
   color: #fff;
   margin-top: auto;
 }
-
-/* .subject-box {
-    background-color: #f2f2f2;
-    background-image: url("/src/Static/texture12.jpg");
-    width: 65%;
-    height: 200px;
-    margin-left: 270px;
-    margin-right: 0px;
-    border: 1px solid #e8e8e8;
-    border-radius: 8px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
-    /* background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;  */
-  /* }
-  
-  .subject-name {
-    color: #fff;
-    font-size: 48px;
-    margin: 0 0 12px 0;
-    font-family: Poppins;
-    font-weight: 600;
-    margin-top: 80px;
-    margin-bottom: 10px;
-    
-  }
-
-  .subject-description {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #fff;
-  } */
 
 button[type="deatils"] {
     width: 18%;
@@ -175,32 +141,15 @@ button[type="deatils"] {
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   }
   
-  .adjustment {
+  .adjustment2 {
     /* position: absolute;
     top: 20%;
     left: 15%;
     z-index: 999; */
     margin-bottom: 20px;
   }
-  
-  /* .notification_block {
-    margin: 20px;
-    height: max-content;
-    background-color: rgb(31, 30, 30);
-    background-image: url("/src/Static/grey.jpg");
-    color: white;
-    border-width: thin;
-    border-radius: 20px;
-    width: 1050px;
-    padding-bottom: 15px;
-    box-sizing: border-box;
-    border: 1px solid #fff;
-    border-style: inset;
-    outline: none;
-    box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
-  } */
 
-  .notification_block {
+  .notification_block2 {
     margin-bottom: 20px;
     margin-left: 220px;
     height: max-content;
@@ -218,7 +167,7 @@ button[type="deatils"] {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
   }
   
-  .notification_block[type=Practical] {
+  .notification_block2[type=Practical] {
     margin-bottom: 20px;
     margin-left: 220px;
     height: max-content;
@@ -235,7 +184,7 @@ button[type="deatils"] {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
   }
   
-  .CourseTitle {
+  .CourseTitle2 {
     width: 100%;
     /* background: black; */
     margin: 6px 0;
@@ -244,16 +193,16 @@ button[type="deatils"] {
     font-size: 30px;
     font-weight: 700;
     font-family: Poppins;
-    font-style: normal;
+    font-style: italic;
   }
   
-  .papertype{
+  .papertype2{
     text-align:center;
     font-style: italic;
     font-size: 22px;
   }
   
-  .date {
+  .date2 {
     text-align: center;
   }
 
@@ -261,172 +210,3 @@ button[type="deatils"] {
     from {opacity: 0; transform: translateY(-100px);}
     to {opacity: 1; transform: translateY(0);}
 }
-
-  /* .Mybody {
-    margin: 0;
-    padding: 0;
-    background-color: #F5F5F5;
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .notification_block {
-    width: 300px;
-    height: 150px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .CourseTitle {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .papertype {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .date {
-    font-size: 14px;
-    margin-top: 10px;
-    color: #9B9B9B;
-  }
-  
-  .detail-btn {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #4CAF50;
-    color: #FFFFFF;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .detail-btn:hover {
-    background-color: #3E8E41;
-  }
-  
-  .adjustment {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  body {
-    background-color: #1c1c1c;
-    font-family: 'Montserrat', sans-serif;
-    color: #fff;
-  }
-  
-  h1 {
-    font-size: 4rem;
-    text-align: center;
-    margin-top: 2rem;
-    text-shadow: 2px 2px #000;
-  }
-  
-  h2 {
-    font-size: 3rem;
-    text-align: center;
-    margin-top: 1rem;
-    text-shadow: 2px 2px #000;
-  }
-  
-  p {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    text-align: justify;
-    margin: 2rem;
-  }
-  
-  a {
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 2px solid #fff;
-    transition: border-bottom 0.3s ease;
-  }
-  
-  a:hover {
-    border-bottom: 2px solid #ff0;
-  }
-  
-  button {
-    background-color: #ff0;
-    border: none;
-    border-radius: 50px;
-    color: #1c1c1c;
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 1rem 2rem;
-    margin-top: 2rem;
-    transition: transform 0.3s ease;
-  }
-  
-  button:hover {
-    transform: scale(1.1);
-  }
- 
-  body {
-    background-color: #F0F3F4;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    font-size: 4rem;
-    text-align: center;
-    color: #2C3E50;
-    text-shadow: 2px 2px #E67E22;
-    margin-top: 2rem;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    color: #7F8C8D;
-    margin: 1.5rem;
-  }
-  
-  a {
-    color: #E67E22;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  a:hover {
-    color: #D35400;
-  }
-  
-  button {
-    padding: 0.8rem 2rem;
-    font-size: 1.2rem;
-    background-color: #E67E22;
-    color: #FFF;
-    border: none;
-    border-radius: 5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  button:hover {
-    background-color: #D35400;
-  } */

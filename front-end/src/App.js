@@ -34,9 +34,10 @@ function App() {
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Home" element={<Home />} />
-            <Route path="/DuePaper" element={<Home />} />
-            <Route path="/ResultPending" element={<Home />} />
+            <Route path="/DuePaper" element={<DuePaper />} />
+            <Route path="/ResultPending" element={<ResultPending />} />
             <Route path="/UploadResult" element={<UploadResult />} />
+            <Route path="/Settings" element={<Settings />} />
           </Routes >
       </Router>
     </div>
