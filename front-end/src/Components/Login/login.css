@@ -6,11 +6,11 @@
   }
   
   .bg-imglogin {
-    background-image: url("/src/Static/login11.jpg");
+    background-image: url("/src/Static/books2.jpg");
     background-color: #2f4050;
     height: 100vh;
     background-size: cover;
-    background-position: center;
+    background-position:center;
   }
 
   .contentlogin {
@@ -26,6 +26,8 @@
     width: 520px;
     color: white;
     transform: translate(-50%, -50%);
+    background-image: url("/src/Static/books.jpg");
+    background-size: cover;
     /*background-image: url("/src/Static/Light.png");
     /*background: rgb(48, 22, 22);
     border: 1px solid #fff;

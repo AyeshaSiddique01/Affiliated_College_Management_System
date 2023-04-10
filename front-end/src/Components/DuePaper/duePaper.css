@@ -5,7 +5,7 @@
 
 .subject2-box {
   background-color: #f2f2f2;
-  background-image: url("/src/Static/texture8.jpg");
+  background-image: url("/src/Static/texture12.jpg");
   width: 65%;
   margin-left: 270px;
   margin-right: 0px;
@@ -43,7 +43,7 @@ box-icon[name='calculator'] {
   width: 25px; /* Updated size of box-icon */
   height: 12px;
   margin-top: 30px;
-  margin-right: 200px;
+  margin-right: 180px;
 }
 
 box-icon[name='pencil'] {
@@ -53,7 +53,7 @@ box-icon[name='pencil'] {
   width: 25px; /* Updated size of box-icon */
   height: 12px;
   margin-top: 80px;
-  margin-right: 300px;
+  margin-right: 280px;
 }
 
 box-icon[name='task'] {
@@ -72,7 +72,7 @@ box-icon[name='sort-a-z'] {
   right: 0;
   width: 25px; /* Updated size of box-icon */
   height: 12px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-right: 110px;
 }
 
@@ -83,7 +83,7 @@ box-icon[name='detail'] {
   width: 25px; /* Updated size of box-icon */
   height: 12px;
   margin-top: 150px;
-  margin-right: 100px;
+  margin-right: 80px;
 }
 
 box-icon[name='graduation'] {
@@ -93,7 +93,7 @@ box-icon[name='graduation'] {
   width: 25px; /* Updated size of box-icon */
   height: 12px;
   margin-top: 130px;
-  margin-right: 220px;
+  margin-right: 200px;
 }
 
 box-icon[name='time-five'] {
