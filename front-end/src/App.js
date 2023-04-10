@@ -48,7 +48,7 @@ function App() {
 // function App() {
 //   return (
 //     <div className="App">
-//       <Router>
+//       {/* <Router>
 //         <Navbar />
 //           <Routes>
 //             <Route path="/" element={<Login />} />
@@ -67,7 +67,7 @@ function App() {
 //             <Route path="/Settings" element={<Settings />} />
 //             <Route path="/AcceptedRequest" element={<AcceptedRequest />} />
 //           </Routes >
-//       </Router>
+//       </Router> */}
 //     </div>
 //   );
 // }

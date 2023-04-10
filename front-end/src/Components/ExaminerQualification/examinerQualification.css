@@ -85,7 +85,7 @@
   }
 
     /* The Modal (background) */
-.modalEQ {
+.modal {
         display: none;
         position: fixed;
         z-index: 1;
@@ -100,10 +100,12 @@
       }
       
       /* Modal Content */
-.modal-contentEQ {
+.modal-content {
         background-color: #29363e;
         margin: auto;
-        padding: 0;
+        padding: 0px;
+        border-radius: 20px;
+        background-image: url("/src/Static/fabric3.jpg");
       }
   
 .NextBtnEQ {
@@ -134,7 +136,7 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-.maindivEQ {
+.maindiv{
         display: flex;
         margin: 12px;
       }
@@ -154,12 +156,11 @@
         cursor: pointer;
       }
       
-.input-boxEQ {
+.input-box {
         width: 100%;
         background: transparent;
         border: 1px solid #fff;
         border-style: inset;
-        /* margin: 6px 0; */
         height: 32px;
         border-radius: 20px;
         padding: 0 10px;
@@ -169,13 +170,11 @@
         color: #fff;
       }
 
-.form-controlEQ {
+.form-control {
         background-color: #1f1e1e;
       }
   
-.AddBtnEQ {
-        /* position: fixed;
-          z-index: 999999999; */
+.AddBtn {
         border: none;
         text-indent: 18em;
         font-size: 1.5em;
@@ -184,13 +183,24 @@
         outline: 0;
       }
       
-.AddBtnEQ input {
+.AddBtn input {
         height: 40px;
-        width: 50px;
-        border: none;
+        width: 70px;
+        border: 3px solid rgb(27, 24, 24);
         font-size: medium;
-        font-family: sans-serif;
+        font-family: poppins;
         background: rgb(170 170 170);
+        border-radius: 10px;
+        margin-top: 1px;
+      }
+
+.AddBtn input:hover {
+  background-color:#161515 ;
+  color: #ffffff;
+  border: 2px solid white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+
       }
 
 i span {
@@ -205,3 +215,8 @@ i span {
         color: gray;
         font-size: 17px;
       }
+
+label{
+  display: inline-block;
+  margin-left: 0px;
+}
