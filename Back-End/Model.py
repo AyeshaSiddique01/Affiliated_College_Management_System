@@ -6,10 +6,10 @@ class model:
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
-                database="ACMS",            #write your Dbname
+                database="ACMS",  # write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",      #write your dbPassword
+                password="Ayesha@1306",  # write your dbPassword
                 port="5432")
         except Exception as e:
             print(str(e))
@@ -73,7 +73,7 @@ class model:
             return False
         finally:
             if cursor != None:
-                cursor.close()        
+                cursor.close()
 
     def getExaminerID(self, userid):
         cursor = None
@@ -306,12 +306,12 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getPracRequests(self, examiner_id,status):
+    def getNotificationPracRequests(self, examiner_id):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select * from practical_duty where examiner_id = {examiner_id} and prac_duty_status = {status};'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -322,12 +322,12 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getTheoryRequests(self, examiner_id,status):
+    def getNotificationTheoryRequests(self, examiner_id):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select * from exam_duty where examiner_id = {examiner_id} and status_req = {status};'''
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -337,3 +337,116 @@ class model:
         finally:
             if cursor:
                 cursor.close()
+
+    def getHomePracRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline >= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getHomePracRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getHomeTheoryRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and paper_upload_deadline >= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getHomeTheoryRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getDuePracRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline < CURRENT_DATE and prac_date > CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getduePracRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getDueTheoryRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and paper_upload_deadline < CURRENT_DATE and paper_date > CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getDueTheoryRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getDueResultPracRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and prac_date <= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getduePracRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getDueResultTheoryRequests(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getDueTheoryRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def getUploadPaperDutyDetails(self, id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getDueTheoryRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+

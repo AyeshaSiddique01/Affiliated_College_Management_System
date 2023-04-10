@@ -128,7 +128,7 @@ const ExaminerExp = () => {
                             </div>
                         </div>
                         <div>
-                            <a href='http://localhost:3000/Profile'>
+                            <a href='http://localhost:3000/'>
                                 <div className='NextBtn'>
                                     <button type="submit">Next Page</button>
                                 </div>

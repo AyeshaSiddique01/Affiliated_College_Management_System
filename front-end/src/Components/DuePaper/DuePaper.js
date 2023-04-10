@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './duePaper.css'
 
 const DuePaper = () => {
-  return (
-    <div className='My-body2'>
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/duePaperRequests')
+            .then(response => response.json())
+            .then(data => setDataList(data))
+            .catch(error => console.error(error));
+    }, []);
+    return (
+        <div className='My-body2'>
             <div class="subject2-box">
                 <h2 class="subject2-name">Due Paper</h2>
                 <box-icon name='sort-a-z' animation='tada' size='120px' color="#ffffff"></box-icon>
@@ -16,172 +24,29 @@ const DuePaper = () => {
                 {/* <box-icon type='logo' name='deezer' animation='flashing' size='70px' color="#ffffff"></box-icon> */}
                 <div class="subject2-description">
                     <p>description if needed.</p>
-                 </div>
+                </div>
             </div>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment2'>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Object Oriented programming
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
+                        {dataList.map(item => (
+                            <a href='http://localhost:3000/AcceptedRequest'>
+                                <div className="notification_block2">
+                                    <div className='CourseTitle2'>{item[1]}</div>
+                                    <div className='papertype2'>
+                                        {item[3]}
+                                        <button className='detail-btn' type="deatils" >Open</button>
+                                    </div>
+                                    <div className='date2'>{item[2]}</div>
 
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Introduction to Computing
                                 </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2" type="Practical">
-                                <div className='CourseTitle2'>
-                                    Basic Electronics
-                                </div>
-                                <div className='papertype2'>
-                                    Practical EXAM
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Web Engineering
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Analysis of Algorithms
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Computer Networks
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Artificial Intelligence
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Programming Fundamentals
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Object Oriented programming
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Calculus-||
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
-                            <div className="notification_block2">
-                                <div className='CourseTitle2'>
-                                    Database systems
-                                </div>
-                                <div className='papertype2'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date2'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default DuePaper

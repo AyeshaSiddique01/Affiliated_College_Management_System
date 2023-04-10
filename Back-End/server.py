@@ -1,5 +1,4 @@
 from flask import *
-# from flask import Flask, request, session, jsonify
 from werkzeug.wrappers import response
 from Model import model
 from datetime import datetime
@@ -8,7 +7,10 @@ from flask_cors import CORS
 from fileinput import filename
 import os
 from pathlib import Path
-import smtplib, ssl , random,string
+import smtplib
+import ssl
+import random
+import string
 # pip install flask_mail
 from flask_mail import Mail, Message
 from email.mime.text import MIMEText
@@ -22,7 +24,7 @@ app = Flask(__name__)
 # CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object("config")
-app.secret_key = app.config["SECRET_KEY"]
+app.secret_key = "MYSECRETKEY"
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
 
@@ -32,7 +34,8 @@ app.config['MAIL_USERNAME'] = 'elite.express243@gmail.com'
 app.config['MAIL_PASSWORD'] = 'njsopxyyzkkssixt'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-mail = Mail(app) 
+mail = Mail(app)
+
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo():
@@ -71,18 +74,21 @@ def SignUpPersonalInfo():
             session["usr_name"] = usr_name
             access_token = create_access_token(identity=usr_email)
             # sending email
-            verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
-            session["verification_code"] = verification_code 
-            verification_link = request.url_root + 'verify?code=' + verification_code
-            message = Message('Verify your email', recipients=[session.get("usr_email")]) 
-            message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-            # message.body = f'Click the link to verify your email: {verification_link}' 
-            mail.send(message)
+            # verification_code = "".join(random.choices(
+            #     string.ascii_letters+string.digits, k=10))
+            # session["verification_code"] = verification_code
+            # verification_link = request.url_root + 'verify?code=' + verification_code
+            # message = Message('Verify your email', recipients=[
+            #                   session.get("usr_email")])
+            # message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+            # # message.body = f'Click the link to verify your email: {verification_link}'
+            # mail.send(message)
             return jsonify(access_token=access_token), 200
         else:
             return jsonify({"error": "Error in insertion"}), 401
     else:
         return jsonify({"error": "Email exists"}), 401
+
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 def SignUpExaminerInfo():
@@ -98,7 +104,7 @@ def SignUpExaminerInfo():
     ranking = 0
     acceptance_count = 0
     rejection_count = 0
-    print("user_id in next func: " , user_id)
+    print("user_id in next func: ", user_id)
     data = examiner(user_id, institution, availability, ranking,
                     resume, acceptance_count, rejection_count)
     m = model()
@@ -109,6 +115,7 @@ def SignUpExaminerInfo():
         access_token = create_access_token(identity=user_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
+
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification():
@@ -130,6 +137,7 @@ def ExaminerQualification():
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
+
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience():
@@ -168,6 +176,7 @@ def ExaminerExperience():
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
+
 
 @app.route('/ExaminerLogin', methods=["POST"])
 def ExaminerLogin():
@@ -232,33 +241,39 @@ def profile():
     }
     return jsonify(data)
 
+@app.route('/notifications')
+def notifications():
+    examiner_id = session.get("examiner_id")
+    m = model()
+    data = []
+    pracDuties = m.getNotificationPracRequests(examiner_id)
+    examDuties = m.getNotificationTheoryRequests(examiner_id)
+    for i in pracDuties:
+        data.append(i.append("Practicle Exam"))
+    
+    for i in examDuties:
+        data.append(i.append("Theory Paper"))
+        
+    data.sort(key=lambda x: x[1], reverse=True)
+    return jsonify(data)
 
-@app.route('/requestsRecieved', methods=['GET'])
-def requestsRecieved():						# not accepted or rejected yet
-	examiner_id = session.get("examiner_id")
-	m = model()
-	# return requests whose status is 1 i.e pending
-	# prefer to make two separete functions
-	duties =[]
-	pracDuties = m.getPracRequests(examiner_id, 1)  # 1 for pending status
-	examDuties = m.getTheoryRequests(examiner_id, 1)
-	duties = examDuties + pracDuties
-	return jsonify(duties)
-
-
-@app.route('/acceptedRequests', methods=['GET'])
-def acceptedRequests():						# accepted but haven't uploaded paper
-	examiner_id = session.get("examiner_id")
-	m = model()
-	# return requested recieved and status is true and 
-	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
-	# paper table does not has the entity has the same duty id  
-	duties =[]
-	pracDuties = m.getPracRequests(examiner_id, 2)  # 2 for accepted status
-	examDuties = m.getTheoryRequests(examiner_id, 2)
-	duties = examDuties + pracDuties
-	return jsonify(duties)
-
+@app.route('/home')
+def home():
+    examiner_id = session.get("examiner_id")
+    m = model()
+    # return requested received and status is true and 
+    # paper upload deadline is after today
+    duties = []
+    pracDuties = m.getHomePracRequests(examiner_id)  # 2 for accepted status
+    examDuties = m.getHomeTheoryRequests(examiner_id)
+    for i in pracDuties:
+        duties.append(i.append("Practicle Exam"))
+    
+    for i in examDuties:
+        duties.append(i.append("Theory Paper"))
+        
+    duties.sort(key=lambda x: x[1], reverse=True)
+    return jsonify(duties)
 
 @app.route('/duePaperRequests', methods=['GET'])
 def duePaperRequests():						# accepted and uploaded paper and paper is not taken yet
@@ -266,7 +281,16 @@ def duePaperRequests():						# accepted and uploaded paper and paper is not take
     m = model()
     # paper table has the entity has the same duty id
     # and paper_date in exam_duty table is after today
-    duties = m.getDuePaperRequests(examiner_id)
+    duties = []
+    pracDuties = m.getDuePracRequests(examiner_id)  # 2 for accepted status
+    examDuties = m.getDueTheoryRequests(examiner_id)
+    for i in pracDuties:
+        duties.append(i.append("Practicle Exam"))
+    
+    for i in examDuties:
+        duties.append(i.append("Theory Paper"))
+        
+    duties.sort(key=lambda x: x[1], reverse=True)
     return jsonify(duties)
 
 
@@ -276,21 +300,29 @@ def dueResultRequests():					# paper done upload paper now
     m = model()
     # paper table has the entity has the same duty id has null result column
     # and result_date in exam_duty table is after today
-    duties = m.DueResultRequests(examiner_id)
+    duties = []
+    pracDuties = m.getDueResultPracRequests(examiner_id)  # 2 for accepted status
+    examDuties = m.getDueResultTheoryRequests(examiner_id)
+    for i in pracDuties:
+        duties.append(i.append("Practicle Exam"))
+    
+    for i in examDuties:
+        duties.append(i.append("Theory Paper"))
+        
+    duties.sort(key=lambda x: x[1], reverse=True)
     return jsonify(duties)
 
 
-@app.route("/RequestRecieved", methods=['GET', 'POST'])
-def RequestRecieved():
-    d_id = 1 								# ya front end sy get kr lean gy
-    session["d_id"] = d_id
+@app.route("/RequestRecieved/<int:duty_id>")
+def RequestRecieved(duty_id):
+    session["duty_id"] = duty_id
     m = model()
     # => using course code get crs code, crs title,
     # => request date, paper upload deadline from exam/duty table
     # => using rd_id get crs_book and crs_outline from both tables
     # => get prac_date, time and institute by using ac_id get name and location of
     # institute from affiliated_colleges table
-    dutyDetails = m.getUploadPaperDutyDetails(d_id)
+    dutyDetails = m.getUploadPaperDutyDetails(duty_id)
     return jsonify(dutyDetails)
 
 

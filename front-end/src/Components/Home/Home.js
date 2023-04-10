@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './home.css';
 
 const Home = () => {
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/home')
+            .then(response => response.json())
+            .then(data => setDataList(data))
+            .catch(error => console.error(error));
+    }, []);
 
     return (
         <div className='My-body1'>
@@ -15,162 +23,18 @@ const Home = () => {
             <div className='container'>
                 <div className="row">
                     <div className='adjustment1'>
-                        <a href='http://localhost:3000/UploadPaper'>
+                        {dataList.map(item => (
+                            <a href='http://localhost:3000/UploadPaper'>
                             <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Object Oriented programming
-                                </div>
+                                <div className='CourseTitle1'>{item[1]}</div>
                                 <div className='papertype1'>
-                                    Theory paper
+                                    {item[3]}
                                     <button className='detail-btn' type="deatils" >Open</button>
                                 </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-
+                                <div className='date1'>{item[2]}</div>
                             </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Introduction to Computing
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1" type="Practical">
-                                <div className='CourseTitle1'>
-                                    Basic Electronics
-                                </div>
-                                <div className='papertype1'>
-                                    Practical EXAM
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Web Engineering
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Analysis of Algorithms
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Computer Networks
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Artificial Intelligence
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Programming Fundamentals
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Object Oriented programming
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Calculus-||
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadPaper'>
-                            <div className="notification_block1">
-                                <div className='CourseTitle1'>
-                                    Database systems
-                                </div>
-                                <div className='papertype1'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date1'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
+                        </a>  
+                        ))}                                              
                     </div>
                 </div>
             </div>

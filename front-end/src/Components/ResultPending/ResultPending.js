@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './resultPending.css'
 
 const ResultPending = () => {
-  return (
-    <div className='My-body3'>
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/dueResultRequests')
+            .then(response => response.json())
+            .then(data => setDataList(data))
+            .catch(error => console.error(error));
+    }, []);
+    return (
+        <div className='My-body3'>
             <div class="subject3-box">
                 <h2 class="subject3-name">Result Pending</h2>
                 <box-icon name='receipt' animation='' size='90px' color="#ffffff"></box-icon>
@@ -12,172 +20,29 @@ const ResultPending = () => {
                 <box-icon name='book-open' animation='tada' size='100px' color="#ffffff"></box-icon>
                 <div class="subject3-description">
                     <p>description if needed.</p>
-                 </div>
+                </div>
             </div>
             <div className='container'>
                 <div className="row">
                     <div className='adjustment3'>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Object Oriented programming
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
+                        {dataList.map(item => (
+                            <a href='http://localhost:3000/UploadResult'>
+                                <div className="notification_block3">
+                                    <div className='CourseTitle3'>{item[1]}</div>
+                                    <div className='papertype3'>
+                                        {item[3]}
+                                        <button className='detail-btn' type="deatils" >Open</button>
+                                    </div>
+                                    <div className='date3'>{item[2]}</div>
 
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Introduction to Computing
                                 </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3" type="Practical">
-                                <div className='CourseTitle3'>
-                                    Basic Electronics
-                                </div>
-                                <div className='papertype3'>
-                                    Practical EXAM
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Web Engineering
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Analysis of Algorithms
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Computer Networks
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Artificial Intelligence
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Programming Fundamentals
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Object Oriented programming
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Calculus-||
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
-                        <a href='http://localhost:3000/UploadResult'>
-                            <div className="notification_block3">
-                                <div className='CourseTitle3'>
-                                    Database systems
-                                </div>
-                                <div className='papertype3'>
-                                    Theory paper
-                                    <button className='detail-btn' type="deatils" >Open</button>
-                                </div>
-                                <div className='date3'>
-                                    Saturday, June 13, 2023
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default ResultPending
