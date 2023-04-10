@@ -1,35 +1,25 @@
-.FormBg {
+.FormBgSP{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
 
-.bg-img {
-  background-image: url("/src/Static/login11.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* background-color: #2f4050; */
+.bg-imgSP {
+  /*background-repeat: no-repeat;
+  background-attachment: fixed; */
   /* height: 100%; */
-  /* background-size: cover; */
-  /* background-position: center; */
+  background-image: url("/src/Static/login11.jpg");
+  background-color: #2f4050;
+  height: 122vh;
+  background-size: cover;
+  background-position: center;
 }
-
-/* .bg-img::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.174);
-  }  */
-.content {
+.contentSP {
   margin-top: 0px;
-  /*10px*/
   border-radius: 10px;
   position: absolute;
-  top: 65%;
+  top: 62%;
   left: 50%;
   z-index: 999;
   text-align: center;
@@ -68,7 +58,7 @@ header[type="PI"] {
 }
 
 
-.field {
+.fieldSP {
   position: static;
   height: 40px;
   width: 100%;
@@ -76,13 +66,13 @@ header[type="PI"] {
   background: rgba(255, 255, 255, 0.94);
 }
 
-.field span {
+.fieldSP span {
   color: #222;
   width: 40px;
   line-height: 45px;
 }
 
-.input-box {
+.input-boxSP {
   width: 100%;
   background: transparent;
   border: 1px solid #fff;
@@ -103,7 +93,7 @@ select {
   border-radius: 20px;
 }
 
-.field input {
+.fieldSP input {
   height: 100%;
   width: 100%;
   background: transparent;
@@ -118,7 +108,7 @@ select {
   margin-top: 16px;
 }
 
-.show {
+.showSP {
   position: absolute;
   /* right: 13px; */
   padding: 7px 0px 0px 246px;
@@ -130,7 +120,7 @@ select {
   font-family: "Poppins"
 }
 
-.pass-key {
+.pass-keySP {
   width: 100%;
   background: transparent;
   border: 1px solid #fff;
@@ -145,25 +135,25 @@ select {
   color: #fff;
 }
 
-.pass-key:valid~.show {
+.pass-keySP:valid~.showSP {
   display: block;
 
 }
 
-.pass {
+.passSP {
   text-align: left;
   margin: 2px 0;
 
 }
 
-.pass a {
+.passSP a {
   color: white;
   text-decoration: none;
   font-family: "Poppins";
   font-size: 19px;
 }
 
-.pass:hover a {
+.passSP:hover a {
   text-decoration: underline;
 }
 
@@ -195,18 +185,18 @@ button[type="submit"]:hover {
   float: left;
 }
 
-.maindiv {
+.maindivSP {
   display: flex;
   margin: 12px;
 }
 
-.submit-btn {
+.submit-btnSP {
   position: relative;
   width: fit-content;
   padding-right: 46px;
 }
 
-.submit-btn::after {
+.submit-btnSP::after {
   content: "\27a4";
   color: #333;
   line-height: 40px;
@@ -235,12 +225,12 @@ input[type="file"] {
   color: #fff;
 }
 
-.form-control {
+.form-controlSP {
   background-color: #1f1e1e;
 
 }
 
-.field input[type="submit"] {
+.fieldSP input[type="submit"] {
   background: rgb(31, 30, 30);
   border: 1px solid black;
   color: white;
@@ -253,7 +243,7 @@ input[type="file"] {
   border-radius: 20px;
 }
 
-.field input[type="submit"]:hover {
+.fieldSP input[type="submit"]:hover {
   background: rgb(20, 20, 20);
 }
 
@@ -262,10 +252,11 @@ input[type="file"] {
   margin: 20px 0;
   font-family: "Poppins", sans-serif;
 }
-.headtxt{
-  margin-top: 1px;
-  margin-bottom: 20px;
+.headtxtSP{
+  margin-top: 0px;
+  margin-bottom: 15px;
   color: white;
   font-family: "Poppins";
   font-weight: 900;
+  font-size: 40px;
 }

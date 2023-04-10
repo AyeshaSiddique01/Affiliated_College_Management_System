@@ -42,33 +42,33 @@ const Login = () => {
 
     return (
         <>
-            <div className='FormBg'>
+            <div className='FormBglogin'>
                 <div className='loginExaminer'>
                     <style>
                         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' />
                     </style>
-                    <div className="bg-img">
-                        <div className="content">
+                    <div className="bg-imglogin">
+                        <div className="contentlogin">
                             <header><h1 style={{ color: "white", fontFamily: "Poppins", fontWeight: "600" }}>Log In form</h1></header>
                             <header type="PI" style={{ fontFamily: "Poppins", color: "white" }}>Enter your registered mail and password:</header>
                             <form onSubmit={handleLogin}>
 
-                                <div className="maindiv">
+                                <div className="maindivlogin">
                                     <span className="fa fa-user"></span>
                                     <input type="text" name='email' className="fa input-box" placeholder='Enter Email' onChange={(e) => setEmail(e.target.value)} required />
                                 </div>
 
-                                <div className="maindiv">
+                                <div className="maindivlogin">
                                     <span className='fa fa-lock'></span>
-                                    <input type="password" className="pass-key" id='pass-key' name='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
-                                    <span className='show' id='show'>Show</span>
+                                    <input type="password" className="pass-keylogin" id='pass-key' name='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
+                                    <span className='showlogin' id='show'>Show</span>
                                 </div>
 
-                                <div className="pass">
+                                <div className="passlogin">
                                     <a href="/SignupPersonalInfo">Don't have an account? Sign up</a>
                                 </div>
                                 <div>
-                                    <button type="submit" className="submit-btn" >Login</button>
+                                    <button type="submit" className="submit-btnlogin" >Login</button>
                                 </div>
                                 <div>
                                     {error && <div>{error}</div>}

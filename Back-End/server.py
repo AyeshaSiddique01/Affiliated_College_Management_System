@@ -10,6 +10,7 @@ from fileinput import filename
 import os
 from pathlib import Path
 import smtplib, ssl , random,string
+# pip install flask_mail
 from flask_mail import Mail, Message
 from BusinessObjects import *
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -61,14 +62,13 @@ def SignUpPersonalInfo():
     data.usr_bio = usr_bio
     data.usr_gender = usr_gender
     data.usr_phoneno = usr_phone
-    print(usr_phone)
     m = model()
     if (m.checkEmailExist(usr_email) == False):
         user_id = m.InsertUser(data)  # insertion function return userid
         if user_id != False:
             print("user_id in p: ", user_id)
             session['user_id'] = user_id
-            print("user id of session: ",session.get('user_id'))
+            print(session.get("user_id"))
             session["usr_email"] = usr_email
             session["usr_name"] = usr_name
             access_token = create_access_token(identity=usr_email)
@@ -80,7 +80,6 @@ def SignUpPersonalInfo():
             return jsonify({"error": "Error in insertion of personal info"}), 401
     else:
         return jsonify({"error": "Email exists"}), 401
-
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 def SignUpExaminerInfo():        
@@ -96,7 +95,7 @@ def SignUpExaminerInfo():
     ranking = 0
     acceptance_count = 0
     rejection_count = 0
-    print(user_id)
+    print("user_id in next func: " , user_id)
     data = examiner(user_id, institution, availability, ranking,
                     resume, acceptance_count, rejection_count)
     m = model()
@@ -106,8 +105,7 @@ def SignUpExaminerInfo():
         print("Examiner inserted")
         access_token = create_access_token(identity=user_id)
         return jsonify(access_token=access_token), 200
-    return jsonify({"error": "Error in insertion of examiner info"}), 401
-
+    return jsonify({"error": "Error in insertion"}), 401
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification():
@@ -128,8 +126,7 @@ def ExaminerQualification():
         print("Qualification inserted")
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
-    return jsonify({"error": "Error in insertion of qualification"}), 401
-
+    return jsonify({"error": "Error in insertion"}), 401
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience():

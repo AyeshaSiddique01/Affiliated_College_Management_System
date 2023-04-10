@@ -17,7 +17,7 @@ const ResultPending = () => {
             <div className='container'>
                 <div className="row">
                     <div className='adjustment3'>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Object Oriented programming
@@ -32,7 +32,7 @@ const ResultPending = () => {
 
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Introduction to Computing
@@ -46,7 +46,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3" type="Practical">
                                 <div className='CourseTitle3'>
                                     Basic Electronics
@@ -61,7 +61,7 @@ const ResultPending = () => {
 
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Web Engineering
@@ -75,7 +75,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Analysis of Algorithms
@@ -89,7 +89,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Computer Networks
@@ -103,7 +103,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Artificial Intelligence
@@ -117,7 +117,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Programming Fundamentals
@@ -131,7 +131,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Object Oriented programming
@@ -145,7 +145,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Calculus-||
@@ -159,7 +159,7 @@ const ResultPending = () => {
                                 </div>
                             </div>
                         </a>
-                        <a href='http://localhost:3000/AcceptedRequest'>
+                        <a href='http://localhost:3000/UploadResult'>
                             <div className="notification_block3">
                                 <div className='CourseTitle3'>
                                     Database systems

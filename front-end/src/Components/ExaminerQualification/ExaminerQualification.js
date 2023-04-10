@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import './examinerQualification.css';
 
 const ExaminerQualification = () => {
 
@@ -59,20 +60,20 @@ const ExaminerQualification = () => {
     //  }, []);
 
     return (
-        <div className='FormBg'>
-            <div className='bg-img'>
-                <div className="content" style={{ width: "510px", height: "77%" }}>
+        <div className='FormBgEQ'>
+            <div className='bg-imgEQ'>
+                <div className="contentEQ" style={{ width: "522px", height: "87%" }}>
                     <header>
-                        <h1 style={{ color: "white", fontFamily: "'Poppins', sans-serif", fontWeight: "500" }}>Qualification</h1>
+                        <h1 style={{ color: "white", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>
-                    <table className='TableStyle' border="1">
+                    <table className='TableStyleEQ' border="1">
                         <tr>
                             <th>Sr #</th>
                             <th>Degree Title</th>
                             <th>Institute Name</th>
                             <th>Starting Date</th>
                             <th>Ending Date</th>
-                            <th className='EditBtn'>Edit</th>
+                            <th className='EditBtnEQ'>Edit</th>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -80,44 +81,44 @@ const ExaminerQualification = () => {
                             <td>Punjab Univerity College Of Information Technology</td>
                             <td>October, 2019</td>
                             <td>July, 2023</td>
-                            <td className='EditBtn'>Edit</td>
+                            <td className='EditBtnEQ'>Edit</td>
                         </tr>
                     </table>
-                    <div className="container Buttons">
+                    <div className="container ButtonsEQ">
                         <div>
-                            <div className='NextBtn'>
+                            <div className='NextBtnEQ'>
                                 <button type="button" id='myBtn'>Add New</button>
                             </div>
-                            <div id="AddNewQualification" class="modal">
-                                <div class="modal-content" style={{backgroundColor : "#232323"}}>
-                                    <span class="close">&times;</span>
+                            <div id="AddNewQualification" className="modalEQ">
+                                <div className="modal-contentEQ" style={{backgroundColor : "#232323"}}>
+                                    <span className="close">&times;</span>
                                     <div>
                                         <form onSubmit={handleExaminerQualification}>
-                                            <div className="maindiv">
+                                            <div className="maindivEQ">
                                                 <span></span>
-                                                <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
+                                                <input type="text" className='input-boxEQ' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
                                             </div>
-                                            <div className="maindiv">
+                                            <div className="maindivEQ">
                                                 <span></span>
-                                                <input type="text" className='input-box' placeholder='Enter Institute Name' name='institution' onChange={(e) => setInstitution(e.target.value)} required />
+                                                <input type="text" className='input-boxEQ' placeholder='Enter Institute Name' name='institution' onChange={(e) => setInstitution(e.target.value)} required />
                                             </div>
-                                            <div className="maindiv">
+                                            <div className="maindivEQ">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
+                                                <input className="form-controlEQ input-boxEQ" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindiv">
+                                            <div className="maindivEQ">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
+                                                <input className="form-controlEQ input-boxEQ" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindiv">
+                                            <div className="maindivEQ">
                                                 <label className='label_' for="Certificate">Transcript: </label>
-                                                <input type="file" name="transcript" className="form-control" ref={fileInputRef} required />
+                                                <input type="file" name="transcript" className="form-controlEQ" ref={fileInputRef} required />
                                             </div>
-                                            <div className="AddBtn">
+                                            <div className="AddBtnEQ">
                                                 <input type="submit" value="Add" />
                                             </div>
                                             <div>
@@ -128,7 +129,7 @@ const ExaminerQualification = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='NextBtn'>
+                        <div className='NextBtnEQ'>
                             <a href="http://localhost:3000/ExaminerExp">
                                 <button type="submit">Next Page</button>
                             </a>

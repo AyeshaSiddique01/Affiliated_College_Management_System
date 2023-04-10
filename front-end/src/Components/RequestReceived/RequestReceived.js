@@ -4,30 +4,30 @@ import './requestReceived.css';
 const RequestReceived = () => {
 
     return (
-        <div className='Mybody'>
+        <div className='My-body7'>
             <div className='container'>
-                <div className="row Requestheader">
-                    <div className="courseTitle col-9">
+                <div className="row RequestheaderRR">
+                    <div className="courseTitleRR col-9">
                         CMP-100 Introduction to Computing
                         <br></br>
-                        <div className="requestdate col-3">
+                        <div className="requestdateRR col-3">
                         requested date
                         </div>
                     </div>
-                    <div className="deadline col-3">
+                    <div className="deadlineRR col-3">
                         deadline of paper upload
                     </div>
                 </div>
                 <div className="row">
-                    <div className="requestBody">
+                    <div className="requestBodyRR">
                         <div className="bookRecomended">
-                            <label className='outlineTitle'>Book recomended: </label>
+                            <label className='outlineTitleRR'>Book recomended: </label>
                             Nell Dale, John Lewis, Computer Science Illuminated, 5th Edition,
                             Jones & Bartlett Learning, 2012, ISBN-10: 1449672841,
                             ISBN-13: 978-1449672843.
                         </div>
-                        <div className="CourseOutline">
-                            <label className='outlineTitle'>Outline:</label>
+                        <div className="CourseOutlineRR">
+                            <label className='outlineTitleRR'>Outline:</label>
                             Introduction to Information Technology, The Internet and World
                             Wide Web, Software, Types of software, Application Software, Productivity
                             Software, System Software, Digital Logic Design, Computer Organization,
@@ -38,9 +38,9 @@ const RequestReceived = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row requestFooter">
+                <div className="row requestFooterRR">
                     <button type='accept'className='col-4 AcceptBtn'>Accept</button>
-                    <button type='accept'className='col-4 AcceptBtn'>Reject</button>
+                    <button type='accept'className='col-4 RejectBtn'>Reject</button>
                 </div>
             </div>
         </div>
