@@ -2,7 +2,7 @@
     color: rgb(20, 20, 20);
     background-image: url("/src/Static/texture11.jpg");
     padding-left: 100px;
-    padding-bottom: 105px
+    padding-bottom: 20px
   }
   
   .RequestheaderRR {
@@ -76,12 +76,13 @@
   margin-top: 70px;
 }
 
-  button[type="accept"] {
+  button[type="accept"]:nth-child(1) {
     width: 170px;
     background: rgb(17, 17, 17);
     border: 1px solid #fff;
     margin-right: 45px;
-    margin-top: 15px;
+    margin-top: 25px;
+    margin-left: 890px;
     height: 50px;
     font-size: 18px;
     border-radius: 20px;
@@ -98,7 +99,37 @@
   
   }
   
-  button[type="accept"]:hover {
+  button[type="accept"]:nth-child(1):hover {
+    background: rgb(5, 4, 4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+
+  button[type="accept"]:nth-child(2) {
+    width: 170px;
+    background: rgb(17, 17, 17);
+    border: 1px solid #fff;
+    margin-right: 45px;
+    margin-top: 25px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  
+  }
+  
+  button[type="accept"]:nth-child(2):hover {
     background: rgb(5, 4, 4);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
@@ -109,8 +140,4 @@
   .form-controlRR {
     background-color: #1f1e1e;
   
-  }
-
-  .RejectBtn{
-    margin-right: 60px;
   }

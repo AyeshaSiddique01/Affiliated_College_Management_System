@@ -115,30 +115,6 @@
   width: 100%;
 }
 
-/* .header-btn .progap{
-    background: #0a0a0a;
-    border: 1px solid rgb(131, 127, 127);
-    border-radius: 30px;
-    transition: all .50s ease;
-    margin: 5px;
-    padding: 15px 12px;
-    transition: all .8s ease;
-  }
-  
-  .header-btn .progap:hover{
-    background: #ffffff;
-    border-radius: 20%;
-    padding: 18px 40px;
-  }
-  
-  .header-btn a{
-    padding: 8px 12px;
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: poppin serif;
-  } */
-
 .header-btn a {
   padding: 8px 12px;
   color: #DDDBCB;
@@ -235,7 +211,7 @@
   transition: all .50s ease;
   max-height: 500px;
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
-  margin-right: 80px;
+  margin-right: 90px;
 }
 
 .header-btn .signlog:hover {

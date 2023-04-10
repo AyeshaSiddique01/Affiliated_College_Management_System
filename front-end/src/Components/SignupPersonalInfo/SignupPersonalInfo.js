@@ -49,7 +49,7 @@ const SignupPersonalInfo = () => {
             <div className='bg-imgSP'>
                 <div className="contentSP">
                     <h1 className='headtxtSP'>Sign Up form</h1>
-                    <header type="PI"> Put your Personal Information to Sign Up!</header>
+                    <header type="PI"style={{ fontFamily: "Poppins", color: "#171d1f" }}> Put your Personal Information to Sign Up!</header>
                     <form onSubmit={handleSignUpPersonal}>
                         <div className="maindivSP">
                             <span className="fa fa-user"></span>
