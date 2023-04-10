@@ -9,7 +9,7 @@ class model:
                 database="ACMS",            #write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",      #write your dbPassword
+                password="aiman12345",      #write your dbPassword
                 port="5432")
         except Exception as e:
             print(str(e))
@@ -101,6 +101,7 @@ class model:
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count") 
                             values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count});
                             '''
+                print("query: ", query)
                 cursor.execute(query)
                 self.connection.commit()
                 id = model.getExaminerID(self, examiner.user_id)

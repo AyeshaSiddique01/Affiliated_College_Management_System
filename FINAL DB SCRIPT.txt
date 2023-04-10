@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS public.examiner
     resume text COLLATE pg_catalog."default" NOT NULL,
     acceptance_count integer NOT NULL DEFAULT 0,
     rejection_count integer NOT NULL DEFAULT 0,
+    verified boolean NOT NULL DEFAULT False,
     CONSTRAINT examiner_pkey PRIMARY KEY (examiner_id),
     CONSTRAINT fk_user_id FOREIGN KEY ("user_id ")
         REFERENCES public."user" (usr_id) MATCH SIMPLE
@@ -175,7 +176,7 @@ CREATE TABLE IF NOT EXISTS public.exam_duty
     paper_upload_deadline date NOT NULL,
     paper_date date NOT NULL,
     result_upload_deadline date NOT NULL,
-    status_req boolean NOT NULL,
+    status_req integer NOT NULL,
     paper text COLLATE pg_catalog."default",
     result text COLLATE pg_catalog."default",
     rd_id integer NOT NULL,

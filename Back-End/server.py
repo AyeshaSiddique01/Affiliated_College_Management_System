@@ -1,5 +1,6 @@
 from flask import *
-# from flask import Flask, request, session, jsonify
+from flask import Flask, request, session, jsonify, redirect
+from flask_session import Session
 from werkzeug.wrappers import response
 from Model import model
 from datetime import datetime
@@ -10,8 +11,6 @@ import os
 from pathlib import Path
 import smtplib, ssl , random,string
 from flask_mail import Mail, Message
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
 from BusinessObjects import *
 from werkzeug.security import generate_password_hash, check_password_hash
 # pip install flask_jwt_extended
@@ -23,15 +22,18 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object("config")
 app.secret_key = app.config["SECRET_KEY"]
 app.config['JWT_SECRET_KEY'] = 'super-secret'
+
 jwt = JWTManager(app)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'elite.express243@gmail.com'
-app.config['MAIL_PASSWORD'] = 'auba1422'
+app.config['MAIL_PASSWORD'] = 'njsopxyyzkkssixt'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEFAULT_SENDER'] = "elite.express243@gmail.com"
 mail = Mail(app) 
+verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo():
@@ -66,26 +68,22 @@ def SignUpPersonalInfo():
         if user_id != False:
             print("user_id in p: ", user_id)
             session['user_id'] = user_id
+            print("user id of session: ",session.get('user_id'))
             session["usr_email"] = usr_email
             session["usr_name"] = usr_name
             access_token = create_access_token(identity=usr_email)
-            # sending email
-            verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
-            session["verification_code"] = verification_code 
-            verification_link = request.url_root + 'verify?code=' + verification_code
-            message = Message('Verify your email', recipients=[session.get("usr_email")]) 
-            message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-            # message.body = f'Click the link to verify your email: {verification_link}' 
-            mail.send(message)
+            #sending email
+            #verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
+            #session["verification_code"] = verification_code 
             return jsonify(access_token=access_token), 200
         else:
-            return jsonify({"error": "Error in insertion"}), 401
+            return jsonify({"error": "Error in insertion of personal info"}), 401
     else:
         return jsonify({"error": "Email exists"}), 401
 
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
-def SignUpExaminerInfo():
+def SignUpExaminerInfo():        
     institution = request.form.get("institution")
     user_id = session.get('user_id')
     # Get File and Save in a directory
@@ -108,7 +106,7 @@ def SignUpExaminerInfo():
         print("Examiner inserted")
         access_token = create_access_token(identity=user_id)
         return jsonify(access_token=access_token), 200
-    return jsonify({"error": "Error in insertion"}), 401
+    return jsonify({"error": "Error in insertion of examiner info"}), 401
 
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
@@ -130,7 +128,7 @@ def ExaminerQualification():
         print("Qualification inserted")
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
-    return jsonify({"error": "Error in insertion"}), 401
+    return jsonify({"error": "Error in insertion of qualification"}), 401
 
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
@@ -153,25 +151,26 @@ def ExaminerExperience():
         print("Experience inserted")
         name = session.get("usr_name")
         # Email = session.get("usr_email")
-        Email = "bitf19a008@pucit.edu.pk"
-        text = '''\
-                    <html>
-                    <body>
-                        <p>Hi <b>{name}</b>,<br><br>
-                        Welcome to Affliated college management system...!!<br>
-                        Hope you have a great experience :)
-                        </p>
-                    </body>
-                    </html>
-                    '''
-        text = MIMEText(text.format(name=name), "html")
-        mail(Email, text)
+														#email sent should be here
+        print("verification_code", verification_code)
+        verification_link = request.url_root + 'verify?code=' + verification_code
+        message = Message('Verify your email', recipients=[session.get("usr_email")]) 
+        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        mail.send(message)
         print("succeed")
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
 
-
+@app.route('/verify')
+def verify():
+    code = request.args.get('code')
+#    print("code in query: ",code)
+    if verification_code == code:
+        return redirect("http://localhost:3000")
+    else:
+        return 'Invalid verification code!'
+    
 @app.route('/ExaminerLogin', methods=["POST"])
 def ExaminerLogin():
     email = request.json.get("email")
@@ -206,19 +205,6 @@ def userdata():
         'email': 'john@example.com'
     }
     return jsonify(userdata)
-
-# def mail(email,text):
-#         senderMail = "ayeshasiddique1306@gmail.com"
-#         message = MIMEMultipart("alternative")
-#         message.attach(text)
-#         message = message.as_string()
-#         context = ssl.create_default_context()
-#         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-#             server.login(senderMail, "Ayesha@1284356", True)
-#             server.sendmail(
-#                 senderMail, email, message
-#             )
-
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
