@@ -14,7 +14,7 @@ class User:
         self.usr_gender = usr_gender
 
 class examiner :
-    def __init__(self, user_id, institution, availability, ranking, resume, acceptance_count, rejection_count) -> None:
+    def __init__(self, user_id, institution, availability, ranking, resume, acceptance_count, rejection_count,verified) -> None:
         self.user_id = user_id
         self.institution = institution
         self.availability = availability
@@ -22,6 +22,7 @@ class examiner :
         self.resume = resume
         self.acceptance_count = acceptance_count
         self.rejection_count = rejection_count
+        self.verified = verified
 
 class admin:
     def __init__(self, usr_id, admin_role) -> None:

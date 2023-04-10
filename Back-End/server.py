@@ -36,6 +36,8 @@ app.config['MAIL_DEFAULT_SENDER'] = "elite.express243@gmail.com"
 mail = Mail(app) 
 verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
 
+m = model()
+
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo():
     usr_name = request.json.get("usr_name")
@@ -48,7 +50,6 @@ def SignUpPersonalInfo():
     usr_phone = request.json.get("usr_phone")
     usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
     usr_active_status = True
-
     _hashed_password = generate_password_hash(usr_password)
 
     data = User()
@@ -62,11 +63,12 @@ def SignUpPersonalInfo():
     data.usr_bio = usr_bio
     data.usr_gender = usr_gender
     data.usr_phoneno = usr_phone
-    m = model()
+    #m = model()
     if (m.checkEmailExist(usr_email) == False):
         user_id = m.InsertUser(data)  # insertion function return userid
+        ur_id = user_id
         if user_id != False:
-            print("user_id in p: ", user_id)
+            print("user_id in p: ", user_id, " usr id from model: ", m.ur_id)
             session['user_id'] = user_id
             print(session.get("user_id"))
             session["usr_email"] = usr_email
@@ -83,8 +85,11 @@ def SignUpPersonalInfo():
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 def SignUpExaminerInfo():        
+    #m = model()
     institution = request.form.get("institution")
-    user_id = session.get('user_id')
+    print("ur_id in examiner info: ", m.ur_id)
+    user_id = m.ur_id
+#    user_id = session.get('user_id')
     # Get File and Save in a directory
     f = request.files.get("resume")
     resume = f"Static\Resumes\{user_id}.pdf"
@@ -95,12 +100,13 @@ def SignUpExaminerInfo():
     ranking = 0
     acceptance_count = 0
     rejection_count = 0
+    verified = False
     print("user_id in next func: " , user_id)
     data = examiner(user_id, institution, availability, ranking,
-                    resume, acceptance_count, rejection_count)
-    m = model()
+                    resume, acceptance_count, rejection_count,verified)
     examiner_id = m.InsertExaminer(data)
     if examiner_id != False:
+        #exmnr_id = examiner_id
         session["examiner_id"] = examiner_id
         print("Examiner inserted")
         access_token = create_access_token(identity=user_id)
@@ -109,7 +115,9 @@ def SignUpExaminerInfo():
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 def ExaminerQualification():
-    examiner_id = session.get("examiner_id")
+    #m = model()
+    examiner_id = m.exmnr_id
+    #examiner_id = session.get("examiner_id")
     degree_title = request.form.get("degree_title")
     institution = request.form.get("institution")
     starting_date = request.form.get("starting_date")
@@ -121,7 +129,6 @@ def ExaminerQualification():
     f.save(transcript)
     data = qualification(examiner_id, degree_title, transcript,
                          institution, starting_date, ending_date)
-    m = model()
     if m.InsertExaminerQualification(data) != False:
         print("Qualification inserted")
         access_token = create_access_token(identity=examiner_id)
@@ -130,7 +137,9 @@ def ExaminerQualification():
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience():
-    examiner_id = session.get("examiner_id")
+    #m = model()
+    examiner_id = m.exmnr_id
+#    examiner_id = session.get("examiner_id")
     job_title = request.form.get("job_title")
     organization = request.form.get("organization")
     reference_email = request.form.get("reference_email")
@@ -143,18 +152,18 @@ def ExaminerExperience():
     ExperianceLetter.save(ExperianceLetters)
     data = experience(examiner_id, job_title, ExperianceLetter,
                       organization, reference_email, starting_date, ending_date)
-    m = model()
+    print("verification_code", verification_code)
+    verification_link = request.url_root + 'verify?code=' + verification_code
+    email = m.getUserEmail(m.ur_id)
+    message = Message('Verify your email', recipients=email) 
+    message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+    mail.send(message)
+    print("succeed")
+
     if m.InsertExaminerExperience(data) != False:
         print("Experience inserted")
-        name = session.get("usr_name")
         # Email = session.get("usr_email")
 														#email sent should be here
-        print("verification_code", verification_code)
-        verification_link = request.url_root + 'verify?code=' + verification_code
-        message = Message('Verify your email', recipients=[session.get("usr_email")]) 
-        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-        mail.send(message)
-        print("succeed")
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
@@ -164,6 +173,7 @@ def verify():
     code = request.args.get('code')
 #    print("code in query: ",code)
     if verification_code == code:
+        m.setUserVerified(m.exmnr_id)
         return redirect("http://localhost:3000")
     else:
         return 'Invalid verification code!'
@@ -172,24 +182,26 @@ def verify():
 def ExaminerLogin():
     email = request.json.get("email")
     password = request.json.get("password")
-    m = model()
+    #m = model()
     print(email, password)
-    # chk email exist
-    if (m.checkEmailExist(email)):
-        usr_pass = m.getUserPassword(email)
-        if check_password_hash(usr_pass, password):
-            examiner_id = m.ValidatePassword(email, usr_pass)
-            examiner_id = 1
-            if (examiner_id > 0):
-                session["examiner_id"] = examiner_id
-                access_token = create_access_token(identity=email)
-                return jsonify(access_token=access_token), 200
+    if m.checkExaminerVerified(m.exmnr_id):
+        if (m.checkEmailExist(email)):
+            usr_pass = m.getUserPassword(email)
+            if check_password_hash(usr_pass, password):
+                examiner_id = m.ValidatePassword(email, usr_pass)
+                examiner_id = 1
+                if (examiner_id > 0):
+                    session["examiner_id"] = examiner_id
+                    access_token = create_access_token(identity=email)
+                    return jsonify(access_token=access_token), 200
+                else:
+                     return jsonify({"error": "Invalid Password"}), 401
             else:
-                return jsonify({"error": "Invalid Password"}), 401
+                 return jsonify({"error": "Invalid Password"}), 401
         else:
-            return jsonify({"error": "Invalid Password"}), 401
+         	return jsonify({"error": "Email does not exist"}), 401 
     else:
-        return jsonify({"error": "Email does not exist"}), 401
+        return jsonify({"error": "Verify email first"}), 401
 
 
 @app.route('/userdata', methods=['GET'])
@@ -206,7 +218,7 @@ def userdata():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     examiner_id = session.get("examiner_id")
-    m = model()
+    #m = model()
     user_ = m.getDataofUser(session.get("user_id"))
     examiner_ = m.getDataofExaminer("examiner", examiner_id)
     data = {
@@ -234,7 +246,7 @@ def profile():
 @app.route('/requestsRecieved', methods=['GET'])
 def requestsRecieved():						# not accepted or rejected yet
 	examiner_id = session.get("examiner_id")
-	m = model()
+	##m = model()
 	# return requests whose status is 1 i.e pending
 	# prefer to make two separete functions
 	duties =[]
@@ -247,7 +259,7 @@ def requestsRecieved():						# not accepted or rejected yet
 @app.route('/acceptedRequests', methods=['GET'])
 def acceptedRequests():						# accepted but haven't uploaded paper
 	examiner_id = session.get("examiner_id")
-	m = model()
+	#m = model()
 	# return requested recieved and status is true and 
 	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
 	# paper table does not has the entity has the same duty id  
@@ -261,7 +273,7 @@ def acceptedRequests():						# accepted but haven't uploaded paper
 @app.route('/duePaperRequests', methods=['GET'])
 def duePaperRequests():						# accepted and uploaded paper and paper is not taken yet
     examiner_id = session.get("examiner_id")
-    m = model()
+    #m = model()
     # paper table has the entity has the same duty id
     # and paper_date in exam_duty table is after today
     duties = m.getDuePaperRequests(examiner_id)
@@ -271,7 +283,7 @@ def duePaperRequests():						# accepted and uploaded paper and paper is not take
 @app.route('/dueResultRequests', methods=['GET'])
 def dueResultRequests():					# paper done upload paper now
     examiner_id = session.get("examiner_id")
-    m = model()
+    #m = model()
     # paper table has the entity has the same duty id has null result column
     # and result_date in exam_duty table is after today
     duties = m.DueResultRequests(examiner_id)
@@ -282,7 +294,7 @@ def dueResultRequests():					# paper done upload paper now
 def RequestRecieved():
     d_id = 1 								# ya front end sy get kr lean gy
     session["d_id"] = d_id
-    m = model()
+    #m = model()
     # => using course code get crs code, crs title,
     # => request date, paper upload deadline from exam/duty table
     # => using rd_id get crs_book and crs_outline from both tables
@@ -296,7 +308,7 @@ def RequestRecieved():
 def UploadPaper():
     d_id = 1 								# ya front end sy get kr lean gy
     session["d_id"] = d_id
-    m = model()
+    #m = model()
     # => using course code get crs code, crs title,
     # => request date, paper upload deadline from exam/duty table
     # => using rd_id get crs_book and crs_outline from both tables
@@ -314,7 +326,7 @@ def UploadPaper():
 def UploadResult():
     d_id = 1 								# ya front end sy get kr lean gy
     session["d_id"] = d_id
-    m = model()
+    #m = model()
     # => using course code get crs code, crs title,
     # => request date, result upload deadline from exam/duty table
     # => using rd_id get crs_book and crs_outline from both tables
@@ -336,7 +348,7 @@ def GetPaper():
     if Path(papers).is_file():
         os.remove(papers)
     paper.save(papers)
-    m = model()
+    #m = model()
     # havn't
     m.uploadPaper(d_id, papers, session.get("duty_type"))
     return jsonify("Uploaded")
@@ -350,7 +362,7 @@ def GetResult():
     if Path(results).is_file():
         os.remove(results)
     result.save(results)
-    m = model()
+    #m = model()
     m.uploadResult(d_id, results, session.get("duty_type"))
     return jsonify("Uploaded")
 
