@@ -14,11 +14,11 @@ const DuePaper = () => {
         <div className='My-body2'>
             <div class="subject2-box">
                 <h2 class="subject2-name">Due Paper</h2>
-                <box-icon name='sort-a-z' animation='tada' size='120px' color="#ffffff"></box-icon>
-                <box-icon name='time-five' animation='tada' size='50px' color="#ffffff"></box-icon>
-                <box-icon name='task' animation='flashing' size='90px' color="#ffffff"></box-icon>
-                <box-icon name='pencil' animation='tada' size='90px' color="#ffffff"></box-icon>
-                <box-icon name='calculator' animation='' size='70px' color="#ffffff"></box-icon>
+                <box-icon name='sort-a-z' animation='tada' size='140px' color="#ffffff"></box-icon>
+                <box-icon name='time-five' animation='tada' size='60px' color="#ffffff"></box-icon>
+                <box-icon name='task' animation='flashing' size='100px' color="#ffffff"></box-icon>
+                <box-icon name='pencil' animation='tada' size='100px' color="#ffffff"></box-icon>
+                <box-icon name='calculator' animation='' size='80px' color="#ffffff"></box-icon>
                 <box-icon name='detail' animation='' size='70px' color="#ffffff"></box-icon>
                 <box-icon type='solid' name='graduation' animation='tada' size='110px' color="#ffffff"></box-icon>
                 {/* <box-icon type='logo' name='deezer' animation='flashing' size='70px' color="#ffffff"></box-icon> */}

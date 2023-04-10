@@ -11,6 +11,8 @@ class model:
                 user="postgres",
                 password="Ayesha@1306",  # write your dbPassword
                 port="5432")
+            self.ur_id = 0
+            self.exmnr_id = 0
         except Exception as e:
             print(str(e))
 
@@ -29,6 +31,7 @@ class model:
                 cursor.execute(query)
                 self.connection.commit()
                 id = model.getUserID(self, user.usr_email)
+                self.ur_id = id
                 return id
             else:
                 return 0
@@ -52,6 +55,24 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in getUserID", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def getUserEmail(self, id):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(
+                    f'''select usr_email from public.user where usr_id = '{id}';''')
+                email = cursor.fetchone()
+                return email[0]
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
             return False
         finally:
             if cursor != None:
@@ -98,12 +119,14 @@ class model:
         try:
             if self.connection != None:  # there should be a email check weather the user exists or not
                 cursor = self.connection.cursor()
-                query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count") 
-                            values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count});
+                query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count","verified") 
+                            values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count}, {examiner.verified});
                             '''
+                print("query: ", query)
                 cursor.execute(query)
                 self.connection.commit()
                 id = model.getExaminerID(self, examiner.user_id)
+                self.exmnr_id = id
                 return id
             else:
                 return 0
@@ -435,18 +458,40 @@ class model:
                 cursor.close()
 
     def getUploadPaperDutyDetails(self, id):
+        pass
+
+    def setUserVerified(self, examiner_id):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                query = f'''update examiner SET verified = True where examiner_id = {examiner_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getDueTheoryRequests: ", e)
+            print("Exception in getDataofUser", str(e))
             return False
         finally:
             if cursor:
                 cursor.close()
 
+    def checkExaminerVerified(self,examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select verified from examiner where examiner_id = {examiner_id};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                if data[0][0]:
+                    return True
+                else:
+                    return False
+ 
+        except Exception as e:
+            print("Exception in checkExaminerVerifiedr", str(e))
+            return False
+        finally:
+            if cursor:
+                cursor.close()

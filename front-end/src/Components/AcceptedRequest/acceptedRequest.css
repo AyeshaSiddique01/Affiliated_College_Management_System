@@ -1,16 +1,16 @@
-.My-body5 {
+.My-body8 {
     color: white;
     padding-left: 100px;
     background-image: url("/src/Static/texture11.jpg");
     padding-bottom: 83px
   }
   
-  .RequestheaderUP {
+  .RequestheaderAR {
     padding: 10px 0px 6px 8px;
     margin-left: 150px;
   }
   
-  .courseTitleUP {
+  .courseTitleAR {
     font-weight: 400;
     font-size: 34px;
     font-family:'Poppins';
@@ -19,7 +19,7 @@
     color: rgb(20, 20, 20);
   }
   
-  .deadlineUP {
+  .deadlineAR {
     font-size: 22px;
     float: right;
     padding-top: 80px;
@@ -28,12 +28,12 @@
     font-weight: 900px;
   }
 
-  .requestdateUP {
+  .requestdateAR {
     font-size: 22px;
     float: left;
   }
   
-  .requestBodyUP {
+  .requestBodyAR {
     text-align: left;
     font-size: 16px;
     font-family: 'Poppins';
@@ -49,14 +49,14 @@
     margin-top: 30px;
   }
   
-  .outlineTitleUP {
+  .outlineTitleAR {
     display: block;
     font-size: 27px;
     font-weight: 500;
     margin-left: 0px;
   }
 
-  .uploadPaperUP {
+  .uploadPaperAR {
     border: white;
     height: fit-content;
     border-style: solid;
@@ -90,13 +90,13 @@
     background: rgb(5, 4, 4);
   }
 
-  .submit-btnUP {
+  .submit-btnAR {
     position: relative;
     width: fit-content;
     padding-right: 46px;
   }
   
-  .submit-btnUP::after {
+  .submit-btnAR::after {
     content: "\27a4";
     color: #333;
     line-height: 40px;
@@ -125,7 +125,7 @@
     color: #fff;
   }
   
-  .form-controlUP {
+  .form-controlAR {
     background-color: #1f1e1e;
   
   }

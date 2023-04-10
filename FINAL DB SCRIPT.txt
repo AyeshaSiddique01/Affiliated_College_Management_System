@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS public.examiner
     resume text COLLATE pg_catalog."default" NOT NULL,
     acceptance_count integer NOT NULL DEFAULT 0,
     rejection_count integer NOT NULL DEFAULT 0,
+    verified boolean NOT NULL DEFAULT False,
     CONSTRAINT examiner_pkey PRIMARY KEY (examiner_id),
     CONSTRAINT fk_user_id FOREIGN KEY ("user_id ")
         REFERENCES public."user" (usr_id) MATCH SIMPLE
