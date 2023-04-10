@@ -47,7 +47,7 @@ import 'boxicons'
 function App() {
   return (
     <div className="App">
-      {/* <Router>
+      <Router>
         <Navbar />
           <Routes>
             <Route path="/" element={<Login />} />
@@ -65,8 +65,7 @@ function App() {
             <Route path="/UploadResult" element={<UploadResult />} />
             <Route path="/Settings" element={<Settings />} />
           </Routes >
-      </Router> */}
-      <ExaminerQualification></ExaminerQualification>
+      </Router>
     </div>
   );
 }
