@@ -303,6 +303,7 @@ class model:
             if self.connection:
                 cursor = self.connection.cursor()
                 query = f'''select * from public.{tableName} where examiner_id = {examiner_id};'''
+                print(query)
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -484,7 +485,7 @@ class model:
                 query = f'''select verified from examiner where examiner_id = {examiner_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                if data[0][0]:
+                if data.__len__() == 1:
                     return True
                 else:
                     return False

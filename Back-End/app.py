@@ -74,9 +74,7 @@ def SignUpPersonalInfo():
         user_id = m.InsertUser(data)  # insertion function return userid
         ur_id = user_id
         if user_id != False:
-            print("user_id in p: ", user_id, " usr id from model: ", m.ur_id)
             session['user_id'] = user_id
-            print(session.get("user_id"))
             session["usr_email"] = usr_email
             session["usr_name"] = usr_name
             access_token = create_access_token(identity=usr_email)
@@ -104,7 +102,6 @@ def SignUpPersonalInfo():
 def SignUpExaminerInfo():        
     #m = model()
     institution = request.form.get("institution")
-    print("ur_id in examiner info: ", m.ur_id)
     user_id = m.ur_id
 #    user_id = session.get('user_id')
     # Get File and Save in a directory
@@ -117,16 +114,13 @@ def SignUpExaminerInfo():
     ranking = 0
     acceptance_count = 0
     rejection_count = 0
-    print("user_id in next func: ", user_id)
     verified = False
-    print("user_id in next func: " , user_id)
     data = examiner(user_id, institution, availability, ranking,
                     resume, acceptance_count, rejection_count,verified)
     examiner_id = m.InsertExaminer(data)
     if examiner_id != False:
         #exmnr_id = examiner_id
         session["examiner_id"] = examiner_id
-        print("Examiner inserted")
         access_token = create_access_token(identity=user_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
@@ -149,11 +143,9 @@ def ExaminerQualification():
     data = qualification(examiner_id, degree_title, transcript,
                          institution, starting_date, ending_date)
     if m.InsertExaminerQualification(data) != False:
-        print("Qualification inserted")
         access_token = create_access_token(identity=examiner_id)
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
-
 
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 def ExaminerExperience():
@@ -172,16 +164,13 @@ def ExaminerExperience():
     ExperianceLetter.save(ExperianceLetters)
     data = experience(examiner_id, job_title, ExperianceLetter,
                       organization, reference_email, starting_date, ending_date)
-    print("verification_code", verification_code)
     verification_link = request.url_root + 'verify?code=' + verification_code
     email = m.getUserEmail(m.ur_id)
     message = Message('Verify your email', recipients=email) 
     message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
     mail.send(message)
-    print("succeed")
 
     if m.InsertExaminerExperience(data) != False:
-        print("Experience inserted")
         # Email = session.get("usr_email")
 														#email sent should be here
         access_token = create_access_token(identity=examiner_id)
@@ -192,7 +181,6 @@ def ExaminerExperience():
 @app.route('/verify')
 def verify():
     code = request.args.get('code')
-#    print("code in query: ",code)
     if verification_code == code:
         m.setUserVerified(m.exmnr_id)
         return redirect("http://localhost:3000")
@@ -204,8 +192,9 @@ def ExaminerLogin():
     email = request.json.get("email")
     password = request.json.get("password")
     #m = model()
-    print(email, password)
-    if m.checkExaminerVerified(m.exmnr_id):
+    # examiner_id = m.getExaminerID(m.getUserID(email))
+    examiner_id = 12
+    if m.checkExaminerVerified(examiner_id):
         if (m.checkEmailExist(email)):
             usr_pass = m.getUserPassword(email)
             if check_password_hash(usr_pass, password):
@@ -269,20 +258,21 @@ def notifications():
 
 @app.route('/home')
 def home():
-    examiner_id = session.get("examiner_id")
-    m = model()
+    # examiner_id = session.get("examiner_id")
+    # m = model()
     # return requested received and status is true and 
     # paper upload deadline is after today
     duties = []
-    pracDuties = m.getHomePracRequests(examiner_id)  # 2 for accepted status
-    examDuties = m.getHomeTheoryRequests(examiner_id)
-    for i in pracDuties:
-        duties.append(i.append("Practicle Exam"))
+    # pracDuties = m.getHomePracRequests(examiner_id)  # 2 for accepted status
+    # examDuties = m.getHomeTheoryRequests(examiner_id)
+    # for i in pracDuties:
+    #     duties.append(i.append("Practicle Exam"))
     
-    for i in examDuties:
-        duties.append(i.append("Theory Paper"))
+    # for i in examDuties:
+    #     duties.append(i.append("Theory Paper"))
         
-    duties.sort(key=lambda x: x[1], reverse=True)
+    # duties.sort(key=lambda x: x[1], reverse=True)
+    duties.append([1,2,3,4])
     return jsonify(duties)
 
 @app.route('/requestsRecieved', methods=['GET'])
@@ -424,6 +414,17 @@ def GetResult():
     m.uploadResult(d_id, results, session.get("duty_type"))
     return jsonify("Uploaded")
 
+@app.route('/NewQualifications')
+def NewQualifications():
+    examiner_id = 12
+    qualifications = m.getDataofExaminer("qualification",examiner_id)
+    return jsonify(qualifications)
+
+@app.route('/NewExperience')
+def NewExperience():
+    examiner_id = 12
+    experiences = m.getDataofExaminer("experience",examiner_id)
+    return jsonify(experiences)
 
 # Running app
 if __name__ == '__main__':

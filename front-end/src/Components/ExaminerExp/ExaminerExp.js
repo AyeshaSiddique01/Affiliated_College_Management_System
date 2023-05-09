@@ -4,6 +4,16 @@ import './examinerExp.css';
 // import { useHistory } from "react-router-dom";
 
 const ExaminerExp = () => {
+
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/NewExperience')
+            .then(response => response.json())
+            .then(data => setDataList(data))
+            .catch(error => console.error(error));
+    }, []);
+
     const [job_title, set_job_title] = useState('');
     const [organization, set_organization] = useState('');
     const [reference_email, set_reference_email] = useState('');
@@ -67,14 +77,15 @@ const ExaminerExp = () => {
                             <th>Ending Date</th>
                             <th className='EditBtnEE'>Edit</th>
                         </tr>
-                        <tr>
+                        {dataList.map(item => (
+                            <tr>
                             <td>1</td>
-                            <td>BSIT</td>
-                            <td>Punjab Univerity College Of Information Technology</td>
-                            <td>October, 2019</td>
-                            <td>July, 2023</td>
-                            <td className='EditBtnEE'>Edit</td>
+                            <td>{item[2]}</td>
+                            <td>{item[3]}</td>
+                            <td>{item[4]}</td>
+                            <td>{item[5]}</td>
                         </tr>
+                        ))}   
                     </table>
                     <div className="container ButtonsEE">
                         <div>
@@ -88,7 +99,7 @@ const ExaminerExp = () => {
                                 <div className="modal-contentEE">
                                     <span className="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerExper}>
+                                        <form onSubmit={handleExaminerExper}  style={{width: "100%"}}>
                                             <div className="maindivEE">
                                                 <span></span>
                                                 <input type="text" className='input-boxEE' placeholder='Enter Job Title' name='job_title' onChange={(e) => set_job_title(e.target.value)} required />

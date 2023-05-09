@@ -121,6 +121,16 @@ class qualification:
         self.starting_date = starting_date
         self.ending_date = ending_date
         self.transcript = transcript
+    
+    def to_dic(self):
+        return {
+            "examiner_id" : self.examiner_id,
+            "degree_title" : self.degree_title,
+            "transcript" : self.transcript,
+            "institution" : self.institution,
+            "starting_date" : self.starting_date,
+            "ending_date" : self.ending_date
+            }
 
 class experience:
     def __init__(self, examiner_id, job_title, ExperianceLetter, organization, reference_email, starting_date, ending_date) -> None:
@@ -132,6 +142,16 @@ class experience:
         self.starting_date = starting_date
         self.ending_date = ending_date
         
+    def to_dic(self):
+        return {
+        "examiner_id" : self.examiner_id,
+        "job_title" : self.job_title,
+        "organization" : self.organization,
+        "ExperianceLetter" : self.ExperianceLetter,
+        "reference_email" : self.reference_email,
+        "starting_date" : self.starting_date,
+        "ending_date" : self.ending_date
+        }
 class college_review:
     def __init__(self, examiner_id, cr_complain, ac_id) -> None:
         self.examiner_id = examiner_id

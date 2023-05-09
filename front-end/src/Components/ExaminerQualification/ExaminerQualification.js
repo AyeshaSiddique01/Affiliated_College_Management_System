@@ -4,6 +4,15 @@ import './examinerQualification.css';
 
 const ExaminerQualification = () => {
 
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/NewQualifications')
+            .then(response => response.json())
+            .then(data => setDataList(data))
+            .catch(error => console.error(error));
+    }, []);
+
     const [degree_title, setDegreeTitle] = useState('');
     const [institution, setInstitution] = useState('');
     const [starting_date, setStartingDate] = useState('');
@@ -47,18 +56,7 @@ const ExaminerQualification = () => {
         }
 
     });
-    // const [data, setData] = useState([]);
-
-    // useEffect(() => {
-    //    fetch("http://127.0.0.1:3000/userdata") // or fetch("http://localhost:3000/userdata")
-    //      .then((response) => response.json())
-    //      .then((json) => {
-    //        setData(json);
-    //        alert("data = ", json);
-    //        console.log(data.name);
-    //      });
-    //  }, []);
-
+    
     return (
         <div className='FormBgEQ'>
             <div className='bg-imgEQ'>
@@ -73,16 +71,16 @@ const ExaminerQualification = () => {
                             <th>Institute Name</th>
                             <th>Starting Date</th>
                             <th>Ending Date</th>
-                            <th className='EditBtnEQ'>Edit</th>
                         </tr>
-                        <tr>
+                        {dataList.map(item => (
+                            <tr>
                             <td>1</td>
-                            <td>BSIT</td>
-                            <td>Punjab Univerity College Of Information Technology</td>
-                            <td>October, 2019</td>
-                            <td>July, 2023</td>
-                            <td className='EditBtnEQ'>Edit</td>
+                            <td>{item[2]}</td>
+                            <td>{item[3]}</td>
+                            <td>{item[4]}</td>
+                            <td>{item[5]}</td>
                         </tr>
+                        ))}                        
                     </table>
                     <div className="container ButtonsEQ">
                         <div>
@@ -93,7 +91,7 @@ const ExaminerQualification = () => {
                                 <div className="modal-contentEQ" style={{backgroundColor : "#232323"}}>
                                     <span className="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerQualification}>
+                                        <form onSubmit={handleExaminerQualification} style={{width: "100%"}}>
                                             <div className="maindivEQ">
                                                 <span></span>
                                                 <input type="text" className='input-boxEQ' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
