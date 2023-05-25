@@ -6,8 +6,9 @@
   }
   
   .bg-imglogin {
-    background-image: url("/src/Static/books2.jpg");
-    background-color: #2f4050;
+    /* background-image: url("/src/Static/books2.jpg"); */
+    /* background-color: #c4a88d; */
+    background-color: #ac8c6d;
     height: 100vh;
     background-size: cover;
     background-position:center;
@@ -15,6 +16,7 @@
 
   .contentlogin {
     margin-top: 0px;
+    background-color: #ad8e70;
     /*10px*/
     border-radius: 10px;
     position: absolute;
@@ -24,9 +26,9 @@
     text-align: center;
     padding: 60px 82px;
     width: 520px;
-    color: white;
+    color: #171d1f;
     transform: translate(-50%, -50%);
-    background-image: url("/src/Static/books.jpg");
+    /* background-image: url("/src/Static/books.jpg"); */
     background-size: cover;
     /*background-image: url("/src/Static/Light.png");
     /*background: rgb(48, 22, 22);
@@ -61,7 +63,7 @@
     height: 40px;
     width: 100%;
     display: flex;
-    background: rgba(255, 255, 255, 0.94);
+    background: #171d1f;
   }
   
   .fieldlogin span {
@@ -82,12 +84,12 @@
     box-sizing: border-box;
     outline: none;
     text-align: center;
-    color: #fff;
+    color: #171d1f;
   }
   
   select {
     background-color: #1f1e1e;
-    color: #fff;
+    color: #171d1f;
     border-radius: 20px;
   }
   
@@ -130,7 +132,7 @@
     box-sizing: border-box;
     outline: none;
     text-align: center;
-    color: #fff;
+    color: #171d1f;
   }
   
   .pass-keylogin:valid~.show {
@@ -145,7 +147,7 @@
   }
   
   .passlogin a {
-    color: white;
+    color: #171d1f;
     text-decoration: none;
     font-family: "Poppins";
     font-size: 19px;

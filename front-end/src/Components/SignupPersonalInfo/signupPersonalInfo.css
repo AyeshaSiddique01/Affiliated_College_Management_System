@@ -9,8 +9,8 @@
   /*background-repeat: no-repeat;
   background-attachment: fixed; */
   /* height: 100%; */
-  background-image: url("/src/Static/books2.jpg");
-  background-color: #2f4050;
+  /* background-image: url("/src/Static/books2.jpg"); */
+  background-color: #92785e;
   height: 122vh;
   background-size: cover;
   background-position: center;
@@ -19,15 +19,16 @@
   margin-top: 0px;
   border-radius: 10px;
   position: absolute;
+  background-color: #92785e;
   top: 62%;
   left: 50%;
   z-index: 999;
   text-align: center;
   padding: 30px 82px;
   width: 520px;
-  color: white;
+  color: #171d1f;
   transform: translate(-50%, -50%);
-  background-image: url("/src/Static/books3.jpg");
+  /* background-image: url("/src/Static/books3.jpg"); */
   background-size: cover;
   /*background-image: url("/src/Static/Light.png");*/
     /* background: rgb(48, 22, 22);
@@ -37,7 +38,7 @@
 }
 
 header[type="PI"] {
-  color: white;
+  color: #171d1f;
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 15px 0;
@@ -86,7 +87,7 @@ header[type="PI"] {
   box-sizing: border-box;
   outline: none;
   text-align: center;
-  color: #fff;
+  color: #171d1f;
 }
 
 select {
@@ -149,7 +150,7 @@ select {
 }
 
 .passSP a {
-  color: white;
+  color: #171d1f;
   text-decoration: none;
   font-family: "Poppins";
   font-size: 19px;

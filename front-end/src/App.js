@@ -22,7 +22,7 @@ import 'boxicons'
 function App() {
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/SignupPersonalInfo" element={<SignupPersonalInfo />} />
@@ -41,14 +41,15 @@ function App() {
             <Route path="/Settings" element={<Settings />} />
           </Route>
         </Routes>
-      </Router>
+      </Router> */}
+      <SignupExaminerInfo></SignupExaminerInfo>
     </div>
   );
 }
 // function App() {
 //   return (
 //     <div className="App">
-//       {/* <Router>
+//       <Router>
 //         <Navbar />
 //           <Routes>
 //             <Route path="/" element={<Login />} />
@@ -67,7 +68,7 @@ function App() {
 //             <Route path="/Settings" element={<Settings />} />
 //             <Route path="/AcceptedRequest" element={<AcceptedRequest />} />
 //           </Routes >
-//       </Router> */}
+//       </Router>
 //     </div>
 //   );
 // }
