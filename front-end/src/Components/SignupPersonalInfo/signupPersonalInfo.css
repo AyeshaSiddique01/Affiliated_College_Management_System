@@ -31,9 +31,7 @@
   /* background-image: url("/src/Static/books3.jpg"); */
   background-size: cover;
   /*background-image: url("/src/Static/Light.png");*/
-    /* background: rgb(48, 22, 22);
-    border: 1px solid #fff; */
-    backdrop-filter: blur(70px);
+  backdrop-filter: blur(70px);
   box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.26);
 }
 

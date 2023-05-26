@@ -57,19 +57,19 @@ const SignupPersonalInfo = () => {
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-mail-bulk"></span>
-                            <input type="email" className="input-box" placeholder='Enter Email Address' name='email' onChange={(e) => setEmail(e.target.value)} required />
+                            <input type="email" className="input-boxSP" placeholder='Enter Email Address' name='email' onChange={(e) => setEmail(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
-                            <input type="text" className="input-box" placeholder='Enter CNIC' name='cnic' onChange={(e) => setCNIC(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter CNIC' name='cnic' onChange={(e) => setCNIC(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
-                            <input type="text" className="input-box" placeholder='Enter Phone Number' name='phone' onChange={(e) => setPhone(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter Phone Number' name='phone' onChange={(e) => setPhone(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-home"></span>
-                            <input type="text" className="input-box" placeholder='Enter Address' name='address' onChange={(e) => setAddress(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter Address' name='address' onChange={(e) => setAddress(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-male"></span>
