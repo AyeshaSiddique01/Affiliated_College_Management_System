@@ -13,6 +13,7 @@ class model:
                 port="5432")
             self.ur_id = 0
             self.exmnr_id = 0
+            self.duty_id = 0
         except Exception as e:
             print(str(e))
 
@@ -204,7 +205,7 @@ class model:
             if self.connection != None:
                 cursor = self.connection.cursor()
                 query = f'''insert into public.experience("examiner_id", "job_title", "organization", "reference_email", "starting_date", "ending_date","experiance_letter") 
-                        values('{experience.examiner_id}', '{experience.job_title}', '{experience.organization}','{experience.reference_email}' ,'{experience.starting_date}', '{experience.ending_date}', '{experience.experiance_letter}');
+                        values('{experience.examiner_id}', '{experience.job_title}', '{experience.organization}','{experience.reference_email}' ,'{experience.starting_date}', '{experience.ending_date}', '{experience.ExperianceLetter}');
                         '''
                 cursor.execute(query)
                 self.connection.commit()
@@ -459,7 +460,20 @@ class model:
                 cursor.close()
 
     def getUploadPaperDutyDetails(self, id):
-        pass
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getDueTheoryRequests: ", e)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
 
     def setUserVerified(self, examiner_id):
         cursor = None

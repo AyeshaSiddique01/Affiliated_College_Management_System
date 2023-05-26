@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './requestReceived.css';
 
 const RequestReceived = () => {
+
+    const [getData, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/RequestRecievedData')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.error(error));
+    }, []);
 
     return (
         <div className='My-body7'>

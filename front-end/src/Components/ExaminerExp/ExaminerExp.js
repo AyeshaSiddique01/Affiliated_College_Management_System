@@ -29,7 +29,7 @@ const ExaminerExp = () => {
         formData.append('reference_email', reference_email);
         formData.append('starting_date', starting_date);
         formData.append('ending_date', ending_date);
-        formData.append('transcript', fileInputRef.current.files[0]);
+        formData.append('ExperianceLetter', fileInputRef.current.files[0]);
         try {
             const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData);
             localStorage.setItem('access_token', response.data.access_token);
@@ -75,11 +75,11 @@ const ExaminerExp = () => {
                             <th>Institute Name</th>
                             <th>Starting Date</th>
                             <th>Ending Date</th>
-                            <th className='EditBtnEE'>Edit</th>
+                            {/* <th className='EditBtnEE'>Edit</th> */}
                         </tr>
-                        {dataList.map(item => (
+                        {dataList.map((item, index) => (
                             <tr>
-                            <td>1</td>
+                            <td>{index + 1}</td>
                             <td>{item[2]}</td>
                             <td>{item[3]}</td>
                             <td>{item[4]}</td>

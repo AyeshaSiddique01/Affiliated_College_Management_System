@@ -72,9 +72,9 @@ const ExaminerQualification = () => {
                             <th>Starting Date</th>
                             <th>Ending Date</th>
                         </tr>
-                        {dataList.map(item => (
+                        {dataList.map((item, index) => (
                             <tr>
-                            <td>1</td>
+                            <td>{index + 1}</td>
                             <td>{item[2]}</td>
                             <td>{item[3]}</td>
                             <td>{item[4]}</td>
