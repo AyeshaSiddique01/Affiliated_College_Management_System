@@ -19,9 +19,9 @@ import Profile from './Components/Profile/Profile';
 import AcceptedRequest from './Components/AcceptedRequest/AcceptedRequest';
 import 'boxicons'
 
-function App() {
-  return (
-    <div className="App">
+// function App() {
+  // return (
+  //   <div className="App">
       {/* <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -42,10 +42,9 @@ function App() {
           </Route>
         </Routes>
       </Router> */}
-      <SignupExaminerInfo></SignupExaminerInfo>
-    </div>
-  );
-}
+    {/* </div>
+  ); */}
+// }
 // function App() {
 //   return (
 //     <div className="App">
