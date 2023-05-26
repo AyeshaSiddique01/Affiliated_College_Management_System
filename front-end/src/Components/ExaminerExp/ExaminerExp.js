@@ -66,7 +66,7 @@ const ExaminerExp = () => {
             <div className='bg-imgEE'>
                 <div className="contentEE" style={{ width: "522px", height: "83%" }}>
                     <header>
-                        <h1 style={{ color: "white", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
+                        <h1 style={{ color: "#171d1f", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
                     <table className='TableStyleEE' border="1">
                         <tr>

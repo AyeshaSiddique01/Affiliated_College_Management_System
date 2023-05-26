@@ -6,8 +6,9 @@
       }
       
       .bg-imgEE {
-        background-image: url("/src/Static/books2.jpg");
-        background-color: #2f4050;
+        /* background-image: url("/src/Static/books2.jpg"); */
+        /* background-color: #2f4050; */
+        background-color: #92785e;
         height: 100vh;
         background-size: cover;
         background-position: center;
@@ -18,7 +19,7 @@
         /*10px*/
         border-radius: 10px;
         position: absolute;
-        top: 50%;
+        top: 57%;
         left: 50%;
         z-index: 999;
         text-align: center;
@@ -26,7 +27,8 @@
         width: 520px;
         color: white;
         transform: translate(-50%, -50%);
-        background-image: url("/src/Static/books4.jpg");
+        /* background-image: url("/src/Static/books4.jpg"); */
+        background-color: #917357;
         background-size: cover;
         /* background-image: url("/src/Static/login13.jpg"); */
         /*background: rgb(48, 22, 22);
@@ -49,7 +51,7 @@
       }
       
       .TableStyleEE th {
-        background-color: #282c34;
+        background-color: #171d1f;
         color: #fff;
         font-weight: 500;
         text-transform: uppercase;
@@ -105,7 +107,8 @@
             margin: auto;
             padding: 0px;
             border-radius: 20px;
-            background-image: url("/src/Static/fabric3.jpg");
+            background-color: #171d1f;
+            /* background-image: url("/src/Static/fabric3.jpg"); */
           }
       
     .NextBtnEE {

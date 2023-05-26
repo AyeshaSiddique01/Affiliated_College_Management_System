@@ -62,7 +62,7 @@ const ExaminerQualification = () => {
             <div className='bg-imgEQ'>
                 <div className="contentEQ" style={{ width: "522px", height: "87%" }}>
                     <header>
-                        <h1 style={{ color: "white", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
+                        <h1 style={{ color: "#171d1f", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>
                     <table className='TableStyleEQ' border="1">
                         <tr>

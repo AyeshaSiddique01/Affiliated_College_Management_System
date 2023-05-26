@@ -9,6 +9,7 @@
   box-shadow: 10px 10px 100px black;
   padding-bottom: 0px;
   position: fixed;
+  z-index: 9999;
 }
 
 .VerNavbar {
