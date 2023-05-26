@@ -24,12 +24,9 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 app = Flask(__name__)
 # CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-app.config.from_object("config")
+app.config.from_object(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
-app.config["SESSION_PERMANENT"] = True
-app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
-app.config["SESSION_COOKIE_SECURE"] = True
+SESSION_TYPE = 'filesystem'
 app.secret_key = "MYSECRETKEY"
 Session(app)
 
@@ -105,8 +102,9 @@ def SignUpPersonalInfo():
 def SignUpExaminerInfo():        
     #m = model()
     institution = request.form.get("institution")
-    user_id = m.ur_id
-#    user_id = session.get('user_id')
+    # user_id = m.ur_id
+    user_id = session.get('user_id')
+    print(user_id)
     # Get File and Save in a directory
     f = request.files.get("resume")
     resume = f"Static\Resumes\{user_id}.pdf"
@@ -242,8 +240,8 @@ def notifications():
     examiner_id = 14
     m = model()
     data = []
-    pracDuties = m.getNotificationPracRequests(examiner_id)
-    examDuties = m.getNotificationTheoryRequests(examiner_id)
+    pracDuties = m.getRecievedPracRequests(examiner_id)
+    examDuties = m.getRecievedTheoryRequests(examiner_id)
     
     for i in pracDuties:
         i = list(i)
@@ -259,7 +257,7 @@ def notifications():
     return jsonify(data)
 
 @app.route('/getRequestRecievedId', methods=['POST'])
-def getRequestRecievedId() :
+def getRequestRecievedId() :                
     examiner_id = m.exmnr_id
     duty = request.form.get('duty_id')
     print("duty: ", duty)
@@ -268,8 +266,8 @@ def getRequestRecievedId() :
     access_token = create_access_token(identity=examiner_id)
     return jsonify(access_token=access_token), 200
 
-@app.route("/RequestRecievedData", methods=['POST', 'GET'])
-def RequestRecievedData():
+@app.route("/DutyDetails", methods=['POST', 'GET'])
+def DutyDetails():                  # moving from request page to duty details
     duty_id = session.get("duty_id")
     m = model()
     # => using course code get crs code, crs title,
@@ -277,19 +275,20 @@ def RequestRecievedData():
     # => using rd_id get crs_book and crs_outline from both tables
     # => get prac_date, time and institute by using ac_id get name and location of
     # institute from affiliated_colleges table
-    dutyDetails = m.getUploadPaperDutyDetails(duty_id)
+    dutyDetails = m.getDutyDetails(duty_id)
     print("dutyDetails:: ", dutyDetails)
     return jsonify(dutyDetails)
 
 @app.route('/home')
 def home():
     m = model()
+    examiner_id = session.get("examiner_id")
     examiner_id = 14
     # return requested received and status is true and 
     # paper upload deadline is after today
     duties = []
-    pracDuties = m.getHomePracRequests(examiner_id)  # 2 for accepted status
-    examDuties = m.getHomeTheoryRequests(examiner_id)
+    pracDuties = m.getAcceptedPracDuties(examiner_id)  # 2 for accepted status
+    examDuties = m.getAcceptedTheoryDuties(examiner_id)
     for i in pracDuties:
         duties.append(i.append("Practicle Exam"))
     
@@ -300,40 +299,15 @@ def home():
     print(duties)
     return jsonify(duties)
 
-@app.route('/requestsRecieved', methods=['GET'])
-def requestsRecieved():						# not accepted or rejected yet
-	examiner_id = session.get("examiner_id")
-	##m = model()
-	# return requests whose status is 1 i.e pending
-	# prefer to make two separete functions
-	duties =[]
-	pracDuties = m.getPracRequests(examiner_id, 1)  # 1 for pending status
-	examDuties = m.getTheoryRequests(examiner_id, 1)
-	duties = examDuties + pracDuties
-	return jsonify(duties)
-
-@app.route('/acceptedRequests', methods=['GET'])
-def acceptedRequests():						# accepted but haven't uploaded paper
-	examiner_id = session.get("examiner_id")
-	#m = model()
-	# return requested recieved and status is true and 
-	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
-	# paper table does not has the entity has the same duty id  
-	duties =[]
-	pracDuties = m.getPracRequests(examiner_id, 2)  # 2 for accepted status
-	examDuties = m.getTheoryRequests(examiner_id, 2)
-	duties = examDuties + pracDuties
-	return jsonify(duties)
-
-@app.route('/duePaperRequests', methods=['GET'])
-def duePaperRequests():						# accepted and uploaded paper and paper is not taken yet
+@app.route('/PaperPendingDuty', methods=['GET'])
+def PaperPendingDuty():						# accepted and uploaded paper and paper is not taken yet
     examiner_id = session.get("examiner_id")
     #m = model()
     # paper table has the entity has the same duty id
     # and paper_date in exam_duty table is after today
     duties = []
-    pracDuties = m.getDuePracRequests(examiner_id)  # 2 for accepted status
-    examDuties = m.getDueTheoryRequests(examiner_id)
+    pracDuties = m.getPracPaper_Pending(examiner_id)  # 2 for accepted status
+    examDuties = m.getTheoryPaper_Pending(examiner_id)
     for i in pracDuties:
         duties.append(i.append("Practicle Exam"))
     
@@ -343,15 +317,15 @@ def duePaperRequests():						# accepted and uploaded paper and paper is not take
     duties.sort(key=lambda x: x[1], reverse=True)
     return jsonify(duties)
 
-@app.route('/dueResultRequests', methods=['GET'])
-def dueResultRequests():					# paper done upload paper now
+@app.route('/ResultUploadPending', methods=['GET'])
+def ResultUploadPending():					# paper done upload paper now
     examiner_id = session.get("examiner_id")
     #m = model()
     # paper table has the entity has the same duty id has null result column
     # and result_date in exam_duty table is after today
     duties = []
-    pracDuties = m.getDueResultPracRequests(examiner_id)  # 2 for accepted status
-    examDuties = m.getDueResultTheoryRequests(examiner_id)
+    pracDuties = m.getPracResult_Pending(examiner_id)  # 2 for accepted status
+    examDuties = m.getTheoryResult_Pending(examiner_id)
     for i in pracDuties:
         duties.append(i.append("Practicle Exam"))
     
@@ -360,40 +334,6 @@ def dueResultRequests():					# paper done upload paper now
         
     duties.sort(key=lambda x: x[1], reverse=True)
     return jsonify(duties)
-
-@app.route("/UploadPaper", methods=['GET', 'POST'])
-def UploadPaper():
-    d_id = 1 								# ya front end sy get kr lean gy
-    session["d_id"] = d_id
-    #m = model()
-    # => using course code get crs code, crs title,
-    # => request date, paper upload deadline from exam/duty table
-    # => using rd_id get crs_book and crs_outline from both tables
-    # => get prac_date, time and institute by using ac_id get name and location of
-    # institute from affiliated_colleges table
-    dutyDetails = m.getUploadPaperDutyDetails(d_id)
-    if dutyDetails.prc_time != None:
-        session["duty_type"] = "exam_duty"
-    else:
-        session["duty_type"] = "practical_duty"
-    return jsonify(dutyDetails)
-
-@app.route("/UploadResult", methods=['GET', 'POST'])
-def UploadResult():
-    d_id = 1 								# ya front end sy get kr lean gy
-    session["d_id"] = d_id
-    m = model()
-    # => using course code get crs code, crs title,
-    # => request date, result upload deadline from exam/duty table
-    # => using rd_id get crs_book and crs_outline from both tables
-    # => get prac_date, time and institute by using ac_id get name and location of
-    # institute from affiliated_colleges table
-    dutyDetails = m.getUploadResultDutyDetails(d_id)
-    if dutyDetails.prc_time != None:
-        session["duty_type"] = "exam_duty"
-    else:
-        session["duty_type"] = "practical_duty"
-    return jsonify(dutyDetails)
 
 @app.route("/GetPaper", methods=['GET'])
 def GetPaper():
@@ -405,7 +345,7 @@ def GetPaper():
     paper.save(papers)
     m = model()
     # havn't
-    m.uploadPaper(d_id, papers, session.get("duty_type"))
+    m.InsertUploadedPaper(d_id, papers, session.get("duty_type"))
     return jsonify("Uploaded")
 
 @app.route("/GetResult", methods=['GET'])
@@ -417,7 +357,7 @@ def GetResult():
         os.remove(results)
     result.save(results)
     #m = model()
-    m.uploadResult(d_id, results, session.get("duty_type"))
+    m.InsertUploadedResult(d_id, results, session.get("duty_type"))
     return jsonify("Uploaded")
 
 @app.route('/NewQualifications')
@@ -435,3 +375,66 @@ def NewExperience():
 # Running app
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+# @app.route('/requestsRecieved', methods=['GET'])
+# def requestsRecieved():						# not accepted or rejected yet
+# 	examiner_id = session.get("examiner_id")
+# 	##m = model()
+# 	# return requests whose status is 1 i.e pending
+# 	# prefer to make two separete functions
+# 	duties =[]
+# 	pracDuties = m.getPracRequests(examiner_id, 1)  # 1 for pending status
+# 	examDuties = m.getTheoryRequests(examiner_id, 1)
+# 	duties = examDuties + pracDuties
+# 	return jsonify(duties)
+
+# @app.route('/acceptedRequests', methods=['GET'])
+# def acceptedRequests():						# accepted but haven't uploaded paper
+# 	examiner_id = session.get("examiner_id")
+# 	#m = model()
+# 	# return requested recieved and status is true and 
+# 	# deadline of paper upload is date after today (i think ya nae aye ga if next line waly ko handle kr lean tw)
+# 	# paper table does not has the entity has the same duty id  
+# 	duties =[]
+# 	pracDuties = m.getPracRequests(examiner_id, 2)  # 2 for accepted status
+# 	examDuties = m.getTheoryRequests(examiner_id, 2)
+# 	duties = examDuties + pracDuties
+# 	return jsonify(duties)
+
+
+# @app.route("/UploadPaper", methods=['GET', 'POST'])
+# def UploadPaper():
+#     d_id = 1 								# ya front end sy get kr lean gy
+#     session["d_id"] = d_id
+#     #m = model()
+#     # => using course code get crs code, crs title,
+#     # => request date, paper upload deadline from exam/duty table
+#     # => using rd_id get crs_book and crs_outline from both tables
+#     # => get prac_date, time and institute by using ac_id get name and location of
+#     # institute from affiliated_colleges table
+#     dutyDetails = m.getUploadPaperDutyDetails(d_id)
+#     if dutyDetails.prc_time != None:
+#         session["duty_type"] = "exam_duty"
+#     else:
+#         session["duty_type"] = "practical_duty"
+#     return jsonify(dutyDetails)
+
+# @app.route("/UploadResult", methods=['GET', 'POST'])
+# def UploadResult():
+#     d_id = 1 								# ya front end sy get kr lean gy
+#     session["d_id"] = d_id
+#     m = model()
+#     # => using course code get crs code, crs title,
+#     # => request date, result upload deadline from exam/duty table
+#     # => using rd_id get crs_book and crs_outline from both tables
+#     # => get prac_date, time and institute by using ac_id get name and location of
+#     # institute from affiliated_colleges table
+#     dutyDetails = m.getUploadResultDutyDetails(d_id)
+#     if dutyDetails.prc_time != None:
+#         session["duty_type"] = "exam_duty"
+#     else:
+#         session["duty_type"] = "practical_duty"
+#     return jsonify(dutyDetails)

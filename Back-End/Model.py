@@ -331,7 +331,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getNotificationPracRequests(self, examiner_id):
+    def getRecievedPracRequests(self, examiner_id):             # for requests page
         cursor = None
         try:
             if self.connection:
@@ -347,7 +347,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getNotificationTheoryRequests(self, examiner_id):
+    def getRecievedTheoryRequests(self, examiner_id):           # for requests page
         cursor = None
         try:
             if self.connection:
@@ -363,7 +363,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getHomePracRequests(self, examiner_id):
+    def getAcceptedPracDuties(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -379,7 +379,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getHomeTheoryRequests(self, examiner_id):
+    def getAcceptedTheoryDuties(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -389,13 +389,13 @@ class model:
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getHomeTheoryRequests: ", e)
+            print("Exception in getAcceptedTheoryDuties: ", e)
             return False
         finally:
             if cursor:
                 cursor.close()
 
-    def getDuePracRequests(self, examiner_id):
+    def getPracPaper_Pending(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -411,7 +411,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getDueTheoryRequests(self, examiner_id):
+    def getTheoryPaper_Pending(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -427,7 +427,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getDueResultPracRequests(self, examiner_id):
+    def getPracResult_Pending(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -443,7 +443,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getDueResultTheoryRequests(self, examiner_id):
+    def getTheoryResult_Pending(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -459,17 +459,17 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getUploadPaperDutyDetails(self, id):
+    def getDutyDetails(self, id):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                query = f''''''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getDueTheoryRequests: ", e)
+            print("Exception in getDutyDetails: ", e)
             return False
         finally:
             if cursor:
@@ -510,3 +510,9 @@ class model:
         finally:
             if cursor:
                 cursor.close()
+
+    def InsertUploadedPaper(d_id, papers, duty_type):
+        pass
+
+    def InsertUploadedResult(d_id, results, duty_type):
+        pass

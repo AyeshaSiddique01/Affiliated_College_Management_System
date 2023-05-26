@@ -6,7 +6,7 @@ const RequestReceived = () => {
     const [getData, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/RequestRecievedData')
+        fetch('http://127.0.0.1:5000/DutyDetails')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error(error));
