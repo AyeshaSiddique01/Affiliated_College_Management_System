@@ -95,38 +95,38 @@ const ExaminerExp = () => {
                                 {/* <button type="submit"></button> */}
                             </div>
                             {/* </form> */}
-                            <div id="AddNewQualification" className="modalEE">
-                                <div className="modal-contentEE">
-                                    <span className="close">&times;</span>
+                            <div id="AddNewQualification" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerExper}  style={{width: "100%"}}>
-                                            <div className="maindivEE">
+                                        <form onSubmit={handleExaminerExper}>
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-boxEE' placeholder='Enter Job Title' name='job_title' onChange={(e) => set_job_title(e.target.value)} required />
+                                                <input type="text" className='input-box' placeholder='Enter Job Title' name='job_title' onChange={(e) => set_job_title(e.target.value)} required />
                                             </div>
-                                            <div className="maindivEE">
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-boxEE' placeholder='Enter organization Name' name='organization' onChange={(e) => set_organization(e.target.value)} required />
+                                                <input type="text" className='input-box' placeholder='Enter organization Name' name='organization' onChange={(e) => set_organization(e.target.value)} required />
                                             </div>
-                                            <div className="maindivEE">
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-boxEE' placeholder='Enter Reference Email' name='reference_email' onChange={(e) => set_reference_email(e.target.value)} required />
+                                                <input type="text" className='input-box' placeholder='Enter Reference Email' name='reference_email' onChange={(e) => set_reference_email(e.target.value)} required />
                                             </div>
-                                            <div className="maindivEE">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input className="form-controlEE input-boxEE" type="date" name="starting_date" runat="server" onChange={(e) => set_starting_date(e.target.value)}
+                                                <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => set_starting_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindivEE">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input className="form-controlEE input-boxEE" type="date" name="ending_date" runat="server" onChange={(e) => set_ending_date(e.target.value)}
+                                                <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => set_ending_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindivEE">
+                                            <div className="maindiv">
                                                 <label className='label_' for="ExperianceLetter">Experiance Letter: </label>
-                                                <input type="file" name="ExperianceLetter" className="form-controlEE" ref={fileInputRef} required />
+                                                <input type="file" name="ExperianceLetter" className="form-control" ref={fileInputRef} required />
                                             </div>
                                             <div className="AddBtnEE">
                                                 <input type="submit" value="Add" />

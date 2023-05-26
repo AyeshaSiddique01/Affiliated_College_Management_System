@@ -87,36 +87,36 @@ const ExaminerQualification = () => {
                             <div className='NextBtnEQ'>
                                 <button type="button" id='myBtn'>Add New</button>
                             </div>
-                            <div id="AddNewQualification" className="modalEQ">
-                                <div className="modal-contentEQ" style={{backgroundColor : "#232323"}}>
-                                    <span className="close">&times;</span>
+                            <div id="AddNewQualification" class="modal">
+                                <div class="modal-content" style={{backgroundColor : "#232323"}}>
+                                    <span class="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerQualification} style={{width: "100%"}}>
-                                            <div className="maindivEQ">
+                                        <form onSubmit={handleExaminerQualification}>
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-boxEQ' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
+                                                <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
                                             </div>
-                                            <div className="maindivEQ">
+                                            <div className="maindiv">
                                                 <span></span>
-                                                <input type="text" className='input-boxEQ' placeholder='Enter Institute Name' name='institution' onChange={(e) => setInstitution(e.target.value)} required />
+                                                <input type="text" className='input-box' placeholder='Enter Institute Name' name='institution' onChange={(e) => setInstitution(e.target.value)} required />
                                             </div>
-                                            <div className="maindivEQ">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="starting_date">Starting Date:</label>
-                                                <input className="form-controlEQ input-boxEQ" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
+                                                <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindivEQ">
+                                            <div className="maindiv">
                                                 <span></span>
                                                 <label className='label_' for="ending_date">Ending Date:</label>
-                                                <input className="form-controlEQ input-boxEQ" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
+                                                <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
-                                            <div className="maindivEQ">
+                                            <div className="maindiv">
                                                 <label className='label_' for="Certificate">Transcript: </label>
-                                                <input type="file" name="transcript" className="form-controlEQ" ref={fileInputRef} required />
+                                                <input type="file" name="transcript" className="form-control" ref={fileInputRef} required />
                                             </div>
-                                            <div className="AddBtnEQ">
+                                            <div className="AddBtn">
                                                 <input type="submit" value="Add" />
                                             </div>
                                             <div>

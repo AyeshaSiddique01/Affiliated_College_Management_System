@@ -116,7 +116,7 @@ function Settings() {
       <h1>Settings</h1>
       <form onSubmit={handleSubmit}>
         <h2>Profile</h2>
-        <label htmlFor="name">Full Name</label>
+        <label htmlFor="name"style={{ fontFamily: "Poppins", color: "#171d1f" }}>Full Name</label>
         <input type="texts" id="name" name="name" />
 
         <label htmlFor="email">Email</label>
