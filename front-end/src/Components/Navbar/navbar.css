@@ -16,11 +16,10 @@
   position: fixed;
   padding-top: 0px;
   top: 75px;
-  left: 0;
+  left: 0%;
   bottom: 0;
   width: 230px;
   background-color: #171d1f;
-  /* box-shadow: 10px 10px 100px black; */
 }
 
 .vernav {
@@ -30,6 +29,7 @@
   align-items: flex-start;
   padding: 30px 10px;
   margin: 8px;
+  left: 0%;
 }
 
 .vernav a {
@@ -46,7 +46,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   position: relative;
-  margin: 10px;
+  margin: 8px;
 }
 
 .vernav a:hover {
@@ -80,6 +80,7 @@
   font-weight: 800;
   font-family: poppin serif;
   margin: 10px;
+  text-decoration: none;
 }
 
 .nav-items a {
@@ -213,6 +214,7 @@
   max-height: 500px;
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
   margin-right: 90px;
+  text-decoration: none;
 }
 
 .header-btn .signlog:hover {
