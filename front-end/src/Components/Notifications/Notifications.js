@@ -3,8 +3,8 @@ import axios from 'axios';
 import './notifications.css';
 
 const Notifications = () => {
-    const [Duty_ID, setId] = useState('');
     const [dataList, setDataList] = useState([]);
+    const [Duty_ID, setId] = useState('');
 
     const handleDutyID = async (e) => {
         e.preventDefault();

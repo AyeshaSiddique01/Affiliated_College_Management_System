@@ -11,9 +11,9 @@ class model:
                 user="postgres",
                 password="Ayesha@1306",  # write your dbPassword
                 port="5432")
-            self.ur_id = 0
-            self.exmnr_id = 0
-            self.duty_id = 0
+            # self.ur_id = 0
+            # self.exmnr_id = 0
+            # self.duty_id = 0
         except Exception as e:
             print(str(e))
 
@@ -368,7 +368,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline >= CURRENT_DATE;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline > CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -384,7 +384,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and paper_upload_deadline >= CURRENT_DATE;'''
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and paper_upload_deadline > CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -432,7 +432,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and prac_date <= CURRENT_DATE;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and result_upload_deadline > CURRENT_DATE and prac_date <= CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -448,7 +448,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result = null  and result_upload_deadline >= CURRENT_DATE and paper_date <= CURRENT_DATE;'''
+                query = f'''select ed.exam_duty_id, rd.rd_crs_name, ed.request_date from exam_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and status_req = 2 and result_upload_deadline > CURRENT_DATE and paper_date <= CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -511,8 +511,59 @@ class model:
             if cursor:
                 cursor.close()
 
-    def InsertUploadedPaper(d_id, papers, duty_type):
-        pass
+    def InsertUploadedPaper(self, d_id, papers, duty_type):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                if duty_type == "Practicle Exam" :
+                    cursor.execute(f'''UPDATE practical_duty SET paper = '{papers}' WHERE prac_duty_id = {d_id};''')
+                elif duty_type == "Theory Paper" :
+                    cursor.execute(f'''UPDATE exam_duty SET paper = '{papers}' WHERE exam_duty_id = {d_id};''')
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
 
-    def InsertUploadedResult(d_id, results, duty_type):
-        pass
+    def InsertUploadedResult(self, d_id, results, duty_type):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                if duty_type == "Practicle Exam" :
+                    cursor.execute(f'''UPDATE practical_duty SET result = '{results}' WHERE prac_duty_id = {d_id};''')
+                elif duty_type == "Theory Paper" :
+                    cursor.execute(f'''UPDATE exam_duty SET result = '{results}' WHERE exam_duty_id = {d_id};''')
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def UpdateStatus(self, d_id, status, table_name):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                if table_name == "Practicle Exam" :
+                    cursor.execute(f'''UPDATE practical_duty SET prac_duty_status = {status} WHERE prac_duty_id = {d_id};''')
+                elif table_name == "Theory Paper" :
+                    cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()

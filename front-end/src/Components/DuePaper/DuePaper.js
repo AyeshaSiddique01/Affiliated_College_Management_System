@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import './duePaper.css'
 
 const DuePaper = () => {
     const [dataList, setDataList] = useState([]);
+    const [Duty_ID, setId] = useState('');
 
+    const handleDutyID = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('duty_id', Duty_ID);
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData);
+            localStorage.setItem('access_token', response.data.access_token);
+            // Redirect the user to the protected route
+            window.location.href = '/AcceptedRequest';
+        } catch (error) {
+            console.error("error: ", error);
+        }
+    };
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/duePaperRequests')
+        fetch('http://127.0.0.1:5000/PaperPendingDuty')
             .then(response => response.json())
             .then(data => setDataList(data))
             .catch(error => console.error(error));
@@ -28,19 +43,18 @@ const DuePaper = () => {
             </div>
             <div className='container'>
                 <div className="row">
-                    <div className='adjustment2'>
+                    <div className='adjustment4'>
                         {dataList.map(item => (
-                            <a href='http://localhost:3000/AcceptedRequest'>
-                                <div className="notification_block2">
-                                    <div className='CourseTitle2'>{item[1]}</div>
-                                    <div className='papertype2'>
+                            <form onSubmit={handleDutyID}>
+                                <div className="notification_block4">
+                                    <div className='CourseTitle4'>{item[1]}</div>
+                                    <div className='papertype4'>
                                         {item[3]}
-                                        <button className='detail-btn' type="deatils" >Open</button>
+                                        <button className='detail-btn' type="deatils" onClick={() => setId(item)}>See Details</button>
                                     </div>
-                                    <div className='date2'>{item[2]}</div>
-
+                                    <div className='date4'>{item[2]}</div>
                                 </div>
-                            </a>
+                            </form>
                         ))}
                     </div>
                 </div>
