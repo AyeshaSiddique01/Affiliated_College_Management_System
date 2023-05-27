@@ -27,7 +27,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 SESSION_TYPE = 'filesystem'
-app.secret_key = "MYSECRETKEY"
+app.secret_key = "AIMAN24@AYESHA13"
 Session(app)
 
 jwt = JWTManager(app)
@@ -103,7 +103,8 @@ def SignUpExaminerInfo():
     #m = model()
     institution = request.form.get("institution")
     # user_id = m.ur_id
-    user_id = session.get('user_id')
+    # user_id = session.get('user_id')
+    user_id = 1
     print(user_id)
     # Get File and Save in a directory
     f = request.files.get("resume")

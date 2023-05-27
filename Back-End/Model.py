@@ -9,7 +9,7 @@ class model:
                 database="ACMS",  # write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",  # write your dbPassword
+                password="aiman12345",  # write your dbPassword
                 port="5432")
             self.ur_id = 0
             self.exmnr_id = 0
