@@ -111,7 +111,8 @@ def SignUpPersonalInfo():
 def SignUpExaminerInfo(): 
     # get data from form 
     institution = request.form.get("institution")
-    user_id = session.get('user_id')
+    # user_id = session.get('user_id')
+    user_id = 38
 
     # Get File and Save in a directory
     f = request.files.get("resume")
@@ -242,6 +243,7 @@ def ExaminerLogin():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     examiner_id = session.get("examiner_id")
+    m = model()
     user_ = m.getDataofUser(24)
     examiner_ = m.getDataofExaminer("examiner", examiner_id)
     data = {
@@ -421,12 +423,14 @@ def GetResult():
 @app.route('/NewQualifications')
 def NewQualifications():
     examiner_id = session.get("examiner_id")
+    m = model()
     qualifications = m.getDataofExaminer("qualification",examiner_id)
     return jsonify(qualifications)
 
 @app.route('/NewExperience')
 def NewExperience():
     examiner_id = session.get("examiner_id")
+    m = model()
     experiences = m.getDataofExaminer("experience",examiner_id)
     return jsonify(experiences)
 

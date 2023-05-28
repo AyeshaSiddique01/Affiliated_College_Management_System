@@ -83,6 +83,17 @@
   text-decoration: none;
 }
 
+.nav-items form {
+  display: flex;
+  align-items: center;
+}
+
+.nav-items form .maindiv {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Added gap between input and button */
+}
+
 .nav-items a {
   color: #DDDBCB;
   text-decoration: none;
@@ -133,8 +144,8 @@
   border: 1px solid rgb(131, 127, 127);
   border-radius: 50px;
   transition: all .50s ease;
-  margin: 10px;
-  padding: 15px 12px;
+  margin: 5px;
+  /* padding: 15px 12px; */
   padding-top: 20px;
   padding-bottom: 10px;
   transition: all .8s ease;
@@ -213,7 +224,7 @@
   transition: all .50s ease;
   max-height: 500px;
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
-  margin-right: 90px;
+  margin-right: 160px;
   text-decoration: none;
 }
 
@@ -232,6 +243,7 @@
   background: #0a0a0a;
   cursor: pointer;
   margin: 5px;
+  margin-bottom: 10px; /* Added bottom margin */
 }
 
 .inputsearch {
@@ -246,6 +258,7 @@
   max-width: 400px;
   background: rgba(225, 225, 225, 0.2);
   margin-bottom: 10px;
+  margin-right: 10px; /* Reduced the right margin */
 }
 
 ::placeholder {
