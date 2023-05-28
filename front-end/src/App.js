@@ -18,6 +18,7 @@ import ExaminerQualification from './Components/ExaminerQualification/ExaminerQu
 import Profile from './Components/Profile/Profile';
 import AcceptedRequest from './Components/AcceptedRequest/AcceptedRequest';
 import 'boxicons'
+import ExaminerDetails from './Components/ExaminerDetails/ExaminerDetails';
 
 // function App() {
   // return (
