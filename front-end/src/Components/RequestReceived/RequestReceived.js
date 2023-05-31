@@ -1,10 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './requestReceived.css';
 
 const RequestReceived = () => {
 
     const [getData, setData] = useState([]);
+    const [selection, setSelection] = useState('');
 
+    const handleAccept = () => {
+      setSelection('accept');
+      sendSelection('accept');
+    };
+  
+    const handleReject = () => {
+      setSelection('reject');
+      sendSelection('reject');
+    };
+  
+    const sendSelection = (selectedOption) => {
+      axios.post('http://127.0.0.1:5000/UpdateStatus', { selection: selectedOption })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
     useEffect(() => {
         fetch('http://127.0.0.1:5000/DutyDetails')
             .then(response => response.json())
@@ -48,8 +69,8 @@ const RequestReceived = () => {
                     </div>
                 </div>
                 <div className="row requestFooterRR">
-                    <button type='accept'className='col-4 AcceptBtn'>Accept</button>
-                    <button type='accept'className='col-4 RejectBtn'>Reject</button>
+                    <button type='accept'className='col-4 AcceptBtn' onClick={handleAccept}>Accept</button>
+                    <button type='accept'className='col-4 RejectBtn'onClick={handleReject}>Reject</button>
                 </div>
             </div>
         </div>

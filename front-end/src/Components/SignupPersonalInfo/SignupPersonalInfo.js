@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './signupPersonalInfo.css';
+import { decodeToken } from "react-jwt";
+import { useNavigate } from 'react-router-dom';
 
 const SignupPersonalInfo = () => {
     const [usr_name, setUserName] = useState('');
@@ -12,6 +14,7 @@ const SignupPersonalInfo = () => {
     const [usr_password, setPassword] = useState('');
     const [usr_phone, setPhone] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSignUpPersonal = async (e) => {
         console.log("usr_address: ", usr_address);
@@ -20,7 +23,12 @@ const SignupPersonalInfo = () => {
             console.log("in try")
             const response = await axios.post('http://127.0.0.1:5000/SignUpPersonalInfo',
                 { usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_password, usr_phone });
-            localStorage.setItem('access_token', response.data.access_token);
+
+            const accessToken = response.data.access_token;
+            localStorage.setItem('access_token', accessToken);
+            // const decodedToken = decodeToken(accessToken);
+            // console.log("decodedToken: ", decodedToken);
+
             // Redirect the user to the protected route
             window.location.href = '/SignupExaminerInfo';
         } catch (error) {
@@ -49,7 +57,7 @@ const SignupPersonalInfo = () => {
             <div className='bg-imgSP'>
                 <div className="contentSP">
                     <h1 className='headtxtSP'>Sign Up form</h1>
-                    <header type="PI"style={{ fontFamily: "Poppins", color: "#171d1f" }}> Put your Personal Information to Sign Up!</header>
+                    <header type="PI" style={{ fontFamily: "Poppins", color: "#171d1f" }}> Put your Personal Information to Sign Up!</header>
                     <form onSubmit={handleSignUpPersonal}>
                         <div className="maindivSP">
                             <span className="fa fa-user"></span>

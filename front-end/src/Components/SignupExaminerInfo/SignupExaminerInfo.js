@@ -6,6 +6,10 @@ const SignupExaminerInfo = () => {
   const [institution, setInstitution] = useState('');
   const fileInputRef = useRef(null);
   const [error, setError] = useState('');
+  const accessToken = localStorage.getItem('access_token');
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+  };
 
   const handleSignUpExaminer = async (e) => {
     e.preventDefault();
@@ -13,7 +17,7 @@ const SignupExaminerInfo = () => {
     formData.append('institution', institution);
     formData.append('resume', fileInputRef.current.files[0]);
     try {
-      const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData);
+      const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData, {headers});
       localStorage.setItem('access_token', response.data.access_token);
       // Redirect the user to the protected route
       window.location.href = '/ExaminerQualification';

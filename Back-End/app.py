@@ -21,19 +21,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # pip install flask_jwt_extended
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "MYSECRETKEY"
 # Initialize Flask-Session
-app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
+# app.config['SESSION_TYPE'] = 'filesystem'
+# Session(app)
 # CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object("config")
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 
 
-jwt = JWTManager(app)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
+jwt = JWTManager(app)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -83,37 +84,35 @@ def SignUpPersonalInfo():
         return jsonify({"error": "Email exists"}), 401
     user_id = m.InsertUser(data)  # insertion function return userid
     if user_id != False:
-        session['user_id'] = user_id
-        session["usr_email"] = usr_email
-        session["usr_name"] = usr_name
-        access_token = create_access_token(identity=usr_email)
         # sending email
         verification_code = "".join(random.choices(
             string.ascii_letters+string.digits, k=10))
-        session["verification_code"] = verification_code
         verification_link = request.url_root + 'verify?code=' + verification_code
         message = Message('Verify your email', recipients=[
-                          session.get("usr_email")])
+                          usr_email])
         message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
         # message.body = f'Click the link to verify your email: {verification_link}'
         mail.send(message)
         # sending email
         verification_code = "".join(random.choices(string.ascii_letters+string.digits,k=10))
-        session["verification_code"] = verification_code 
+        
+        # Creating Access Token
+        access_token = create_access_token(identity=user_id, additional_claims={
+        'usr_email': usr_email,
+        'usr_name': usr_name,
+        'verification_code': verification_code})
+
         return jsonify(access_token=access_token), 200
     else:
         return jsonify({"error": "Error in insertion"}), 401
     
-    # session['user_id'] = "29"
-    # return "200"
-
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
+@jwt_required()
 def SignUpExaminerInfo(): 
     # get data from form 
     institution = request.form.get("institution")
-    # user_id = session.get('user_id')
-    user_id = 38
-
+    user_id = get_jwt_identity()
+    print("user_id: ", user_id)
     # Get File and Save in a directory
     f = request.files.get("resume")
     resume = f"Static\Resumes\{user_id}.pdf"
@@ -135,7 +134,12 @@ def SignUpExaminerInfo():
     examiner_id = m.InsertExaminer(data)
     if examiner_id != False:
         session["examiner_id"] = examiner_id
-        access_token = create_access_token(identity=user_id)
+        # Creating Access Token
+        access_token = create_access_token(identity=user_id, additional_claims={
+        'usr_email': usr_email,
+        'usr_name': usr_name,
+        'verification_code': verification_code,
+        'examiner_id': examiner_id})
         return jsonify(access_token=access_token), 200
     return jsonify({"error": "Error in insertion"}), 401
 
@@ -271,7 +275,6 @@ def profile():
 @app.route('/notifications')
 def notifications():
     examiner_id = session.get("examiner_id")
-    examiner_id = 14
     m = model()
     data = []
 
@@ -304,7 +307,7 @@ def getRequestRecievedId() :
     access_token = create_access_token(identity=examiner_id)
     return jsonify(access_token=access_token), 200
 
-@app.route("/DutyDetails", methods=['POST', 'GET'])
+@app.route("/DutyDetails/", methods=['POST', 'GET'])
 def DutyDetails():                  # moving from request page to duty details
     duty_id = session.get("duty_id")
     m = model()
@@ -437,13 +440,22 @@ def NewExperience():
 def UpdateStatus():
     d_id = session.get('duty_id')
     d_type = session.get("duty_Type")
-    d_type = "Practicle Exam"
+
     # get Status
-    status = "get"
+    data = request.get_json()
+    selected_option = data['selection']
+    if selected_option == "accept" :
+        status = 2
+    elif selected_option == "reject" :
+        status = 3
+    else :
+        return jsonify({"status": "fail", "message": "Status has not Updated Successfully"}), 200
+    
     m = model()
     if m.UpdateStatus(d_id, status, d_type) :
         return jsonify({"status": "success", "message": "Status Updated Successfully"})
     return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
+
 # Running app
 if __name__ == '__main__':
     app.run(debug=True)

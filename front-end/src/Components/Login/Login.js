@@ -13,8 +13,8 @@ const Login = () => {
         try {
             console.log("in try")
             const response = await axios.post('http://127.0.0.1:5000/ExaminerLogin', { email, password });
-            localStorage.setItem('access_token', response.data.access_token);
-            // Redirect the user to the protected route
+            // localStorage.setItem('access_token', response.data.access_token);
+            
             window.location.href = '/Notifications';
         } catch (error) {
             // document.getElementById("msj").textContent = error;
