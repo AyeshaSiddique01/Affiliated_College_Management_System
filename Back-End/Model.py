@@ -9,7 +9,7 @@ class model:
                 database="ACMS",  # write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",  # write your dbPassword
+                password="aiman12345",  # write your dbPassword
                 port="5432")
             # self.ur_id = 0
             # self.exmnr_id = 0
@@ -336,7 +336,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -368,7 +368,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline > CURRENT_DATE;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline > CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -400,7 +400,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline < CURRENT_DATE and prac_date > CURRENT_DATE;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and paper_upload_deadline < CURRENT_DATE and prac_date > CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -432,7 +432,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.request_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and result_upload_deadline > CURRENT_DATE and prac_date <= CURRENT_DATE;'''
+                query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 2 and result_upload_deadline > CURRENT_DATE and prac_date <= CURRENT_DATE;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -459,15 +459,32 @@ class model:
             if cursor:
                 cursor.close()
 
-    def getDutyDetails(self, id):
+    def getDutyDetails(self, dtId, dtType):
         cursor = None
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f''''''
+                if (dtType == "Practical Exam"):
+                    query = f'''select prac_date, prac_time, paper_upload_deadline, prac_ass_date, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
+                elif (dtType == "Theory Paper"):
+                    query = f'''select paper_date, paper_upload_deadline, request_date,rd_id from exam_duty where exam_duty_id = {dtId};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                return data
+                rdId = data[len(data) - 1][5]
+                query = f'''select rd_crs_code, rd_crs_name, rd_crs_book, rd_crs_outlline from roadmap where rd_id = {rdId};'''
+                cursor.execute(query)
+                rdData = cursor.fetchall()
+                acData = []
+                if dtType == "Practical Exam":
+                    acID = data[data.__len__() - 1][4]
+                    query = f'''select ac_name, ac_address from affiliated_colleges where ac_id = {acID};'''
+                    cursor.execute(query)
+                    acData = cursor.fetchall()
+                # if len(acData) > 0:
+                    combinedList = data[0] + rdData[0] + acData[0]
+                else:
+                    combinedList = data[0] + rdData[0]
+                return combinedList
         except Exception as e:
             print("Exception in getDutyDetails: ", e)
             return False
@@ -491,7 +508,7 @@ class model:
             if cursor:
                 cursor.close()
 
-    def checkExaminerVerified(self,examiner_id):
+    def checkExaminerVerified(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -503,7 +520,7 @@ class model:
                     return True
                 else:
                     return False
- 
+
         except Exception as e:
             print("Exception in checkExaminerVerifiedr", str(e))
             return False
@@ -516,9 +533,9 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                if duty_type == "Practicle Exam" :
-                    cursor.execute(f'''UPDATE practical_duty SET paper = '{papers}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper" :
+                if duty_type == "Practical Exam":
+                    cursor.execute(f'''UPDATE practical_duty SET prac_paper = '{papers}' WHERE prac_duty_id = {d_id};''')
+                elif duty_type == "Theory Paper":
                     cursor.execute(f'''UPDATE exam_duty SET paper = '{papers}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -535,9 +552,9 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                if duty_type == "Practicle Exam" :
-                    cursor.execute(f'''UPDATE practical_duty SET result = '{results}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper" :
+                if duty_type == "Practical Exam":
+                    cursor.execute(f'''UPDATE practical_duty SET prac_result = '{results}' WHERE prac_duty_id = {d_id};''')
+                elif duty_type == "Theory Paper":
                     cursor.execute(f'''UPDATE exam_duty SET result = '{results}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -554,9 +571,9 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                if table_name == "Practicle Exam" :
+                if table_name == "Practical Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_duty_status = {status} WHERE prac_duty_id = {d_id};''')
-                elif table_name == "Theory Paper" :
+                elif table_name == "Theory Paper":
                     cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
                 return True
             else:

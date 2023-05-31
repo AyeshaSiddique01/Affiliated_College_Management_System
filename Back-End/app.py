@@ -136,8 +136,8 @@ def SignUpExaminerInfo():
         session["examiner_id"] = examiner_id
         # Creating Access Token
         access_token = create_access_token(identity=user_id, additional_claims={
-        'usr_email': usr_email,
-        'usr_name': usr_name,
+        'usr_email': 'usr_email',
+        'usr_name': "usr_name",
         'verification_code': verification_code,
         'examiner_id': examiner_id})
         return jsonify(access_token=access_token), 200
@@ -284,7 +284,7 @@ def notifications():
     
     for i in pracDuties:
         i = list(i)
-        i.append("Practicle Exam")
+        i.append("Practical Exam")
         data.append(i)
     
     for i in examDuties:
@@ -310,13 +310,14 @@ def getRequestRecievedId() :
 @app.route("/DutyDetails/", methods=['POST', 'GET'])
 def DutyDetails():                  # moving from request page to duty details
     duty_id = session.get("duty_id")
+    dutyType = session.get("duty_Type")
     m = model()
     # => using course code get crs code, crs title,
     # => request date, paper upload deadline from exam/duty table
     # => using rd_id get crs_book and crs_outline from both tables
     # => get prac_date, time and institute by using ac_id get name and location of
     # institute from affiliated_colleges table
-    dutyDetails = m.getDutyDetails(duty_id)
+    dutyDetails = m.getDutyDetails(duty_id,dutyType)
     print("dutyDetails:: ", dutyDetails)
     return jsonify(dutyDetails)
 
@@ -333,7 +334,7 @@ def home():
     
     for i in pracDuties:
         i = list(i)
-        i.append("Practicle Exam")
+        i.append("Practical Exam")
         duties.append(i)
     
     for i in examDuties:
@@ -357,7 +358,7 @@ def PaperPendingDuty():						# accepted and uploaded paper and paper is not take
     
     for i in pracDuties:
         i = list(i)
-        i.append("Practicle Exam")
+        i.append("Practical Exam")
         duties.append(i)
     
     for i in examDuties:
@@ -381,7 +382,7 @@ def ResultUploadPending():					# paper done upload paper now
     
     for i in pracDuties:
         i = list(i)
-        i.append("Practicle Exam")
+        i.append("Practical Exam")
         duties.append(i)
     
     for i in examDuties:
@@ -440,7 +441,7 @@ def NewExperience():
 def UpdateStatus():
     d_id = session.get('duty_id')
     d_type = session.get("duty_Type")
-
+    d_type = "Practicle Exam"
     # get Status
     data = request.get_json()
     selected_option = data['selection']
