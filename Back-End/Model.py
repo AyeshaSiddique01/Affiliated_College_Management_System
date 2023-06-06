@@ -3,6 +3,7 @@ import psycopg2  # pip install psycopg2
 
 
 class model:
+    # Constructor
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
@@ -17,32 +18,35 @@ class model:
         except Exception as e:
             print(str(e))
 
+    # Destructor
     def __del__(self):
         if self.connection != None:
             self.connection.close()
 
+    # insert into user table and returning user id of that row
     def InsertUser(self, user):
         cursor = None
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
                 query = f'''insert into public.user(usr_name,usr_password,usr_phoneno,usr_profile_pic,usr_cnic,usr_address,usr_email,usr_active_status,usr_bio,usr_gender) 
-	                        values ('{user.usr_name}', '{user.usr_password}','{user.usr_phoneno}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}');
+	                        values ('{user.usr_name}', '{user.usr_password}','{user.usr_phoneno}', '{user.usr_profile_pic}', '{user.usr_cnic}', '{user.usr_address}', '{user.usr_email}', '{user.usr_active_status}', '{user.usr_bio}', '{user.usr_gender}') returning usr_id;
                             '''
                 cursor.execute(query)
+                id = cursor.fetchone()
                 self.connection.commit()
-                id = model.getUserID(self, user.usr_email)
                 self.ur_id = id
                 return id
             else:
                 return 0
         except Exception as e:
             print("Exception in insertExaminer", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Returns userID accross UK email
     def getUserID(self, email):
         cursor = None
         try:
@@ -56,29 +60,30 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in getUserID", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
 
-    def getUserEmail(self, id):
-        cursor = None
-        try:
-            if self.connection != None:
-                cursor = self.connection.cursor()
-                cursor.execute(
-                    f'''select usr_email from public.user where usr_id = '{id}';''')
-                email = cursor.fetchone()
-                return email[0]
-            else:
-                return 0
-        except Exception as e:
-            print("Exception in getUserEmail", str(e))
-            return False
-        finally:
-            if cursor != None:
-                cursor.close()
+    # def getUserEmail(self, id):
+    #     cursor = None
+    #     try:
+    #         if self.connection != None:
+    #             cursor = self.connection.cursor()
+    #             cursor.execute(
+    #                 f'''select usr_email from public.user where usr_id = '{id}';''')
+    #             email = cursor.fetchone()
+    #             return email[0]
+    #         else:
+    #             return 0
+    #     except Exception as e:
+    #         print("Exception in getUserEmail", str(e))
+    #         return 0
+    #     finally:
+    #         if cursor != None:
+    #             cursor.close()
 
+    # def Returns hashed Password 
     def getUserPassword(self, email):
         cursor = None
         try:
@@ -92,11 +97,12 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in getUserPassword", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Returns Examiner ID of a user if he is examiner not admin
     def getExaminerID(self, userid):
         cursor = None
         try:
@@ -110,34 +116,36 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in getExaminerID", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
 
-    def InsertExaminer(self, examiner):  # return examinerID
+    # Insert examiner and returns it's id
+    def InsertExaminer(self, examiner):
         cursor = None
         try:
             if self.connection != None:  # there should be a email check weather the user exists or not
                 cursor = self.connection.cursor()
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count","verified") 
-                            values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count}, {examiner.verified});
+                            values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count}, {examiner.verified}) returning examiner_id;
                             '''
                 print("query: ", query)
                 cursor.execute(query)
+                id = cursor.fetchone()
                 self.connection.commit()
-                id = model.getExaminerID(self, examiner.user_id)
                 self.exmnr_id = id
                 return id
             else:
                 return 0
         except Exception as e:
             print("Exception in insertExaminer", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Check is email exists in user table or not
     def checkEmailExist(self, usr_email):
         cursor = None
         try:
@@ -158,6 +166,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # Validate password 
     def ValidatePassword(self, email, password):  # return examiner id
         cursor = None
         try:
@@ -182,6 +191,7 @@ class model:
 
         return True
 
+    # Insert Qualification of user
     def InsertExaminerQualification(self, qualification):
         cursor = None
         try:
@@ -192,6 +202,7 @@ class model:
                 '''
                 cursor.execute(query)
                 self.connection.commit()
+                return True
         except Exception as e:
             print("Exception in insertExaminerQualification", str(e))
             return False
@@ -199,6 +210,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # Insert Experiance of user
     def InsertExaminerExperience(self, experience):
         cursor = None
         try:
@@ -209,6 +221,7 @@ class model:
                         '''
                 cursor.execute(query)
                 self.connection.commit()
+                return True
         except Exception as e:
             print("Exception in insertExaminerExperience", str(e))
             return False
@@ -216,6 +229,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # get data of any table
     def getData(self, tableName):
         cursor = None
         try:
@@ -227,11 +241,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getData", str(e))
-            return False
+            return []
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Delete data of Experiance and qualification of a user
     def deleteAllQuaAndExp(self, tableName, exaimerID):
         cursor = None
         try:
@@ -250,6 +265,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # Delete Examiner
     def deleteExaminer(self, email):
         cursor = None
         try:
@@ -277,6 +293,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # delete user
     def deleteUser(self, email):
         cursor = None
         try:
@@ -298,6 +315,7 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # Get data of specific examiner
     def getDataofExaminer(self, tableName, examiner_id):
         cursor = None
         try:
@@ -310,11 +328,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getDataofExaminer", str(e))
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data of specific user
     def getDataofUser(self, usr_id):
         cursor = None
         try:
@@ -326,12 +345,13 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getDataofUser", str(e))
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
-    def getRecievedPracRequests(self, examiner_id):             # for requests page
+    # Get data for Notifications page
+    def getRecievedPracRequests(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -342,12 +362,13 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getPracRequests")
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
-    def getRecievedTheoryRequests(self, examiner_id):           # for requests page
+    # Get data for Notifications page
+    def getRecievedTheoryRequests(self, examiner_id):
         cursor = None
         try:
             if self.connection:
@@ -358,11 +379,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getTheoryRequests")
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Home page
     def getAcceptedPracDuties(self, examiner_id):
         cursor = None
         try:
@@ -374,11 +396,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getHomePracRequests: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Home page
     def getAcceptedTheoryDuties(self, examiner_id):
         cursor = None
         try:
@@ -390,11 +413,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getAcceptedTheoryDuties: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Paper pending page
     def getPracPaper_Pending(self, examiner_id):
         cursor = None
         try:
@@ -406,11 +430,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getduePracRequests: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Paper pending page
     def getTheoryPaper_Pending(self, examiner_id):
         cursor = None
         try:
@@ -422,11 +447,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getDueTheoryRequests: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Result upload page
     def getPracResult_Pending(self, examiner_id):
         cursor = None
         try:
@@ -438,11 +464,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getduePracRequests: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get data for Result upload page
     def getTheoryResult_Pending(self, examiner_id):
         cursor = None
         try:
@@ -454,11 +481,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getDueTheoryRequests: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Get details of a specific duty
     def getDutyDetails(self, dtId, dtType):
         cursor = None
         try:
@@ -487,11 +515,12 @@ class model:
                 return combinedList
         except Exception as e:
             print("Exception in getDutyDetails: ", e)
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Set user verified
     def setUserVerified(self, examiner_id):
         cursor = None
         try:
@@ -503,11 +532,12 @@ class model:
                 return data
         except Exception as e:
             print("Exception in getDataofUser", str(e))
-            return False
+            return []
         finally:
             if cursor:
                 cursor.close()
 
+    # Check wheather examiner is verified or not
     def checkExaminerVerified(self, examiner_id):
         cursor = None
         try:
@@ -528,6 +558,7 @@ class model:
             if cursor:
                 cursor.close()
 
+    # Insert uploaded paper
     def InsertUploadedPaper(self, d_id, papers, duty_type):
         cursor = None
         try:
@@ -541,12 +572,13 @@ class model:
             else:
                 return False
         except Exception as e:
-            print("Exception in getUserEmail", str(e))
+            print("Exception in InsertUploadedPaper", str(e))
             return False
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Insert uploaded result
     def InsertUploadedResult(self, d_id, results, duty_type):
         cursor = None
         try:
@@ -560,12 +592,13 @@ class model:
             else:
                 return False
         except Exception as e:
-            print("Exception in getUserEmail", str(e))
+            print("Exception in InsertUploadedResult", str(e))
             return False
         finally:
             if cursor != None:
                 cursor.close()
 
+    # Update status of a duty
     def UpdateStatus(self, d_id, status, table_name):
         cursor = None
         try:
@@ -579,7 +612,7 @@ class model:
             else:
                 return False
         except Exception as e:
-            print("Exception in getUserEmail", str(e))
+            print("Exception in UpdateStatus", str(e))
             return False
         finally:
             if cursor != None:

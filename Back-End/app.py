@@ -83,7 +83,7 @@ def SignUpPersonalInfo():
     if m.checkEmailExist(usr_email):
         return jsonify({"error": "Email exists"}), 401
     user_id = m.InsertUser(data)  # insertion function return userid
-    if user_id != False:
+    if user_id != 0:
         # sending email
         verification_code = "".join(random.choices(
             string.ascii_letters+string.digits, k=10))
@@ -132,7 +132,7 @@ def SignUpExaminerInfo():
     # insertion in DataBase
     m = model()
     examiner_id = m.InsertExaminer(data)
-    if examiner_id != False:
+    if examiner_id != 0:
         session["examiner_id"] = examiner_id
         # Creating Access Token
         access_token = create_access_token(identity=user_id, additional_claims={
@@ -456,7 +456,6 @@ def UpdateStatus():
     if m.UpdateStatus(d_id, status, d_type) :
         return jsonify({"status": "success", "message": "Status Updated Successfully"})
     return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
-
 
 # Running app
 if __name__ == '__main__':
