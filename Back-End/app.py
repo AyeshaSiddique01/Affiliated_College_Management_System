@@ -457,6 +457,7 @@ def UpdateStatus():
         return jsonify({"status": "success", "message": "Status Updated Successfully"})
     return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
 
+
 # Running app
 if __name__ == '__main__':
     app.run(debug=True)
