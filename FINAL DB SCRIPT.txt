@@ -1,6 +1,22 @@
--- Table: public.user
+-- DROP tables
 
--- DROP TABLE IF EXISTS public."user";
+DROP TABLE IF EXISTS public.teacher_feedback;
+DROP TABLE IF EXISTS public.college_review;
+DROP TABLE IF EXISTS public.experience;
+DROP TABLE IF EXISTS public.qualification;
+DROP TABLE IF EXISTS public.examiner_courses;
+DROP TABLE IF EXISTS public.enrolled_department;
+DROP TABLE IF EXISTS public.departments;
+DROP TABLE IF EXISTS public.batch_enrollment;
+DROP TABLE IF EXISTS public.exam_duty;
+DROP TABLE IF EXISTS public.practical_duty;
+DROP TABLE IF EXISTS public.roadmap;
+DROP TABLE IF EXISTS public.affiliated_colleges;
+DROP TABLE IF EXISTS public.admin;
+DROP TABLE IF EXISTS public.examiner;
+DROP TABLE IF EXISTS public."user";
+
+-- Table: public.user
 
 CREATE TABLE IF NOT EXISTS public."user"
 (
@@ -27,8 +43,6 @@ ALTER TABLE IF EXISTS public."user"
 	
 -- Table: public.examiner
 
--- DROP TABLE IF EXISTS public.examiner;
-
 CREATE TABLE IF NOT EXISTS public.examiner
 (
     examiner_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -54,8 +68,6 @@ ALTER TABLE IF EXISTS public.examiner
 	
 -- Table: public.admin
 
--- DROP TABLE IF EXISTS public.admin;
-
 CREATE TABLE IF NOT EXISTS public.admin
 (
     admin_id integer NOT NULL,
@@ -75,8 +87,6 @@ ALTER TABLE IF EXISTS public.admin
 	
 -- Table: public.affiliated_colleges
 
--- DROP TABLE IF EXISTS public.affiliated_colleges;
-
 CREATE TABLE IF NOT EXISTS public.affiliated_colleges
 (
     ac_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -94,8 +104,6 @@ ALTER TABLE IF EXISTS public.affiliated_colleges
     OWNER to postgres;
 	
 -- Table: public.roadmap
-
--- DROP TABLE IF EXISTS public.roadmap;
 
 CREATE TABLE IF NOT EXISTS public.roadmap
 (
@@ -118,8 +126,6 @@ ALTER TABLE IF EXISTS public.roadmap
     OWNER to postgres;
 	
 -- Table: public.practical_duty
-
--- DROP TABLE IF EXISTS public.practical_duty;
 
 CREATE TABLE IF NOT EXISTS public.practical_duty
 (
@@ -168,8 +174,6 @@ ALTER TABLE IF EXISTS public.practical_duty
 
 -- Table: public.exam_duty
 
--- DROP TABLE IF EXISTS public.exam_duty;
-
 CREATE TABLE IF NOT EXISTS public.exam_duty
 (
     exam_duty_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -199,8 +203,6 @@ ALTER TABLE IF EXISTS public.exam_duty
 
 -- Table: public.batch_enrollment
 
--- DROP TABLE IF EXISTS public.batch_enrollment;
-
 CREATE TABLE IF NOT EXISTS public.batch_enrollment
 (
     batch_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -217,8 +219,6 @@ ALTER TABLE IF EXISTS public.batch_enrollment
 	
 -- Table: public.departments
 
--- DROP TABLE IF EXISTS public.departments;
-
 CREATE TABLE IF NOT EXISTS public.departments
 (
     dep_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -233,7 +233,6 @@ ALTER TABLE IF EXISTS public.departments
 
 -- Table: public.enrolled_department
 
--- DROP TABLE IF EXISTS public.enrolled_department;
 
 CREATE TABLE IF NOT EXISTS public.enrolled_department
 (
@@ -259,8 +258,6 @@ ALTER TABLE IF EXISTS public.enrolled_department
 
 -- Table: public.examiner_courses
 
--- DROP TABLE IF EXISTS public.examiner_courses;
-
 CREATE TABLE IF NOT EXISTS public.examiner_courses
 (
     examiner_crs_id integer NOT NULL,
@@ -280,8 +277,6 @@ ALTER TABLE IF EXISTS public.examiner_courses
 	
 
 -- Table: public.qualification
-
--- DROP TABLE IF EXISTS public.qualification;
 
 CREATE TABLE IF NOT EXISTS public.qualification
 (
@@ -305,8 +300,6 @@ ALTER TABLE IF EXISTS public.qualification
     OWNER to postgres;
 
 -- Table: public.experience
-
--- DROP TABLE IF EXISTS public.experience;
 
 CREATE TABLE IF NOT EXISTS public.experience
 (
@@ -332,8 +325,6 @@ ALTER TABLE IF EXISTS public.experience
 
 -- Table: public.college_review
 
--- DROP TABLE IF EXISTS public.college_review;
-
 CREATE TABLE IF NOT EXISTS public.college_review
 (
     cr_id integer NOT NULL,
@@ -357,8 +348,6 @@ ALTER TABLE IF EXISTS public.college_review
     OWNER to postgres;
 	
 -- Table: public.teacher_feedback
-
--- DROP TABLE IF EXISTS public.teacher_feedback;
 
 CREATE TABLE IF NOT EXISTS public.teacher_feedback
 (
