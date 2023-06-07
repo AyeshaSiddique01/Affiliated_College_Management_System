@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 import './duePaper.css'
 
 const DuePaper = () => {
@@ -26,6 +27,8 @@ const DuePaper = () => {
             .catch(error => console.error(error));
     }, []);
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body2'>
             <div class="subject2-box">
                 <h2 class="subject2-name">Due Paper</h2>
@@ -60,6 +63,7 @@ const DuePaper = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

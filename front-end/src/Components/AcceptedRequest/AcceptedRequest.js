@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
 import './acceptedRequest.css';
 
 const AcceptedRequest = () => {
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body8'>
             <div className='container'>
                 <div className="row RequestheaderAR">
@@ -44,6 +47,7 @@ const AcceptedRequest = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

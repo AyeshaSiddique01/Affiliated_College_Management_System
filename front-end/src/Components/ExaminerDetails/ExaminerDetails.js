@@ -4,7 +4,8 @@ import UserDetails from './componnets/user-details'
 import QualificationDetails from './componnets/qualification-details'
 import ExperienceDetails from './componnets/experience-details'
 import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 
 const ExaminerDetails = () => {
     // const navigate = useNavigate();
@@ -26,6 +27,7 @@ const ExaminerDetails = () => {
 
     return (
         <>
+        <Navbar />
             <h1>hello</h1>
             {/* <div className="d-flex align-items-end justify-content-end p-5">
                 <button className="btn btn-primary" onClick={() => navigate("/")}>

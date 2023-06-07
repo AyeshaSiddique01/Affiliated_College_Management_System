@@ -62,7 +62,7 @@ const ExaminerQualification = () => {
             <div className='bg-imgEQ'>
                 <div className="contentEQ" style={{ width: "522px", height: "87%" }}>
                     <header>
-                        <h1 style={{ color: "#171d1f", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
+                        <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>
                     <table className='TableStyleEQ' border="1">
                         <tr>
@@ -91,7 +91,7 @@ const ExaminerQualification = () => {
                                 <div class="modal-content" style={{backgroundColor : "#232323"}}>
                                     <span class="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerQualification}>
+                                        <form style={{width:"90%"}} onSubmit={handleExaminerQualification}>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />

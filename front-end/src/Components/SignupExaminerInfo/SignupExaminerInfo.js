@@ -30,7 +30,7 @@ const SignupExaminerInfo = () => {
     <div className='FormBg'>
       <div className='bg-img'>
         <div className="content" style={{ width: "510px" }}>
-          <header type="EI"style={{ fontFamily: "Poppins", color: "#171d1f" }}>Examiner Information</header>
+          <header type="EI"style={{ fontFamily: "Poppins", color: "#d7e7ec" }}>Examiner Information</header>
           {/* <form action="http://localhost:5000//SignUpExaminerInfo" method='post' enctype="multipart/form-data"> */}
           <form onSubmit={handleSignUpExaminer}>
             <div className="maindiv">

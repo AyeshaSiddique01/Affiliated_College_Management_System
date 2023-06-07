@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 import './notifications.css';
 
 const Notifications = () => {
@@ -27,6 +28,8 @@ const Notifications = () => {
     }, []);
 
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body4'>
             <div className="subject4-box">
                 <h2 class="subject4-name">Requests</h2>
@@ -57,6 +60,7 @@ const Notifications = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

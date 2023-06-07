@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
 import './uploadPaper.css';
 
 const UploadPaper = () => {
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body5'>
             <div className='container'>
                 <div className="row RequestheaderUP">
@@ -45,6 +48,7 @@ const UploadPaper = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

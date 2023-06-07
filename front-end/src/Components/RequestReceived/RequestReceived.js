@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 import './requestReceived.css';
 
 const RequestReceived = () => {
@@ -34,6 +35,8 @@ const RequestReceived = () => {
     }, []);
 
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body7'>
             <div className='container'>
                 <div className="row RequestheaderRR">
@@ -74,6 +77,7 @@ const RequestReceived = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

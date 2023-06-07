@@ -49,8 +49,8 @@ const Login = () => {
                     </style>
                     <div className="bg-imglogin">
                         <div className="contentlogin">
-                            <header><h1 style={{ color: "#171d1f", fontFamily: "Poppins", fontWeight: "600" }}>Log In form</h1></header>
-                            <header type="PI" style={{ fontFamily: "Poppins", color: "#171d1f" }}>Enter your registered mail and password:</header>
+                            <header><h1 style={{ fontFamily: "Poppins", fontWeight: "600" }}>Log In form</h1></header>
+                            <header type="PI" style={{ fontFamily: "Poppins"}}>Enter your registered mail and password:</header>
                             <form onSubmit={handleLogin}>
 
                                 <div className="maindivlogin">

@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
 import './uploadResult.css';
 
 const UploadResult = () => {
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body6'>
             <div className='container'>
                 <div className="row RequestheaderUR">
@@ -45,6 +48,7 @@ const UploadResult = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

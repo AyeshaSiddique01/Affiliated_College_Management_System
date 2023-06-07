@@ -10,7 +10,7 @@
   background-attachment: fixed; */
   /* height: 100%; */
   /* background-image: url("/src/Static/books2.jpg"); */
-  background-color: #92785e;
+  background-color: #212529;
   height: 122vh;
   background-size: cover;
   background-position: center;
@@ -19,14 +19,14 @@
   margin-top: 0px;
   border-radius: 10px;
   position: absolute;
-  background-color: #92785e;
+  background-color: #252f38;
   top: 62%;
   left: 50%;
   z-index: 999;
   text-align: center;
   padding: 30px 82px;
-  width: 520px;
-  color: #171d1f;
+  width: 30%;
+  color: #ffffff;
   transform: translate(-50%, -50%);
   /* background-image: url("/src/Static/books3.jpg"); */
   background-size: cover;
@@ -36,7 +36,7 @@
 }
 
 header[type="PI"] {
-  color: #171d1f;
+  /* color: #171d1f; */
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 15px 0;
@@ -85,7 +85,7 @@ header[type="PI"] {
   box-sizing: border-box;
   outline: none;
   text-align: center;
-  color: #171d1f;
+  color: #d7e7ec;
 }
 
 select {
@@ -100,7 +100,7 @@ select {
   background: transparent;
   border: none;
   outline: none;
-  color: #222;
+  color: #d7e7ec;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
 }
@@ -148,7 +148,7 @@ select {
 }
 
 .passSP a {
-  color: #171d1f;
+  color: #d7e7ec;
   text-decoration: none;
   font-family: "Poppins";
   font-size: 19px;
@@ -249,14 +249,14 @@ input[type="file"] {
 }
 
 .login {
-  color: white;
+  color: #d7e7ec;
   margin: 20px 0;
   font-family: "Poppins", sans-serif;
 }
 .headtxtSP{
   margin-top: 0px;
   margin-bottom: 15px;
-  color: #171d1f;
+  color: #d7e7ec;
   font-family: "Poppins";
   font-weight: 900;
   font-size: 40px;

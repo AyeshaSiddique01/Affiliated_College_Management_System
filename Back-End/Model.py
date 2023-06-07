@@ -359,9 +359,10 @@ class model:
                 query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
+                print(data)
                 return data
         except Exception as e:
-            print("Exception in getPracRequests")
+            print("Exception in getRecievedPracRequests")
             return []
         finally:
             if cursor:
@@ -378,7 +379,7 @@ class model:
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getTheoryRequests")
+            print("Exception in getRecievedTheoryRequests")
             return []
         finally:
             if cursor:

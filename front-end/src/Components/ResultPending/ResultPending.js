@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Navbar from '../Navbar/Navbar';
 import './resultPending.css'
 
 const ResultPending = () => {
@@ -26,6 +27,8 @@ const ResultPending = () => {
             .catch(error => console.error(error));
     }, []);
     return (
+        <>
+        <Navbar></Navbar>
         <div className='My-body3'>
             <div class="subject3-box">
                 <h2 class="subject3-name">Result Pending</h2>
@@ -56,6 +59,7 @@ const ResultPending = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

@@ -1,10 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
 
 const Profile = () => {
   return (
-    <div className='FormBg'>
-        Profile        
-    </div>
+    <>
+      <Navbar></Navbar>
+      <div className='FormBg'>
+        Profile
+      </div>
+    </>
   )
 }
 

@@ -66,7 +66,7 @@ const ExaminerExp = () => {
             <div className='bg-imgEE'>
                 <div className="contentEE" style={{ width: "522px", height: "83%" }}>
                     <header>
-                        <h1 style={{ color: "#171d1f", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
+                        <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
                     <table className='TableStyleEE' border="1">
                         <tr>
@@ -79,27 +79,25 @@ const ExaminerExp = () => {
                         </tr>
                         {dataList.map((item, index) => (
                             <tr>
-                            <td>{index + 1}</td>
-                            <td>{item[2]}</td>
-                            <td>{item[3]}</td>
-                            <td>{item[4]}</td>
-                            <td>{item[5]}</td>
-                        </tr>
-                        ))}   
+                                <td>{index + 1}</td>
+                                <td>{item[2]}</td>
+                                <td>{item[3]}</td>
+                                <td>{item[4]}</td>
+                                <td>{item[5]}</td>
+                            </tr>
+                        ))}
                     </table>
                     <div className="container ButtonsEE">
                         <div>
                             {/* <form action='http://localhost:3000/Profile'> */}
                             <div className='NextBtnEE'>
                                 <button type="button" id='myBtn'>Add New</button>
-                                {/* <button type="submit"></button> */}
                             </div>
-                            {/* </form> */}
                             <div id="AddNewQualification" class="modal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
                                     <div>
-                                        <form onSubmit={handleExaminerExper}>
+                                        <form style={{ width: "90%" }} onSubmit={handleExaminerExper}>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <input type="text" className='input-box' placeholder='Enter Job Title' name='job_title' onChange={(e) => set_job_title(e.target.value)} required />
@@ -141,7 +139,7 @@ const ExaminerExp = () => {
                         </div>
                         <div>
                             <a href='http://localhost:3000/'>
-                                <div className='NextBtn'>
+                                <div className='NextBtn NextBtnEE'>
                                     <button type="submit">Next Page</button>
                                 </div>
                             </a>
