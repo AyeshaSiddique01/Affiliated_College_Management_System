@@ -6,13 +6,16 @@ import './duePaper.css'
 const DuePaper = () => {
     const [dataList, setDataList] = useState([]);
     const [Duty_ID, setId] = useState('');
-
+    const accessToken = localStorage.getItem('access_token');
+    const headers = {
+      'Authorization': `Bearer ${accessToken}`,
+    };
     const handleDutyID = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('duty_id', Duty_ID);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData);
+            const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData, {headers});
             localStorage.setItem('access_token', response.data.access_token);
             // Redirect the user to the protected route
             window.location.href = '/AcceptedRequest';

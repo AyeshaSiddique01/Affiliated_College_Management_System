@@ -1,17 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import './examinerQualification.css';
 
 const ExaminerQualification = () => {
 
     const [dataList, setDataList] = useState([]);
-
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/NewQualifications')
-            .then(response => response.json())
-            .then(data => setDataList(data))
-            .catch(error => console.error(error));
-    }, []);
+    const accessToken = localStorage.getItem('access_token');
+    const header = {
+        'Authorization': `Bearer ${accessToken}`,
+    };
+    // useEffect(() => {
+    //     if (accessToken) {
+    //         console.log("yess")
+    //         fetch('http://127.0.0.1:5000/NewQualifications', { headers: header })
+    //             .then(response => response.json())
+    //             .then(data => setDataList(data))
+    //             .catch(error => console.log(error));
+    //     }
+    // }, []);
 
     const [degree_title, setDegreeTitle] = useState('');
     const [institution, setInstitution] = useState('');
@@ -28,7 +35,7 @@ const ExaminerQualification = () => {
         formData.append('ending_date', ending_date);
         formData.append('transcript', fileInputRef.current.files[0]);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/ExaminerQualification', formData);
+            const response = await axios.post('http://127.0.0.1:5000/ExaminerQualification', formData, { header });
             localStorage.setItem('access_token', response.data.access_token);
             // Redirect the user to the protected route
             window.location.href = '/ExaminerQualification';
@@ -56,7 +63,7 @@ const ExaminerQualification = () => {
         }
 
     });
-    
+
     return (
         <div className='FormBgEQ'>
             <div className='bg-imgEQ'>
@@ -74,13 +81,13 @@ const ExaminerQualification = () => {
                         </tr>
                         {dataList.map((item, index) => (
                             <tr>
-                            <td>{index + 1}</td>
-                            <td>{item[2]}</td>
-                            <td>{item[3]}</td>
-                            <td>{item[4]}</td>
-                            <td>{item[5]}</td>
-                        </tr>
-                        ))}                        
+                                <td>{index + 1}</td>
+                                <td>{item[2]}</td>
+                                <td>{item[3]}</td>
+                                <td>{item[4]}</td>
+                                <td>{item[5]}</td>
+                            </tr>
+                        ))}
                     </table>
                     <div className="container ButtonsEQ">
                         <div>
@@ -88,10 +95,10 @@ const ExaminerQualification = () => {
                                 <button type="button" id='myBtn'>Add New</button>
                             </div>
                             <div id="AddNewQualification" class="modal">
-                                <div class="modal-content" style={{backgroundColor : "#232323"}}>
+                                <div class="modal-content" style={{ backgroundColor: "#232323" }}>
                                     <span class="close">&times;</span>
                                     <div>
-                                        <form style={{width:"90%"}} onSubmit={handleExaminerQualification}>
+                                        <form style={{ width: "90%" }} onSubmit={handleExaminerQualification}>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />

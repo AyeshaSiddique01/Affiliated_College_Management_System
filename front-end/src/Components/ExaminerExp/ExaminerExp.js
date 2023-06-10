@@ -6,7 +6,10 @@ import './examinerExp.css';
 const ExaminerExp = () => {
 
     const [dataList, setDataList] = useState([]);
-
+    const accessToken = localStorage.getItem('access_token');
+    const header = {
+      'Authorization': `Bearer ${accessToken}`,
+    };
     useEffect(() => {
         fetch('http://127.0.0.1:5000/NewExperience')
             .then(response => response.json())
@@ -31,7 +34,7 @@ const ExaminerExp = () => {
         formData.append('ending_date', ending_date);
         formData.append('ExperianceLetter', fileInputRef.current.files[0]);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData);
+            const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, {header});
             localStorage.setItem('access_token', response.data.access_token);
             // Redirect the user to the protected route
             window.location.href = '/ExaminerExp';

@@ -12,9 +12,6 @@ class model:
                 user="postgres",
                 password="Ayesha@1306",  # write your dbPassword
                 port="5432")
-            # self.ur_id = 0
-            # self.exmnr_id = 0
-            # self.duty_id = 0
         except Exception as e:
             print(str(e))
 
@@ -65,23 +62,23 @@ class model:
             if cursor != None:
                 cursor.close()
 
-    # def getUserEmail(self, id):
-    #     cursor = None
-    #     try:
-    #         if self.connection != None:
-    #             cursor = self.connection.cursor()
-    #             cursor.execute(
-    #                 f'''select usr_email from public.user where usr_id = '{id}';''')
-    #             email = cursor.fetchone()
-    #             return email[0]
-    #         else:
-    #             return 0
-    #     except Exception as e:
-    #         print("Exception in getUserEmail", str(e))
-    #         return 0
-    #     finally:
-    #         if cursor != None:
-    #             cursor.close()
+    def getUserEmail(self, id):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(
+                    f'''select usr_email from public.user where usr_id = '{id}';''')
+                email = cursor.fetchone()
+                return email[0]
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
+            return 0
+        finally:
+            if cursor != None:
+                cursor.close()
 
     # def Returns hashed Password 
     def getUserPassword(self, email):
@@ -108,10 +105,12 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                cursor.execute(
-                    f'''select examiner_id from public.examiner where "user_id " = {userid};''')
-                id = cursor.fetchone()
-                return id[0]
+                query = f'''select examiner_id from public.examiner where "user_id " = {userid};'''
+                print(query)
+                cursor.execute(query)
+                id = cursor.fetchall()
+                print("id: ", id)
+                return id
             else:
                 return 0
         except Exception as e:
@@ -130,7 +129,6 @@ class model:
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count","verified") 
                             values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count}, {examiner.verified}) returning examiner_id;
                             '''
-                print("query: ", query)
                 cursor.execute(query)
                 id = cursor.fetchone()
                 self.connection.commit()
@@ -322,7 +320,6 @@ class model:
             if self.connection:
                 cursor = self.connection.cursor()
                 query = f'''select * from public.{tableName} where examiner_id = {examiner_id};'''
-                print(query)
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -359,7 +356,6 @@ class model:
                 query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                print(data)
                 return data
         except Exception as e:
             print("Exception in getRecievedPracRequests")

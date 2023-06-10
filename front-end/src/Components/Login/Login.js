@@ -11,9 +11,10 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            console.log("in try")
             const response = await axios.post('http://127.0.0.1:5000/ExaminerLogin', { email, password });
-            // localStorage.setItem('access_token', response.data.access_token);
+            
+            const accessToken = response.data.access_token;
+            localStorage.setItem('access_token', accessToken);
             
             window.location.href = '/Notifications';
         } catch (error) {

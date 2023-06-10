@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './signupExaminerInfo.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignupExaminerInfo = () => {
   const [institution, setInstitution] = useState('');
   const fileInputRef = useRef(null);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
@@ -20,7 +22,7 @@ const SignupExaminerInfo = () => {
       const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData, {headers});
       localStorage.setItem('access_token', response.data.access_token);
       // Redirect the user to the protected route
-      window.location.href = '/ExaminerQualification';
+      return navigate('/ExaminerQualification')
     } catch (error) {
       console.error("error: ", error);
       setError('Some Input is Wrong');

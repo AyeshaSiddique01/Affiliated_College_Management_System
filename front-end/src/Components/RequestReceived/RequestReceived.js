@@ -7,7 +7,10 @@ const RequestReceived = () => {
 
     const [getData, setData] = useState([]);
     const [selection, setSelection] = useState('');
-
+    const accessToken = localStorage.getItem('access_token');
+    const headers = {
+      'Authorization': `Bearer ${accessToken}`,
+    };
     const handleAccept = () => {
       setSelection('accept');
       sendSelection('accept');
@@ -19,7 +22,7 @@ const RequestReceived = () => {
     };
   
     const sendSelection = (selectedOption) => {
-      axios.post('http://127.0.0.1:5000/UpdateStatus', { selection: selectedOption })
+      axios.post('http://127.0.0.1:5000/UpdateStatus', { selection: selectedOption }, {headers})
       .then(response => {
         console.log(response)
       })

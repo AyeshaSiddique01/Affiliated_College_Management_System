@@ -5,7 +5,11 @@ import './settings.css';
 function Settings() {
   const [darkMode, setDarkMode] = useState(false);
   const [file, setFile] = useState(null);
-
+  const accessToken = localStorage.getItem('access_token');
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+  };
+  
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
