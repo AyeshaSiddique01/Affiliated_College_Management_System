@@ -183,8 +183,7 @@ def ExaminerQualification():
         f = request.files.get("transcript")
         
         # Strore file in local directory
-        print(datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-        transcript = f'''Static\\transcripts\\{datetime.now().strftime("%d-%m-%Y %H:%M:%S")}_{examiner_id}.pdf'''
+        transcript = f'''Static\\transcripts\\{datetime.now().strftime("%d%m%Y%H%M%S")},{examiner_id}.pdf'''
         if Path(transcript).is_file():
             os.remove(transcript)
         f.save(transcript)
@@ -217,22 +216,23 @@ def ExaminerExperience():
         ending_date = request.form.get("ending_date")
         f = request.files.get("ExperianceLetter")
         # Strore file in local directory
-        ExperianceLetters = f"Static\\ExperianceLetters\\{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}_{examiner_id}.pdf"
-        print(ExperianceLetters)
+        ExperianceLetters = f'Static\\ExperianceLetters\\{datetime.now().strftime("%d%m%Y%H%M%S")}_{examiner_id}.pdf'
         if Path(ExperianceLetters).is_file():
             os.remove(ExperianceLetters)
         f.save(ExperianceLetters)
 
         data = experience(examiner_id, job_title, ExperianceLetters,
                         organization, reference_email, starting_date, ending_date)
+        
         verification_link = request.url_root + 'verify?code=' + verification_code
-
+        
         # Insertion in dataBase
         email = m.getUserEmail(g.user_id)
-        message = Message('Verify your email', recipients=email)
-        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-        mail.send(message)
-
+        
+        # message = Message('Verify your email', recipients=email)
+        # message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        # mail.send(message)
+        
         if m.InsertExaminerExperience(data) != False:
             return jsonify({"Message": "Okay"}), 200
         return jsonify({"error": "Error in insertion"}), 401
@@ -299,11 +299,13 @@ def profile():
     try:
         m = g.model
         examiner_id = g.examiner_id
-        user_ = m.getDataofUser(examiner_id)
+        user_ = m.getDataofUser(g.user_id)
+        print(user_)
         examiner_ = m.getDataofExaminer("examiner", examiner_id)
+        
         data = {
-            "usr_name": user_.usr_name,
-            "usr_phoneno": user_.usr_phoneno,
+            "usr_name": user_[1],
+            "usr_phoneno": user_[3],
             "usr_cnic": user_.usr_cnic,
             "usr_address": user_.usr_address,
             "usr_email": user_.usr_email,
@@ -326,7 +328,7 @@ def profile():
         print("Exception in profile", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route('/notifications')
+@app.route('/notifications', methods=["POST", "GET"])
 @my_decorator
 def notifications():
     try:        
@@ -366,7 +368,6 @@ def getRequestRecievedId():
         examiner_id = m.getExaminerID(user_id)
 
         duty = request.form.get('duty_id')
-        print("duty: ", duty)
         data = duty.split(",")
         # session["duty_id"] = str(data[0])
         # session["duty_Type"] = str(data[data.__len__() - 1])
@@ -393,7 +394,7 @@ def DutyDetails():                  # moving from request page to duty details
         print("Exception in DutyDetails", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route('/home')
+@app.route('/home', methods=["POST", "GET"])
 @my_decorator
 def home():
     try:
@@ -520,16 +521,12 @@ def GetResult():
         return jsonify({"error": str(e)}), 401
     
 @app.route('/NewQualifications', methods=["GET"])
-@jwt_required()
 @my_decorator
 def NewQualifications():
-
-    print("in new: ", get_jwt_identity())
     m = g.model
     examiner_id = g.examiner_id
 
     qualifications = m.getDataofExaminer("qualification", examiner_id)
-    print(qualifications)
     return jsonify(qualifications)
 
 @app.route('/NewExperience', methods=["GET"])

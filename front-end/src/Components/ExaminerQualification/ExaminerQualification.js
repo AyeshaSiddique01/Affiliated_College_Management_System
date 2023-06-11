@@ -11,16 +11,6 @@ const ExaminerQualification = () => {
     const header = {
         'Authorization': `Bearer ${accessToken}`,
     };
-    // useEffect(() => {
-    //     if (accessToken) {
-    //         console.log("yess")
-    //         fetch('http://127.0.0.1:5000/NewQualifications', { headers: header })
-    //             .then(response => response.json())
-    //             .then(data => setDataList(data))
-    //             .catch(error => console.log(error));
-    //     }
-    // }, []);
-
     useEffect(() => {
         fetchData();
     }, []); 
@@ -52,7 +42,7 @@ const ExaminerQualification = () => {
             const response = await axios.post('http://127.0.0.1:5000/ExaminerQualification', formData, { headers: header });
 
             // Redirect the user to the protected route
-            return navigate('/ExaminerQualification');
+            window.location.href = '/ExaminerQualification';
         } catch (error) {
             console.error("error: ", error);
             setError('Some Input is Wrong');

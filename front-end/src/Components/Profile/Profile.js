@@ -14,11 +14,13 @@ const Profile = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
-    
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+  };
   const getData = async () => {
     try {
       console.log("in try");
-      const response = await axios.post("http://127.0.0.1:5000/profile");
+      const response = await axios.get('http://127.0.0.1:5000/profile', { headers: headers });
       console.log("response-----------", response);
     } catch (error) {
       // document.getElementById("msj").textContent = error;

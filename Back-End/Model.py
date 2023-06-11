@@ -196,7 +196,6 @@ class model:
                 query = f'''insert into public.qualification("examiner_id", "degree_title", "institution", "starting_date", "ending_date","transcript") 
                 values('{qualification.examiner_id}', '{qualification.degree_title}', '{qualification.institution}', '{qualification.starting_date}', '{qualification.ending_date}','{qualification.transcript}');
                 '''
-                print(query)
                 cursor.execute(query)
                 self.connection.commit()
                 return True
@@ -338,7 +337,7 @@ class model:
                 query = f'''select * from public.user where usr_id = {usr_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                return data
+                return data[0]
         except Exception as e:
             print("Exception in getDataofUser", str(e))
             return []
@@ -527,7 +526,7 @@ class model:
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getDataofUser", str(e))
+            print("Exception in setUserVerified", str(e))
             return []
         finally:
             if cursor:

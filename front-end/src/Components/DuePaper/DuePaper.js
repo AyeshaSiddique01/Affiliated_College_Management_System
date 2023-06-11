@@ -17,20 +17,26 @@ const DuePaper = () => {
         const formData = new FormData();
         formData.append('duty_id', Duty_ID);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData, {headers});
+            const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData, { headers: headers });
             
             // Redirect the user to the protected route
             return navigate('/AcceptedRequest');
         } catch (error) {
             console.error("error: ", error);
         }
-    };
+    };    
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/PaperPendingDuty', { headers: headers })
-            .then(response => response.json())
-            .then(data => setDataList(data))
-            .catch(error => console.error(error));
-    }, []);
+        fetchData();
+    }, []); 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:5000/PaperPendingDuty', { headers: headers });
+            setDataList(response.data);
+            console.log(response.data);
+        } catch (error) {
+            
+        }
+    };
     if (!accessToken) {
       return navigate("/"); // Render the Login component if access token doesn't exist
     }

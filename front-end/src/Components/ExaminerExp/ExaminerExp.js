@@ -11,14 +11,20 @@ const ExaminerExp = () => {
     const accessToken = localStorage.getItem('access_token');
     const header = {
         'Authorization': `Bearer ${accessToken}`,
-    };
+    };    
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/NewExperience', { headers: header })
-            .then(response => response.json())
-            .then(data => setDataList(data))
-            .catch(error => console.error(error));
-    }, []);
+        fetchData();
+    }, []); 
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:5000/NewExperience', { headers: header });
+            setDataList(response.data);
+            console.log(response.data);
+        } catch (error) {
+            
+        }
+    };
     const [job_title, set_job_title] = useState('');
     const [organization, set_organization] = useState('');
     const [reference_email, set_reference_email] = useState('');
@@ -39,7 +45,7 @@ const ExaminerExp = () => {
             const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, { headers: header });
 
             // Redirect the user to the protected route
-            return navigate('/ExaminerExp');
+            window.location.href = '/ExaminerExp';
         } catch (error) {
             console.error("error: ", error);
             setError('Some Input is Wrong');
@@ -150,7 +156,7 @@ const ExaminerExp = () => {
                             </div>
                         </div>
                         <div>
-                            <a href='http://localhost:3000/'>
+                            <a href='http://localhost:3000/home'>
                                 <div className='NextBtn NextBtnEE'>
                                     <button type="submit">Next Page</button>
                                 </div>
