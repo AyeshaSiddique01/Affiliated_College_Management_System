@@ -310,10 +310,9 @@ class model:
         finally:
             if cursor != None:
                 cursor.close()
-
-    
+ 
     # Get data of specific examiner
-    def getDataofExaminerForProfile(self, tableName, examiner_id):
+    def getDataofExaminerForProfile(self, examiner_id):
         cursor = None
         try:
             if self.connection:

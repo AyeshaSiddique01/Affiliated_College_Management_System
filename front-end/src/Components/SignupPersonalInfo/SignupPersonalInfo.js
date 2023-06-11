@@ -32,7 +32,7 @@ const SignupPersonalInfo = () => {
         } catch (error) {
             // document.getElementById("msj").textContent = error;
             console.error("error: ", error);
-            setError('Email Exists');
+            setError(error);
         }
     };
 

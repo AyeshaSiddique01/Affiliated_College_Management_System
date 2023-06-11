@@ -104,9 +104,8 @@ def SignUpPersonalInfo():
         
         # Insertion in database
         m = model()
-        
         if m.checkEmailExist(usr_email):
-            return jsonify({"error": "Email exists"}), 401
+            return jsonify({"error": "Email already exists"}), 401
         user_id = m.InsertUser(data)  # insertion function return userid
         
         if user_id != 0:
@@ -229,9 +228,9 @@ def ExaminerExperience():
         # Insertion in dataBase
         email = m.getUserEmail(g.user_id)
         
-        # message = Message('Verify your email', recipients=email)
-        # message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-        # mail.send(message)
+        message = Message('Verify your email', recipients=email)
+        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        mail.send(message)
         
         if m.InsertExaminerExperience(data) != False:
             return jsonify({"Message": "Okay"}), 200
@@ -300,8 +299,7 @@ def profile():
         m = g.model
         examiner_id = g.examiner_id
         user_ = m.getDataofUser(g.user_id)
-        print(user_)
-        examiner_ = m.getDataofExaminerForProfile("examiner", examiner_id)
+        examiner_ = m.getDataofExaminerForProfile(examiner_id)
         
         data = {
             "usr_name": user_[0],
@@ -318,7 +316,6 @@ def profile():
             "rejection_count": examiner_[3],
             "resume": examiner_[4]
         }
-        # print(data)
         return jsonify(data), 200
     except Exception as e:
         print("Exception in profile", str(e))
@@ -396,7 +393,7 @@ def home():
     try:
         m = g.model
         examiner_id = g.examiner_id
-
+        print(examiner_id)
         # return requested received and status is true and
         # paper upload deadline is after today
         duties = []
