@@ -293,7 +293,7 @@ def ExaminerLogin():
         print("Exception in Login", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile', methods=['GET'])
 @my_decorator
 def profile():
     try:
@@ -301,29 +301,25 @@ def profile():
         examiner_id = g.examiner_id
         user_ = m.getDataofUser(g.user_id)
         print(user_)
-        examiner_ = m.getDataofExaminer("examiner", examiner_id)
+        examiner_ = m.getDataofExaminerForProfile("examiner", examiner_id)
         
         data = {
-            "usr_name": user_[1],
-            "usr_phoneno": user_[3],
-            "usr_cnic": user_.usr_cnic,
-            "usr_address": user_.usr_address,
-            "usr_email": user_.usr_email,
-            "usr_profile_pic": user_.usr_profile_pic,
-            "usr_bio": user_.usr_bio,
-            "usr_gender": user_.usr_gender,
-            "usr_active_status": user_.usr_active_status,
-            "institution": examiner_.institution,
-            "availability": examiner_.availability,
-            "ranking": examiner_.ranking,
-            "resume": examiner_.resume,
-            "acceptance_count": examiner_.acceptance_count,
-            "rejection_count": examiner_.rejection_count,
-            "qualification": m.getDataofExaminer("qualification", examiner_id),
-            "experience": m.getDataofExaminer("experience", examiner_id)
+            "usr_name": user_[0],
+            "usr_cnic": user_[1],
+            "usr_phoneno": user_[2],
+            "usr_address": user_[3],
+            "usr_email": user_[4],
+            "usr_gender": user_[5],
+            "usr_bio": user_[6],
+            "usr_profile_pic": user_[7],
+            "institution": examiner_[0],
+            "ranking": examiner_[1],
+            "acceptance_count": examiner_[2],
+            "rejection_count": examiner_[3],
+            "resume": examiner_[4]
         }
-        print(data)
-        return jsonify(data)
+        # print(data)
+        return jsonify(data), 200
     except Exception as e:
         print("Exception in profile", str(e))
         return jsonify({"error": str(e)}), 401

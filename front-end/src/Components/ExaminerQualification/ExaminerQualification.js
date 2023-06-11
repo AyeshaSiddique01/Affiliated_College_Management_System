@@ -13,7 +13,7 @@ const ExaminerQualification = () => {
     };
     useEffect(() => {
         fetchData();
-    }, []); 
+    }, []);
 
     const fetchData = async () => {
         try {
@@ -21,7 +21,7 @@ const ExaminerQualification = () => {
             setDataList(response.data);
             console.log(response.data);
         } catch (error) {
-            
+
         }
     };
     const [degree_title, setDegreeTitle] = useState('');
@@ -70,10 +70,13 @@ const ExaminerQualification = () => {
     if (!accessToken) {
         return navigate("/"); // Render the Login component if access token doesn't exist
     }
+    const GoNext = () => {
+        return navigate("/ExaminerExp");
+    }
     return (
         <div className='FormBgEQ'>
             <div className='bg-imgEQ'>
-                <div className="contentEQ" style={{ width: "522px", height: "87%" }}>
+                <div className="contentEQ" style={{ width: "fit-content", height: "fit-content" }}>
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>
@@ -101,9 +104,6 @@ const ExaminerQualification = () => {
                     </table>
                     <div className="container ButtonsEQ">
                         <div>
-                            <div className='NextBtnEQ'>
-                                <button type="button" id='myBtn'>Add New</button>
-                            </div>
                             <div id="AddNewQualification" className="modal">
                                 <div className="modal-content" style={{ backgroundColor: "#232323" }}>
                                     <span className="close">&times;</span>
@@ -144,11 +144,11 @@ const ExaminerQualification = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='NextBtnEQ'>
-                            <a href="http://localhost:3000/ExaminerExp">
-                                <button type="submit">Next Page</button>
-                            </a>
-                        </div>
+                    </div>
+                    <div className='NextBtnEE'>
+                        <button type="button" id='myBtn' style={{ width: "190px" }}>Add New</button>
+                        <br></br>
+                        <button type="submit" style={{ width: "190px" }} onClick={GoNext}>Next Page</button>
                     </div>
                 </div>
             </div>

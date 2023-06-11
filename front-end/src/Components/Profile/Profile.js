@@ -17,6 +17,7 @@ const Profile = () => {
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
   };
+  
   const getData = async () => {
     try {
       console.log("in try");

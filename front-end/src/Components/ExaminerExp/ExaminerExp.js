@@ -11,10 +11,10 @@ const ExaminerExp = () => {
     const accessToken = localStorage.getItem('access_token');
     const header = {
         'Authorization': `Bearer ${accessToken}`,
-    };    
+    };
     useEffect(() => {
         fetchData();
-    }, []); 
+    }, []);
 
     const fetchData = async () => {
         try {
@@ -22,7 +22,7 @@ const ExaminerExp = () => {
             setDataList(response.data);
             console.log(response.data);
         } catch (error) {
-            
+
         }
     };
     const [job_title, set_job_title] = useState('');
@@ -75,10 +75,13 @@ const ExaminerExp = () => {
     if (!accessToken) {
         return navigate("/"); // Render the Login component if access token doesn't exist
     }
+    const GoNext = () => {
+        return navigate("/home");
+    }
     return (
         <div className='FormBgEE'>
             <div className='bg-imgEE'>
-                <div className="contentEE" style={{ width: "522px", height: "83%" }}>
+                <div className="contentEE" style={{ width: "fit-content", height: "fit-content" }}>
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
@@ -108,9 +111,6 @@ const ExaminerExp = () => {
                     <div className="container ButtonsEE">
                         <div>
                             {/* <form action='http://localhost:3000/Profile'> */}
-                            <div className='NextBtnEE'>
-                                <button type="button" id='myBtn'>Add New</button>
-                            </div>
                             <div id="AddNewQualification" className="modal">
                                 <div className="modal-content">
                                     <span className="close">&times;</span>
@@ -155,13 +155,11 @@ const ExaminerExp = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <a href='http://localhost:3000/home'>
-                                <div className='NextBtn NextBtnEE'>
-                                    <button type="submit">Next Page</button>
-                                </div>
-                            </a>
-                        </div>
+                    </div>
+                    <div className='NextBtnEE'>
+                        <button type="button" id='myBtn' style={{ width: "190px" }}>Add New</button>
+                        <br></br>
+                        <button type="submit" style={{ width: "190px" }} onClick={GoNext}>Next Page</button>
                     </div>
                 </div>
             </div>

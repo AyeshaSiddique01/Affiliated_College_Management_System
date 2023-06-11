@@ -311,6 +311,24 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    
+    # Get data of specific examiner
+    def getDataofExaminerForProfile(self, tableName, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select "institution ", ranking, acceptance_count, rejection_count, resume from public."examiner" where examiner_id = {examiner_id};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data[0]
+        except Exception as e:
+            print("Exception in getDataofExaminerForProfile", str(e))
+            return []
+        finally:
+            if cursor:
+                cursor.close()
+
     # Get data of specific examiner
     def getDataofExaminer(self, tableName, examiner_id):
         cursor = None
@@ -334,7 +352,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select * from public.user where usr_id = {usr_id};'''
+                query = f'''SELECT usr_name, usr_cnic, usr_phoneno, usr_address, usr_email, usr_gender,usr_bio, usr_profile_pic FROM public."user" where usr_id = {usr_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data[0]

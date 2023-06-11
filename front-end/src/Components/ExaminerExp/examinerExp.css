@@ -23,7 +23,7 @@
   left: 50%;
   z-index: 999;
   text-align: center;
-  padding: 6px 12px;
+  padding: 20px 12px 165px 12px;
   width: 40%;
   color: white;
   transform: translate(-50%, -50%);
@@ -113,10 +113,7 @@
 }
 
 .NextBtnEE {
-  width: 250px;
-  position: relative;
-  right: -73px;
-  float: right;
+  text-align: right;
 }
 
 .NextBtnEE button {
