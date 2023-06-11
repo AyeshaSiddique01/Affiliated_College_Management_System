@@ -80,7 +80,7 @@ const SignupPersonalInfo = () => {
                         <div className="maindivSP">
                             <span className="fa fa-male"></span>
                             <span style={{ width: "fit-content" }} className="input-boxSP" > Gender: </span>
-                            <select class="form-label designLable" name="gender" onChange={(e) => setGender(e.target.value)} >
+                            <select className="form-label designLable" name="gender" onChange={(e) => setGender(e.target.value)} >
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>

@@ -39,8 +39,7 @@ const Login = () => {
                 showBtn.style.color = "#222";
             }
         });
-    });
-
+    });    
     return (
         <>
             <div className='FormBglogin'>

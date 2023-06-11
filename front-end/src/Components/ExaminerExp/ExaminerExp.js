@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './examinerExp.css';
 // import { useHistory } from "react-router-dom";
 
 const ExaminerExp = () => {
 
     const [dataList, setDataList] = useState([]);
+    const navigate = useNavigate();
     const accessToken = localStorage.getItem('access_token');
     const header = {
-      'Authorization': `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/NewExperience')
+        fetch('http://127.0.0.1:5000/NewExperience', { headers: header })
             .then(response => response.json())
             .then(data => setDataList(data))
             .catch(error => console.error(error));
@@ -34,10 +36,10 @@ const ExaminerExp = () => {
         formData.append('ending_date', ending_date);
         formData.append('ExperianceLetter', fileInputRef.current.files[0]);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, {header});
-            localStorage.setItem('access_token', response.data.access_token);
+            const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, { headers: header });
+
             // Redirect the user to the protected route
-            window.location.href = '/ExaminerExp';
+            return navigate('/ExaminerExp');
         } catch (error) {
             console.error("error: ", error);
             setError('Some Input is Wrong');
@@ -64,6 +66,9 @@ const ExaminerExp = () => {
             }
         }
     });
+    if (!accessToken) {
+        return navigate("/"); // Render the Login component if access token doesn't exist
+    }
     return (
         <div className='FormBgEE'>
             <div className='bg-imgEE'>
@@ -72,23 +77,27 @@ const ExaminerExp = () => {
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
                     <table className='TableStyleEE' border="1">
-                        <tr>
-                            <th>Sr #</th>
-                            <th>Degree Title</th>
-                            <th>Institute Name</th>
-                            <th>Starting Date</th>
-                            <th>Ending Date</th>
-                            {/* <th className='EditBtnEE'>Edit</th> */}
-                        </tr>
-                        {dataList.map((item, index) => (
+                        <thead>
                             <tr>
-                                <td>{index + 1}</td>
-                                <td>{item[2]}</td>
-                                <td>{item[3]}</td>
-                                <td>{item[4]}</td>
-                                <td>{item[5]}</td>
+                                <th>Sr #</th>
+                                <th>Degree Title</th>
+                                <th>Institute Name</th>
+                                <th>Starting Date</th>
+                                <th>Ending Date</th>
+                                {/* <th className='EditBtnEE'>Edit</th> */}
                             </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                            {dataList.map((item, index) => (
+                                <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{item[2]}</td>
+                                    <td>{item[3]}</td>
+                                    <td>{item[4]}</td>
+                                    <td>{item[5]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                     <div className="container ButtonsEE">
                         <div>
@@ -96,9 +105,9 @@ const ExaminerExp = () => {
                             <div className='NextBtnEE'>
                                 <button type="button" id='myBtn'>Add New</button>
                             </div>
-                            <div id="AddNewQualification" class="modal">
-                                <div class="modal-content">
-                                    <span class="close">&times;</span>
+                            <div id="AddNewQualification" className="modal">
+                                <div className="modal-content">
+                                    <span className="close">&times;</span>
                                     <div>
                                         <form style={{ width: "90%" }} onSubmit={handleExaminerExper}>
                                             <div className="maindiv">
@@ -115,18 +124,18 @@ const ExaminerExp = () => {
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <label className='label_' for="starting_date">Starting Date:</label>
+                                                <label className='label_' htmlFor="starting_date">Starting Date:</label>
                                                 <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => set_starting_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <label className='label_' for="ending_date">Ending Date:</label>
+                                                <label className='label_' htmlFor="ending_date">Ending Date:</label>
                                                 <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => set_ending_date(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
-                                                <label className='label_' for="ExperianceLetter">Experiance Letter: </label>
+                                                <label className='label_' htmlFor="ExperianceLetter">Experiance Letter: </label>
                                                 <input type="file" name="ExperianceLetter" className="form-control" ref={fileInputRef} required />
                                             </div>
                                             <div className="AddBtnEE">

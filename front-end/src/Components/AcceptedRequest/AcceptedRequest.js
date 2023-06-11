@@ -1,13 +1,17 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
+import { useNavigate } from 'react-router-dom';
 import './acceptedRequest.css';
 
 const AcceptedRequest = () => {
+    const navigate = useNavigate();
     const accessToken = localStorage.getItem('access_token');
     const headers = {
         'Authorization': `Bearer ${accessToken}`,
     };
-    
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }    
     return (
         <>
             <Navbar></Navbar>

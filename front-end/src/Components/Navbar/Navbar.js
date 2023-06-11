@@ -16,12 +16,12 @@ const Navbar = () => {
           </div>
         </form>
       </div>
-      <div className='header-btn' style={{ "text-align": "end" }}>
+      <div className='header-btn' style={{ "textAlign": "end" }}>
         <a href="/Profile" className='progap'><box-icon name='user-circle' size='30px' color="#DDDBCB"></box-icon></a>
         <a href="/Recent" className='progap'><box-icon type='solid' name='bell-ring' animation='tada' size='30px' color="#DDDBCB"></box-icon></a>
         <a href="/Settings" className='progap'><box-icon name='cog' animation='spin' size='30px' color="#DDDBCB"></box-icon></a>
       </div>
-      <div className='header-btn' style={{ "text-align": "end" }}>
+      <div className='header-btn' style={{ "textAlign": "end" }}>
         <a href="/SignupPersonalInfo" className='signlog'><box-icon name='log-out' size='22px' color="#DDDBCB"></box-icon>Log Out</a>
       </div>
       <div className='VerNavbar'>

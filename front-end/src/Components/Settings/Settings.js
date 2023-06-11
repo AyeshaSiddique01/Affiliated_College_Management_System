@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Navbar from '../Navbar/Navbar';
 import './settings.css';
+import { useNavigate } from 'react-router-dom';
 
 function Settings() {
   const [darkMode, setDarkMode] = useState(false);
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
@@ -22,7 +24,9 @@ function Settings() {
     event.preventDefault();
     // Handle form submission here
   };
-
+  if (!accessToken) {
+    return navigate("/"); // Render the Login component if access token doesn't exist
+  }
   return (
     <>
       <Navbar></Navbar>

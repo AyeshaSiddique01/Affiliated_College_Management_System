@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './requestReceived.css';
 
@@ -7,6 +8,7 @@ const RequestReceived = () => {
 
     const [getData, setData] = useState([]);
     const [selection, setSelection] = useState('');
+    const navigate = useNavigate();
     const accessToken = localStorage.getItem('access_token');
     const headers = {
       'Authorization': `Bearer ${accessToken}`,
@@ -36,6 +38,9 @@ const RequestReceived = () => {
             .then(data => setData(data))
             .catch(error => console.error(error));
     }, []);
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }
 
     return (
         <>

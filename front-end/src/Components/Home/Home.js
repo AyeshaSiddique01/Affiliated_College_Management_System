@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import './home.css';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 
 const Home = () => {
     const [dataList, setDataList] = useState([]);
     const [Duty_ID, setId] = useState('');
+    const navigate = useNavigate();
     const accessToken = localStorage.getItem('access_token');
     const headers = {
       'Authorization': `Bearer ${accessToken}`,
@@ -16,9 +18,9 @@ const Home = () => {
         formData.append('duty_id', Duty_ID);
         try {
             const response = await axios.post('http://127.0.0.1:5000/getRequestRecievedId', formData, {headers});
-            localStorage.setItem('access_token', response.data.access_token);
+            
             // Redirect the user to the protected route
-            window.location.href = '/UploadPaper';
+            return navigate('/UploadPaper');
         } catch (error) {
             console.error("error: ", error);
         }
@@ -29,15 +31,18 @@ const Home = () => {
             .then(data => setDataList(data))
             .catch(error => console.error(error));
     }, []);
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }
 
     return (
         <>
             <Navbar></Navbar>
             <div className='My-body1'>
-                <div class="subject1-box" >
-                    <h2 class="subject1-name">HOME</h2>
+                <div className="subject1-box" >
+                    <h2 className="subject1-name">HOME</h2>
                     <box-icon name='home-smile' animation='tada' size='190px' color="#202124"></box-icon>
-                    <div class="subject1-description">
+                    <div className="subject1-description">
                         <p>description if needed.</p>
                     </div>
                 </div>

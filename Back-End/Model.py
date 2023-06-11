@@ -106,11 +106,9 @@ class model:
             if self.connection != None:
                 cursor = self.connection.cursor()
                 query = f'''select examiner_id from public.examiner where "user_id " = {userid};'''
-                print(query)
                 cursor.execute(query)
                 id = cursor.fetchall()
-                print("id: ", id)
-                return id
+                return id[0][0]
             else:
                 return 0
         except Exception as e:
@@ -198,6 +196,7 @@ class model:
                 query = f'''insert into public.qualification("examiner_id", "degree_title", "institution", "starting_date", "ending_date","transcript") 
                 values('{qualification.examiner_id}', '{qualification.degree_title}', '{qualification.institution}', '{qualification.starting_date}', '{qualification.ending_date}','{qualification.transcript}');
                 '''
+                print(query)
                 cursor.execute(query)
                 self.connection.commit()
                 return True

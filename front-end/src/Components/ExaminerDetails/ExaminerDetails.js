@@ -8,6 +8,7 @@ import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
 
 const ExaminerDetails = () => {
+    const navigate = useNavigate();
     // const navigate = useNavigate();
     // const { user_id } = useParams();
     // const [userDetails, setUserDetails] = useState({});
@@ -25,6 +26,9 @@ const ExaminerDetails = () => {
     //     getDetails();
     // }, [user_id]);
 
+    if (!accessToken) {
+        return navigate("/"); // Render the Login component if access token doesn't exist
+      }
     return (
         <>
         <Navbar />

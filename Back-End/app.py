@@ -4,6 +4,7 @@ from flask_session import Session
 from werkzeug.wrappers import response
 from Model import model
 from datetime import datetime
+from datetime import timedelta
 # pip install flask_cors
 from flask_cors import CORS
 from fileinput import filename
@@ -64,7 +65,7 @@ def my_decorator(func):
 
             # calling Destructor of model
             m.__del__()
-            
+
         except Exception as e:
             print("Exception in decorator: ", str(e))
         return id
@@ -121,7 +122,7 @@ def SignUpPersonalInfo():
             # verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
 
             # Creating Access Token
-            access_token = create_access_token(identity=user_id[0])
+            access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=1))
             return jsonify(access_token=access_token), 200
         else:
             return jsonify({"error": "Error in insertion"}), 401
@@ -170,8 +171,7 @@ def SignUpExaminerInfo():
 @my_decorator
 def ExaminerQualification():
     try:
-        print("in new: ", get_jwt_identity())
-        
+
         m = g.model
         examiner_id = g.examiner_id
 
@@ -183,8 +183,8 @@ def ExaminerQualification():
         f = request.files.get("transcript")
         
         # Strore file in local directory
-
-        transcript = f"Static\\transcripts\{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}_{examiner_id}.pdf"
+        print(datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+        transcript = f'''Static\\transcripts\\{datetime.now().strftime("%d-%m-%Y %H:%M:%S")}_{examiner_id}.pdf'''
         if Path(transcript).is_file():
             os.remove(transcript)
         f.save(transcript)
@@ -287,7 +287,7 @@ def ExaminerLogin():
         if (examiner_id > 0):
             session["examiner_id"] = examiner_id
             access_token = create_access_token(identity=email)
-            return jsonify(access_token=access_token), 200
+            return jsonify(access_token=access_token, expires_delta=timedelta(hours=1)), 200
         return jsonify({"error": "Invalid Password"}), 401
     except Exception as e:
         print("Exception in Login", str(e))
@@ -519,27 +519,27 @@ def GetResult():
         print("Exception in GetResult", str(e))
         return jsonify({"error": str(e)}), 401
     
-# @app.route('/NewQualifications', methods=["GET"])
-# @jwt_required()
-# @my_decorator
-# def NewQualifications():
+@app.route('/NewQualifications', methods=["GET"])
+@jwt_required()
+@my_decorator
+def NewQualifications():
 
-#     print("in new: ", get_jwt_identity())
-#     m = g.model
-#     examiner_id = g.examiner_id
+    print("in new: ", get_jwt_identity())
+    m = g.model
+    examiner_id = g.examiner_id
 
-#     qualifications = m.getDataofExaminer("qualification", examiner_id)
-#     print(qualifications)
-#     return jsonify(qualifications)
+    qualifications = m.getDataofExaminer("qualification", examiner_id)
+    print(qualifications)
+    return jsonify(qualifications)
 
-# @app.route('/NewExperience', methods=["GET"])
-# @my_decorator
-# def NewExperience():
-#     m = g.model
-#     examiner_id = g.examiner_id
+@app.route('/NewExperience', methods=["GET"])
+@my_decorator
+def NewExperience():
+    m = g.model
+    examiner_id = g.examiner_id
 
-#     experiences = m.getDataofExaminer("experience", examiner_id)
-#     return jsonify(experiences)
+    experiences = m.getDataofExaminer("experience", examiner_id)
+    return jsonify(experiences)
 
 @app.route('/UpdateStatus')
 @jwt_required()
