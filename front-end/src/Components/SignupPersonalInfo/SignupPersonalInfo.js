@@ -27,7 +27,7 @@ const SignupPersonalInfo = () => {
             localStorage.setItem('access_token', accessToken);
            
             // Redirect the user to the protected route
-            return navigate("/SignupExaminerInfo")
+            navigate("/SignupExaminerInfo")
             // window.location.href = '/SignupExaminerInfo';
         } catch (error) {
             // document.getElementById("msj").textContent = error;

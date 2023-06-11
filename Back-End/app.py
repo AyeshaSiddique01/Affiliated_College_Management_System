@@ -69,7 +69,7 @@ def my_decorator(func):
         except Exception as e:
             print("Exception in decorator: ", str(e))
         return id
-    
+
     inner1.__name__ = func.__name__
     return inner1
 
@@ -101,31 +101,31 @@ def SignUpPersonalInfo():
         data.usr_bio = usr_bio
         data.usr_gender = usr_gender
         data.usr_phoneno = usr_phone
-        
+
         # Insertion in database
         m = model()
         if m.checkEmailExist(usr_email):
             return jsonify({"error": "Email already exists"}), 401
         user_id = m.InsertUser(data)  # insertion function return userid
-        
+
         if user_id != 0:
             # sending email
             # verification_code = "".join(random.choices(
             #     string.ascii_letters + string.digits, k=10))
             verification_link = request.url_root + 'verify?code=' + verification_code
             message = Message('Verify your email', recipients=[usr_email])
-            message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+            message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {usr_name} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
 
             mail.send(message)
             # sending email
             # verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
 
             # Creating Access Token
-            access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=1))
+            access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=24))
             return jsonify(access_token=access_token), 200
         else:
             return jsonify({"error": "Error in insertion"}), 401
-        
+
     except Exception as e:
         print("Exception in SignUpPersonalInfo", str(e))
         return jsonify({"error": str(e)}), 401
@@ -161,11 +161,11 @@ def SignUpExaminerInfo():
         if examiner_id != 0:
             return jsonify({"message": "okay"}), 200
         return jsonify({"error": "Error in insertion"}), 401
-        
+
     except Exception as e:
         print("Exception in SignUpExaminerInfo", str(e))
         return jsonify({"error": str(e)}), 401
-    
+
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 @my_decorator
 def ExaminerQualification():
@@ -180,7 +180,7 @@ def ExaminerQualification():
         starting_date = request.form.get("starting_date")
         ending_date = request.form.get("ending_date")
         f = request.files.get("transcript")
-        
+
         # Strore file in local directory
         transcript = f'''Static\\transcripts\\{datetime.now().strftime("%d%m%Y%H%M%S")},{examiner_id}.pdf'''
         if Path(transcript).is_file():
@@ -188,14 +188,14 @@ def ExaminerQualification():
         f.save(transcript)
 
         data = qualification(examiner_id, degree_title, transcript,
-                            institution, starting_date, ending_date)
+                             institution, starting_date, ending_date)
 
         # Insertion in DataBase
 
         if m.InsertExaminerQualification(data) != False:
             return jsonify({"Message": "Okay"}), 200
         return jsonify({"error": "Error in insertion"}), 401
-        
+
     except Exception as e:
         print("Exception in ExaminerQualification", str(e))
         return jsonify({"error": str(e)}), 401
@@ -221,29 +221,29 @@ def ExaminerExperience():
         f.save(ExperianceLetters)
 
         data = experience(examiner_id, job_title, ExperianceLetters,
-                        organization, reference_email, starting_date, ending_date)
-        
+                          organization, reference_email, starting_date, ending_date)
+
         verification_link = request.url_root + 'verify?code=' + verification_code
-        
+
         # Insertion in dataBase
         email = m.getUserEmail(g.user_id)
-        
+
         message = Message('Verify your email', recipients=email)
-        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {session.get("usr_name")} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {m.getUserEmail(g.user_id)} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
         mail.send(message)
-        
+
         if m.InsertExaminerExperience(data) != False:
             return jsonify({"Message": "Okay"}), 200
         return jsonify({"error": "Error in insertion"}), 401
-        
+
     except Exception as e:
         print("Exception in ExaminerExp", str(e))
         return jsonify({"error": str(e)}), 401
-    
+
 @app.route('/verify')
 @my_decorator
 def verify():
-    try :
+    try:
         m = g.model
         examiner_id = g.examiner_id
 
@@ -254,24 +254,22 @@ def verify():
             return redirect("http://localhost:3000")
         else:
             return 'Invalid verification code!'
-        
+
     except Exception as e:
         print("Exception in verify", str(e))
         return str(e)
 
 @app.route('/ExaminerLogin', methods=["POST"])
-@jwt_required()
-@my_decorator
 def ExaminerLogin():
-    try :
+    try:
         # Fetch data from form
         email = request.json.get("email")
         password = request.json.get("password")
-
+        print(email, password)
         # Verification
-        m = g.model
+        m = model()
         examiner_id = m.getExaminerID(m.getUserID(email))
-
+        print(examiner_id)
         if not (m.checkExaminerVerified(examiner_id)):
             return jsonify({"error": "Verify email first"}), 401
 
@@ -284,9 +282,8 @@ def ExaminerLogin():
 
         examiner_id = m.ValidatePassword(email, usr_pass)
         if (examiner_id > 0):
-            session["examiner_id"] = examiner_id
-            access_token = create_access_token(identity=email)
-            return jsonify(access_token=access_token, expires_delta=timedelta(hours=1)), 200
+            access_token = create_access_token(identity=m.getUserID(email), expires_delta=timedelta(hours=24))
+            return jsonify(access_token=access_token), 200
         return jsonify({"error": "Invalid Password"}), 401
     except Exception as e:
         print("Exception in Login", str(e))
@@ -300,21 +297,25 @@ def profile():
         examiner_id = g.examiner_id
         user_ = m.getDataofUser(g.user_id)
         examiner_ = m.getDataofExaminerForProfile(examiner_id)
-        
+
         data = {
-            "usr_name": user_[0],
-            "usr_cnic": user_[1],
-            "usr_phoneno": user_[2],
-            "usr_address": user_[3],
-            "usr_email": user_[4],
-            "usr_gender": user_[5],
-            "usr_bio": user_[6],
-            "usr_profile_pic": user_[7],
-            "institution": examiner_[0],
-            "ranking": examiner_[1],
-            "acceptance_count": examiner_[2],
-            "rejection_count": examiner_[3],
-            "resume": examiner_[4]
+            "personal_Details": {
+                "usr_name": user_[0],
+                "usr_cnic": user_[1],
+                "usr_phoneno": user_[2],
+                "usr_address": user_[3],
+                "usr_email": user_[4],
+                "usr_gender": user_[5],
+                "usr_bio": user_[6],
+                "usr_profile_pic": user_[7],
+                "institution": examiner_[0],
+                "ranking": examiner_[1],
+                "acceptance_count": examiner_[2],
+                "rejection_count": examiner_[3],
+                "resume": examiner_[4]
+            },
+            "qualification_details" : m.getDataofExaminer("qualification", examiner_id),
+            "experience_details" : m.getDataofExaminer("experience", examiner_id)
         }
         return jsonify(data), 200
     except Exception as e:
@@ -324,7 +325,7 @@ def profile():
 @app.route('/notifications', methods=["POST", "GET"])
 @my_decorator
 def notifications():
-    try:        
+    try:
         m = g.model
         examiner_id = g.examiner_id
 
@@ -345,28 +346,10 @@ def notifications():
             data.append(i)
 
         data.sort(key=lambda x: x[0], reverse=True)
-
-        return jsonify(data)
+        print(data)
+        return jsonify(data), 200
     except Exception as e:
         print("Exception in notifications", str(e))
-        return jsonify({"error": str(e)}), 401
-
-@app.route('/getRequestRecievedId', methods=['POST'])
-@jwt_required()
-@my_decorator
-def getRequestRecievedId():
-    try:
-        m = model()
-        user_id = get_jwt_identity()
-        examiner_id = m.getExaminerID(user_id)
-
-        duty = request.form.get('duty_id')
-        data = duty.split(",")
-        # session["duty_id"] = str(data[0])
-        # session["duty_Type"] = str(data[data.__len__() - 1])
-        return 200
-    except Exception as e:
-        print("Exception in getRequestRecievedId", str(e))
         return jsonify({"error": str(e)}), 401
 
 @app.route("/DutyDetails/", methods=['POST', 'GET'])
@@ -393,7 +376,6 @@ def home():
     try:
         m = g.model
         examiner_id = g.examiner_id
-        print(examiner_id)
         # return requested received and status is true and
         # paper upload deadline is after today
         duties = []
@@ -512,7 +494,7 @@ def GetResult():
     except Exception as e:
         print("Exception in GetResult", str(e))
         return jsonify({"error": str(e)}), 401
-    
+
 @app.route('/NewQualifications', methods=["GET"])
 @my_decorator
 def NewQualifications():
@@ -555,7 +537,8 @@ def UpdateStatus():
     except Exception as e:
         print("Exception in GetResult", str(e))
         return jsonify({"error": str(e)}), 401
-    
+
+
 # Running app
 if __name__ == '__main__':
     app.run(debug=True)

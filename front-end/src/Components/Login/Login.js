@@ -2,25 +2,29 @@ import React, { useState, useEffect } from "react";
 // npm install axios
 import axios from 'axios';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
+        console.log("go")
         e.preventDefault();
         try {
+            console.log(email, password)
             const response = await axios.post('http://127.0.0.1:5000/ExaminerLogin', { email, password });
             
             const accessToken = response.data.access_token;
             localStorage.setItem('access_token', accessToken);
             
-            window.location.href = '/Notifications';
+            navigate('/Notifications');
         } catch (error) {
             // document.getElementById("msj").textContent = error;
             console.error(error);
-            setError('Invalid username or password');
+            setError(error);
         }
     };
     useEffect(() => {
