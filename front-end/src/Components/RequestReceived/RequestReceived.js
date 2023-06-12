@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './requestReceived.css';
 
@@ -8,6 +8,7 @@ const RequestReceived = () => {
 
   const [getData, setData] = useState([]);
   const [selection, setSelection] = useState('');
+  const { state } = useLocation();
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
   const headers = {
@@ -32,15 +33,18 @@ const RequestReceived = () => {
         console.error(error);
       });
   }
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:5000/DutyDetails', { headers: headers });
-      setData(response.data);
-      console.log(response.data);
-    } catch (error) {
-
-    }
-  };
+  useEffect(() => {
+    const url = "http://127.0.0.1:5000/DutyDetails";
+    console.log(state.data.responseData);
+    axios
+      .post(url, { Id: state.data.responseData }, { headers: headers })
+      .then((res) => {
+        const resData = res.data;
+        console.log(resData)
+        setData(resData);
+      })
+      .catch((err) => console.log(err + "  OOPS! BAD REQUEST CC"));
+  }, []);  
   if (!accessToken) {
     return navigate("/"); // Render the Login component if access token doesn't exist
   }

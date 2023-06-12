@@ -13,6 +13,7 @@ class model:
                 password="Ayesha@1306",  # write your dbPassword
                 port="5432")
         except Exception as e:
+            self.connection = None
             print(str(e))
 
     # Destructor

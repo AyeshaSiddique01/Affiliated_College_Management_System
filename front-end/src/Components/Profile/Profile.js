@@ -22,6 +22,7 @@ const Profile = () => {
     try {
       console.log("in try");
       const response = await axios.get('http://127.0.0.1:5000/profile', { headers: headers });
+      setUserDetails(response.data)
       console.log("response-----------", response);
     } catch (error) {
       // document.getElementById("msj").textContent = error;
@@ -44,8 +45,8 @@ const Profile = () => {
         <div className="row">
           <div className="col-lg-3 col-md-6">
             <Avatar
-              src={userDetails?.personal_details?.image}
-              name={userDetails?.personal_details?.name}
+              src={userDetails?.personal_details?.usr_profile_pic}
+              name={userDetails?.personal_details?.usr_name}
             />
           </div>
           <div className="col-lg-9 col-md-6">

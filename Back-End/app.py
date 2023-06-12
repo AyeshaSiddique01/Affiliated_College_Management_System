@@ -44,34 +44,24 @@ mail = Mail(app)
 verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
 
 
-def my_decorator(func):
+def essentials(func):
     @jwt_required()
-    def inner1(*args, **kwargs):
-
+    def decorated(*args, **kwargs):
         try:
-            # initializing model
             m = model()
-
-            # Storing data in g
             g.model = m
-
-            if get_jwt_identity() != None:
+            if request.headers.get('authorization') and get_jwt_identity() != None:
                 user_id = get_jwt_identity()
                 g.user_id = user_id
-                examiner_id = m.getExaminerID(user_id)
-                g.examiner_id = examiner_id
-
-            id = func(*args, **kwargs)
-
+                g.examiner_id = m.getExaminerID(user_id)
+            api_result = func(*args, **kwargs)
             # calling Destructor of model
             m.__del__()
-
         except Exception as e:
             print("Exception in decorator: ", str(e))
-        return id
-
-    inner1.__name__ = func.__name__
-    return inner1
+        return api_result
+    decorated.__name__ = func.__name__
+    return decorated
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 def SignUpPersonalInfo():
@@ -85,7 +75,7 @@ def SignUpPersonalInfo():
         usr_gender = request.json.get("usr_gender")
         usr_password = request.json.get("usr_password")
         usr_phone = request.json.get("usr_phone")
-        usr_profile_pic = "Static\Resumes\ProfilePics\empty.png"
+        usr_profile_pic = "..\\front-end\\src\\Static\\ProfilePics\\empty.png"
         usr_active_status = True
         _hashed_password = generate_password_hash(usr_password)
 
@@ -131,8 +121,7 @@ def SignUpPersonalInfo():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
-@jwt_required()
-@my_decorator
+@essentials
 def SignUpExaminerInfo():
     try:
         # get data from form
@@ -141,7 +130,7 @@ def SignUpExaminerInfo():
 
         # Get File and Save in a directory
         f = request.files.get("resume")
-        resume = f"Static\Resumes\{user_id}.pdf"
+        resume = f"..\\front-end\\src\\Static\\Resumes\\{user_id}.pdf"
         if Path(resume).is_file():
             os.remove(resume)
         f.save(resume)
@@ -167,7 +156,7 @@ def SignUpExaminerInfo():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
-@my_decorator
+@essentials
 def ExaminerQualification():
     try:
 
@@ -201,7 +190,7 @@ def ExaminerQualification():
         return jsonify({"error": str(e)}), 401
     
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
-@my_decorator
+@essentials
 def ExaminerExperience():
     try:
         m = g.model
@@ -241,7 +230,7 @@ def ExaminerExperience():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/verify')
-@my_decorator
+@essentials
 def verify():
     try:
         m = g.model
@@ -290,7 +279,7 @@ def ExaminerLogin():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/profile', methods=['GET'])
-@my_decorator
+@essentials
 def profile():
     try:
         m = g.model
@@ -299,7 +288,7 @@ def profile():
         examiner_ = m.getDataofExaminerForProfile(examiner_id)
 
         data = {
-            "personal_Details": {
+            "personal_details": {
                 "usr_name": user_[0],
                 "usr_cnic": user_[1],
                 "usr_phoneno": user_[2],
@@ -307,7 +296,8 @@ def profile():
                 "usr_email": user_[4],
                 "usr_gender": user_[5],
                 "usr_bio": user_[6],
-                "usr_profile_pic": user_[7],
+                # "usr_profile_pic": user_[7],
+                "usr_profile_pic": ".\\Static\\ProfilePics\\empty.png",
                 "institution": examiner_[0],
                 "ranking": examiner_[1],
                 "acceptance_count": examiner_[2],
@@ -323,7 +313,7 @@ def profile():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/notifications', methods=["POST", "GET"])
-@my_decorator
+@essentials
 def notifications():
     try:
         m = g.model
@@ -353,25 +343,24 @@ def notifications():
         return jsonify({"error": str(e)}), 401
 
 @app.route("/DutyDetails/", methods=['POST', 'GET'])
-@my_decorator
+@essentials
 def DutyDetails():                  # moving from request page to duty details
     try:
-        duty_id = session.get("duty_id")
-        dutyType = session.get("duty_Type")
+        data = request.get_json()
         m = g.model
         # => using course code get crs code, crs title,
         # => request date, paper upload deadline from exam/duty table
         # => using rd_id get crs_book and crs_outline from both tables
         # => get prac_date, time and institute by using ac_id get name and location of
         # institute from affiliated_colleges table
-        dutyDetails = m.getDutyDetails(duty_id, dutyType)
+        dutyDetails = m.getDutyDetails(data["Id"], "Practical Exam")
         return jsonify(dutyDetails)
     except Exception as e:
         print("Exception in DutyDetails", str(e))
         return jsonify({"error": str(e)}), 401
 
 @app.route('/home', methods=["POST", "GET"])
-@my_decorator
+@essentials
 def home():
     try:
         m = g.model
@@ -399,7 +388,7 @@ def home():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/PaperPendingDuty', methods=['GET'])
-@my_decorator
+@essentials
 def PaperPendingDuty():						# accepted and uploaded paper and paper is not taken yet
     try:
         m = g.model
@@ -428,7 +417,7 @@ def PaperPendingDuty():						# accepted and uploaded paper and paper is not take
         return jsonify({"error": str(e)}), 401
 
 @app.route('/ResultUploadPending', methods=['GET'])
-@my_decorator
+@essentials
 def ResultUploadPending():					# paper done upload paper now
     try:
         m = g.model
@@ -456,7 +445,7 @@ def ResultUploadPending():					# paper done upload paper now
         return jsonify({"error": str(e)}), 401
 
 @app.route("/GetPaper", methods=['GET'])
-@my_decorator
+@essentials
 def GetPaper():
     try:
         d_id = session.get('duty_id')
@@ -476,7 +465,7 @@ def GetPaper():
         return jsonify({"error": str(e)}), 401
 
 @app.route("/GetResult", methods=['GET'])
-@my_decorator
+@essentials
 def GetResult():
     try:
         d_id = session.get('duty_id')
@@ -496,7 +485,7 @@ def GetResult():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/NewQualifications', methods=["GET"])
-@my_decorator
+@essentials
 def NewQualifications():
     m = g.model
     examiner_id = g.examiner_id
@@ -505,7 +494,7 @@ def NewQualifications():
     return jsonify(qualifications)
 
 @app.route('/NewExperience', methods=["GET"])
-@my_decorator
+@essentials
 def NewExperience():
     m = g.model
     examiner_id = g.examiner_id
@@ -514,8 +503,7 @@ def NewExperience():
     return jsonify(experiences)
 
 @app.route('/UpdateStatus')
-@jwt_required()
-@my_decorator
+@essentials
 def UpdateStatus():
     try:
         d_id = session.get('duty_id')
