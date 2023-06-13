@@ -50,9 +50,10 @@ const Notifications = () => {
                                     <div className='papertype4'>
                                         {item[3]}
                                         <button className='detail-btn' type="deatils" onClick={() => {
-                                            const responseData = item[0];
+                                            const id = item[0];
+                                            const type = item[3]
                                             navigate("/RequestRecieved", {
-                                                state: { data: { responseData } },
+                                                state: { data: { id, type } },
                                             });
                                         }}>See Details</button>
                                     </div>

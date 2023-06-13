@@ -1,17 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './uploadPaper.css';
 
 const UploadPaper = () => {
+    const [getData, setData] = useState([]);
+    const [shouldDisplayDiv, setDisplay] = useState(false);
+    const fileInputRef = useRef(null);
+    const [message, setMessage] = useState('');
     const accessToken = localStorage.getItem('access_token');
     const navigate = useNavigate();
+    const { state } = useLocation();
     const headers = {
         'Authorization': `Bearer ${accessToken}`,
     };
+    useEffect(() => {
+        axios
+            .post("http://127.0.0.1:5000/DutyDetails", { Id: state.data.id, type: state.data.type }, { headers: headers })
+            .then((res) => {
+                const resData = res.data;
+                console.log(resData)
+                setData(resData);
+            })
+            .catch((err) => console.log(err + "  OOPS! BAD REQUEST CC"));
+    }, []);
     if (!accessToken) {
         return navigate('/'); // Render the Login component if access token doesn't exist
     }
+    // if (state.data.type === "Practical Exam") {
+    //   setDisplay(true);
+    // } else {
+    //   setDisplay(true);
+    // }
+    const handlePaperUpload = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('Paper', fileInputRef.current.files[0]);
+        formData.append('Id', state.data.id)
+        formData.append('type', state.data.type)
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/GetPaper', formData, { headers: headers });
+            setMessage(response.data["message"]);
+            // Redirect the user to the protected route
+            return navigate('/UploadPaper')
+        } catch (error) {
+            console.error("error: ", error);
+            setMessage(error)
+        }
+    };
     return (
         <>
             <Navbar></Navbar>
@@ -19,39 +56,38 @@ const UploadPaper = () => {
                 <div className='container'>
                     <div className="row RequestheaderUP">
                         <div className="courseTitleUP col-9">
-                            CMP-100 Introduction to Computing
+                            {getData[4]} {getData[5]}
                             <br></br>
                             <div className="requestdateUP col-3">
-                                requested date
+                                {getData[2]}
                             </div>
                         </div>
                         <div className="deadlineUP col-3">
-                            paper upload deadline
+                            {getData[1]}
                         </div>
                     </div>
                     <div className="row requestBodyUP">
                         <div className="col-8">
                             <div className="bookRecomended">
                                 <label className='outlineTitleUP'>Book recomended: </label>
-                                Nell Dale, John Lewis, Computer Science Illuminated, 5th Edition,
-                                Jones & Bartlett Learning, 2012, ISBN-10: 1449672841,
-                                ISBN-13: 978-1449672843.
+                                {getData[6]}
                             </div>
                             <div className="CourseOutlineUP">
                                 <label className='outlineTitleUP'>Outline:</label>
-                                Introduction to Information Technology, The Internet and World
-                                Wide Web, Software, Types of software, Application Software, Productivity
-                                Software, System Software, Digital Logic Design, Computer Organization,
-                                Operating System, Utility Programs, Hardware, Storage, Computer
-                                Networks, Software development, Command Line, Little Man Computer,
-                                Database Systems, Software Engineering Problem Solving, Algorithms,
-                                HTML.
+                                {getData[7]}
                             </div>
+                            {shouldDisplayDiv && <div className="CourseOutlineRR" id='venu'>
+                                <label className='outlineTitleRR'>Venu:</label>
+                                Practicle is at {getData[0]}, {getData[3]} in college {getData[8]}, {getData[9]}
+                            </div>}
                         </div>
                         <div className="col-4 uploadPaperUP" style={{ marginTop: "10px" }}>
-                            <form action="http://localhost:5000//GetPaper" method='post' enctype="multipart/form-data">
-                                <input type="file" name="Paper" className="form-controlUP" required />
+                            <form onSubmit={handlePaperUpload}>
+                                <input type="file" name="Paper" className="form-controlUP" ref={fileInputRef} required />
                                 <button type="submit" className="submit-btnUP" >Upload Paper</button>
+                                <div>
+                                    {message && <div>{message}</div>}
+                                </div>
                             </form>
                         </div>
                     </div>

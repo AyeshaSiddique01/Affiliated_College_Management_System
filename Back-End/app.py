@@ -25,8 +25,10 @@ from flask_jwt_extended import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "MYSECRETKEY"
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object("config")
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
@@ -41,29 +43,26 @@ mail = Mail(app)
 
 app.config['MAIL_DEFAULT_SENDER'] = "elite.express243@gmail.com"
 mail = Mail(app)
-verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
-
 
 def essentials(func):
-    @jwt_required()
     def decorated(*args, **kwargs):
         try:
-            m = model()
-            g.model = m
+            g.model = model()
             if request.headers.get('authorization') and get_jwt_identity() != None:
-                user_id = get_jwt_identity()
-                g.user_id = user_id
-                g.examiner_id = m.getExaminerID(user_id)
+                g.user_id = get_jwt_identity()
+                g.examiner_id = g.model.getExaminerID(g.user_id)
             api_result = func(*args, **kwargs)
-            # calling Destructor of model
-            m.__del__()
+            # close connections
+            g.model.__del__()
         except Exception as e:
-            print("Exception in decorator: ", str(e))
+            print("Exception in @essentials")
+            raise e
         return api_result
     decorated.__name__ = func.__name__
     return decorated
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
+@essentials
 def SignUpPersonalInfo():
     try:
         # get data from form
@@ -93,23 +92,18 @@ def SignUpPersonalInfo():
         data.usr_phoneno = usr_phone
 
         # Insertion in database
-        m = model()
+        m = g.model
         if m.checkEmailExist(usr_email):
             return jsonify({"error": "Email already exists"}), 401
         user_id = m.InsertUser(data)  # insertion function return userid
 
         if user_id != 0:
             # sending email
-            # verification_code = "".join(random.choices(
-            #     string.ascii_letters + string.digits, k=10))
-            verification_link = request.url_root + 'verify?code=' + verification_code
+            verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+            verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
             message = Message('Verify your email', recipients=[usr_email])
             message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {usr_name} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-
             mail.send(message)
-            # sending email
-            # verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
-
             # Creating Access Token
             access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=24))
             return jsonify(access_token=access_token), 200
@@ -121,6 +115,7 @@ def SignUpPersonalInfo():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
+@jwt_required()
 @essentials
 def SignUpExaminerInfo():
     try:
@@ -156,6 +151,7 @@ def SignUpExaminerInfo():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
+@jwt_required()
 @essentials
 def ExaminerQualification():
     try:
@@ -171,7 +167,7 @@ def ExaminerQualification():
         f = request.files.get("transcript")
 
         # Strore file in local directory
-        transcript = f'''Static\\transcripts\\{datetime.now().strftime("%d%m%Y%H%M%S")},{examiner_id}.pdf'''
+        transcript = f'''..\\front-end\\src\\Static\\transcripts\\{datetime.now().strftime("%d%m%Y%H%M%S")},{examiner_id}.pdf'''
         if Path(transcript).is_file():
             os.remove(transcript)
         f.save(transcript)
@@ -190,8 +186,9 @@ def ExaminerQualification():
         return jsonify({"error": str(e)}), 401
     
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
+@jwt_required()
 @essentials
-def ExaminerExperience():
+def ExaminerExperience() :
     try:
         m = g.model
         examiner_id = g.examiner_id
@@ -204,7 +201,7 @@ def ExaminerExperience():
         ending_date = request.form.get("ending_date")
         f = request.files.get("ExperianceLetter")
         # Strore file in local directory
-        ExperianceLetters = f'Static\\ExperianceLetters\\{datetime.now().strftime("%d%m%Y%H%M%S")}_{examiner_id}.pdf'
+        ExperianceLetters = f'..\\front-end\\src\\Static\\ExperianceLetters\\{datetime.now().strftime("%d%m%Y%H%M%S")}_{examiner_id}.pdf'
         if Path(ExperianceLetters).is_file():
             os.remove(ExperianceLetters)
         f.save(ExperianceLetters)
@@ -212,14 +209,17 @@ def ExaminerExperience():
         data = experience(examiner_id, job_title, ExperianceLetters,
                           organization, reference_email, starting_date, ending_date)
 
-        verification_link = request.url_root + 'verify?code=' + verification_code
+        verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+        verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
 
         # Insertion in dataBase
         email = m.getUserEmail(g.user_id)
 
         message = Message('Verify your email', recipients=email)
         message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {m.getUserEmail(g.user_id)} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        print(":)")
         mail.send(message)
+        print(":)2")
 
         if m.InsertExaminerExperience(data) != False:
             return jsonify({"Message": "Okay"}), 200
@@ -230,6 +230,7 @@ def ExaminerExperience():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/verify')
+@jwt_required()
 @essentials
 def verify():
     try:
@@ -237,8 +238,9 @@ def verify():
         examiner_id = g.examiner_id
 
         code = request.args.get('code')
+        verify =  request.args.get('verify')
 
-        if verification_code == code:
+        if check_password_hash(verify, "SHHH" + code):
             m.setUserVerified(examiner_id)
             return redirect("http://localhost:3000")
         else:
@@ -249,16 +251,15 @@ def verify():
         return str(e)
 
 @app.route('/ExaminerLogin', methods=["POST"])
+@essentials
 def ExaminerLogin():
     try:
         # Fetch data from form
         email = request.json.get("email")
         password = request.json.get("password")
-        print(email, password)
         # Verification
-        m = model()
+        m = g.model
         examiner_id = m.getExaminerID(m.getUserID(email))
-        print(examiner_id)
         if not (m.checkExaminerVerified(examiner_id)):
             return jsonify({"error": "Verify email first"}), 401
 
@@ -279,6 +280,7 @@ def ExaminerLogin():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/profile', methods=['GET'])
+@jwt_required()
 @essentials
 def profile():
     try:
@@ -313,6 +315,7 @@ def profile():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/notifications', methods=["POST", "GET"])
+@jwt_required()
 @essentials
 def notifications():
     try:
@@ -336,30 +339,35 @@ def notifications():
             data.append(i)
 
         data.sort(key=lambda x: x[0], reverse=True)
-        print(data)
+        # print(data)
         return jsonify(data), 200
     except Exception as e:
         print("Exception in notifications", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route("/DutyDetails/", methods=['POST', 'GET'])
+@app.route("/DutyDetails", methods=['POST', 'GET'])
+@jwt_required()
 @essentials
 def DutyDetails():                  # moving from request page to duty details
     try:
-        data = request.get_json()
+        id = request.json.get("Id")
+        type_ = request.json.get("type")
+        
         m = g.model
         # => using course code get crs code, crs title,
         # => request date, paper upload deadline from exam/duty table
         # => using rd_id get crs_book and crs_outline from both tables
         # => get prac_date, time and institute by using ac_id get name and location of
         # institute from affiliated_colleges table
-        dutyDetails = m.getDutyDetails(data["Id"], "Practical Exam")
-        return jsonify(dutyDetails)
+        dutyDetails = m.getDutyDetails(id, type_)
+        return jsonify(dutyDetails), 200
     except Exception as e:
         print("Exception in DutyDetails", str(e))
-        return jsonify({"error": str(e)}), 401
+        raise e
+        # return jsonify({"error": str(e)}), 401
 
 @app.route('/home', methods=["POST", "GET"])
+@jwt_required()
 @essentials
 def home():
     try:
@@ -388,6 +396,7 @@ def home():
         return jsonify({"error": str(e)}), 401
 
 @app.route('/PaperPendingDuty', methods=['GET'])
+@jwt_required()
 @essentials
 def PaperPendingDuty():						# accepted and uploaded paper and paper is not taken yet
     try:
@@ -417,6 +426,7 @@ def PaperPendingDuty():						# accepted and uploaded paper and paper is not take
         return jsonify({"error": str(e)}), 401
 
 @app.route('/ResultUploadPending', methods=['GET'])
+@jwt_required()
 @essentials
 def ResultUploadPending():					# paper done upload paper now
     try:
@@ -444,47 +454,52 @@ def ResultUploadPending():					# paper done upload paper now
         print("Exception in ResultUploadPending", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route("/GetPaper", methods=['GET'])
+@app.route("/GetPaper", methods=['POST'])
+@jwt_required()
 @essentials
 def GetPaper():
     try:
-        d_id = session.get('duty_id')
-        paper = request.files["Paper"]
+        id = request.form.get("Id")
+        type_ = request.form.get("type")
+        paper = request.files.get("Paper")
         # Store paper in local directory
-        papers = f"Static\papers\{d_id}.pdf"
+        papers = f"..\\front-end\\src\\Static\\papers\\{id}.pdf"
         if Path(papers).is_file():
             os.remove(papers)
         paper.save(papers)
         # store nme of the paper in the DataBase
         m = g.model
-        if m.InsertUploadedPaper(d_id, papers, session.get("duty_type")):
+        if m.InsertUploadedPaper(id, papers, type_):
             return jsonify({"status": "success", "message": "Paper Uploaded Successfully"})
         return jsonify({"status": "failed", "message": "Failed to Upload Paper"})
     except Exception as e:
         print("Exception in GetPaper", str(e))
         return jsonify({"error": str(e)}), 401
 
-@app.route("/GetResult", methods=['GET'])
+@app.route("/GetResult", methods=['POST'])
+@jwt_required()
 @essentials
 def GetResult():
     try:
-        d_id = session.get('duty_id')
-        result = request.files["result"]
-        # Store file in local directory
-        results = f"Static\results\{d_id}.pdf"
+        id = request.form.get("Id")
+        type_ = request.form.get("type")
+        result = request.files.get("result")
+        # Store result in local directory
+        results = f"..\\front-end\\src\\Static\\results\\{id}.pdf"
         if Path(results).is_file():
             os.remove(results)
         result.save(results)
-        # Store file name in DataBase
+        # store nme of the result in the DataBase
         m = g.model
-        if m.InsertUploadedResult(d_id, results, session.get("duty_type")):
-            return jsonify({"status": "success", "message": "Result Uploaded Successfully"})
-        return jsonify({"status": "failed", "message": "Failed to Upload Result"})
+        if m.InsertUploadedResult(id, results, type_):
+            return jsonify({"status": "success", "message": "result Uploaded Successfully"})
+        return jsonify({"status": "failed", "message": "Failed to Upload result"})
     except Exception as e:
-        print("Exception in GetResult", str(e))
+        print("Exception in Getresults", str(e))
         return jsonify({"error": str(e)}), 401
 
 @app.route('/NewQualifications', methods=["GET"])
+@jwt_required()
 @essentials
 def NewQualifications():
     m = g.model
@@ -494,6 +509,7 @@ def NewQualifications():
     return jsonify(qualifications)
 
 @app.route('/NewExperience', methods=["GET"])
+@jwt_required()
 @essentials
 def NewExperience():
     m = g.model
@@ -502,30 +518,29 @@ def NewExperience():
     experiences = m.getDataofExaminer("experience", examiner_id)
     return jsonify(experiences)
 
-@app.route('/UpdateStatus')
+@app.route('/UpdateStatus', methods=["POST"])
+@jwt_required()
 @essentials
 def UpdateStatus():
     try:
-        d_id = session.get('duty_id')
-        d_type = session.get("duty_Type")
-        d_type = "Practicle Exam"
-        # get Status
-        data = request.get_json()
-        selected_option = data['selection']
+        id = request.json.get("Id")
+        type_ = request.json.get("type")
+        selected_option = request.json.get('selection')
+        
         if selected_option == "accept":
             status = 2
         elif selected_option == "reject":
             status = 3
         else:
             return jsonify({"status": "fail", "message": "Status has not Updated Successfully"}), 200
-        m = model()
-        if m.UpdateStatus(d_id, status, d_type):
+        
+        m = g.model
+        if m.UpdateStatus(id, status, type_):
             return jsonify({"status": "success", "message": "Status Updated Successfully"})
         return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
     except Exception as e:
         print("Exception in GetResult", str(e))
         return jsonify({"error": str(e)}), 401
-
 
 # Running app
 if __name__ == '__main__':

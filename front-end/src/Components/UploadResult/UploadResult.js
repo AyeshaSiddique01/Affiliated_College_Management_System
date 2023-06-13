@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './uploadResult.css';
-import { useNavigate } from 'react-router-dom';
 
 const UploadResult = () => {
+    const [getData, setData] = useState([]);
+    const [shouldDisplayDiv, setDisplay] = useState(false);
+    const [message, setMessage] = useState('');
+    const fileInputRef = useRef(null);
     const accessToken = localStorage.getItem('access_token');
     const navigate = useNavigate();
+    const { state } = useLocation();
     const headers = {
         'Authorization': `Bearer ${accessToken}`,
+    };
+    useEffect(() => {
+        axios
+            .post("http://127.0.0.1:5000/DutyDetails", { Id: state.data.id, type: state.data.type }, { headers: headers })
+            .then((res) => {
+                const resData = res.data;
+                console.log(resData)
+                setData(resData);
+            })
+            .catch((err) => console.log(err + "  OOPS! BAD REQUEST CC"));
+    }, []);
+    const handleResultUpload = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('result', fileInputRef.current.files[0]);
+        formData.append('Id', state.data.id)
+        formData.append('type', state.data.type)
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/GetResult', formData, { headers: headers });
+            console.log(response)
+            // Redirect the user to the protected route
+            setMessage(response.data["message"]);
+            return navigate('/UploadResult')
+        } catch (error) {
+            console.error("error: ", error);
+            setMessage(error)
+        }
     };
     if (!accessToken) {
         return navigate('/'); // Render the Login component if access token doesn't exist
@@ -19,39 +52,38 @@ const UploadResult = () => {
                 <div className='container'>
                     <div className="row RequestheaderUR">
                         <div className="courseTitleUR col-9">
-                            CMP-100 Introduction to Computing
+                            {getData[4]} {getData[5]}
                             <br></br>
                             <div className="requestdateUR col-3">
-                                requested date
+                                {getData[2]}
                             </div>
                         </div>
                         <div className="deadlineUR col-3">
-                            result upload deadline
+                            {getData[1]}
                         </div>
                     </div>
                     <div className="row requestBodyUR">
                         <div className="col-8">
                             <div className="bookRecomended">
                                 <label className='outlineTitleUR'>Book recomended: </label>
-                                Nell Dale, John Lewis, Computer Science Illuminated, 5th Edition,
-                                Jones & Bartlett Learning, 2012, ISBN-10: 1449672841,
-                                ISBN-13: 978-1449672843.
+                                {getData[6]}
                             </div>
                             <div className="CourseOutline">
                                 <label className='outlineTitleUR'>Outline:</label>
-                                Introduction to Information Technology, The Internet and World
-                                Wide Web, Software, Types of software, Application Software, Productivity
-                                Software, System Software, Digital Logic Design, Computer Organization,
-                                Operating System, Utility Programs, Hardware, Storage, Computer
-                                Networks, Software development, Command Line, Little Man Computer,
-                                Database Systems, Software Engineering Problem Solving, Algorithms,
-                                HTML.
+                                {getData[7]}
                             </div>
+                            {shouldDisplayDiv && <div className="CourseOutlineRR" id='venu'>
+                                <label className='outlineTitleRR'>Venu:</label>
+                                Practicle is at {getData[0]}, {getData[3]} in college {getData[8]}, {getData[9]}
+                            </div>}
                         </div>
-                        <div className="col-4 uploadPaperUR" style={{ marginTop: "10px" }}>
-                            <form action="http://localhost:5000//GetResult" method='post' enctype="multipart/form-data">
-                                <input type="file" name="result" className="form-controlUR" required />
-                                <button type="submit" className="submit-btnUR" >Upload Result</button>
+                        <div className="col-4 uploadResultUP" style={{ marginTop: "10px" }}>
+                            <form onSubmit={handleResultUpload}>
+                                <input type="file" name="Result" className="form-controlUP" ref={fileInputRef} required />
+                                <button type="submit" className="submit-btnUP" >Upload Result</button>
+                                <div>
+                                    {message && <div>{message}</div>}
+                                </div>
                             </form>
                         </div>
                     </div>

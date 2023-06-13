@@ -63,7 +63,13 @@ const ResultPending = () => {
                                     <div className='CourseTitle4'>{item[1]}</div>
                                     <div className='papertype4'>
                                         {item[3]}
-                                        <button className='detail-btn' type="deatils" onClick={() => setId(item)}>See Details</button>
+                                        <button className='detail-btn' type="deatils" onClick={() => {
+                                                const id = item[0];
+                                                const type = item[3]
+                                                navigate("/UploadResult", {
+                                                    state: { data: { id, type } },
+                                                });
+                                            }}>See Details</button>
                                     </div>
                                     <div className='date4'>{item[2]}</div>
                                 </div>
