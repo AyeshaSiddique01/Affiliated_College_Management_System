@@ -20,7 +20,7 @@ import 'boxicons';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{height:"625px"}}>
       <Router>
         {/* <Navbar /> */}
         <Routes>
