@@ -13,6 +13,7 @@ class model:
                 password="aiman12345",  # write your dbPassword
                 port="5432")
         except Exception as e:
+            self.connection = None
             print(str(e))
 
     # Destructor
@@ -505,11 +506,12 @@ class model:
             if self.connection:
                 cursor = self.connection.cursor()
                 if (dtType == "Practical Exam"):
-                    query = f'''select prac_date, prac_time, paper_upload_deadline, prac_ass_date, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
+                    query = f'''select prac_date, paper_upload_deadline, prac_ass_date, prac_time, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
                 elif (dtType == "Theory Paper"):
-                    query = f'''select paper_date, paper_upload_deadline, request_date,rd_id from exam_duty where exam_duty_id = {dtId};'''
+                    query = f'''select paper_date, paper_upload_deadline, request_date, rd_id from exam_duty where exam_duty_id = {dtId};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
+                # get roadmap id
                 rdId = data[len(data) - 1][5]
                 query = f'''select rd_crs_code, rd_crs_name, rd_crs_book, rd_crs_outlline from roadmap where rd_id = {rdId};'''
                 cursor.execute(query)
@@ -520,10 +522,20 @@ class model:
                     query = f'''select ac_name, ac_address from affiliated_colleges where ac_id = {acID};'''
                     cursor.execute(query)
                     acData = cursor.fetchall()
-                # if len(acData) > 0:
-                    combinedList = data[0] + rdData[0] + acData[0]
+                    # if len(acData) > 0:
+                    l = []
+                    for i in range(4):
+                        l.append(str(data[0][i]))
+
+                    l = tuple(l)
+                    combinedList = l + rdData[0] + acData[0]
                 else:
-                    combinedList = data[0] + rdData[0]
+                    l = []
+                    for i in range(3):
+                        l.append(str(data[0][i]))
+                    l.append("")
+                    l = tuple(l)
+                    combinedList = l + rdData[0]
                 return combinedList
         except Exception as e:
             print("Exception in getDutyDetails: ", e)
@@ -620,6 +632,7 @@ class model:
                     cursor.execute(f'''UPDATE practical_duty SET prac_duty_status = {status} WHERE prac_duty_id = {d_id};''')
                 elif table_name == "Theory Paper":
                     cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
+                self.connection.commit()
                 return True
             else:
                 return False

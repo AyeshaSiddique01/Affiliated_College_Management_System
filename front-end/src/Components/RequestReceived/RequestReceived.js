@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './requestReceived.css';
 
 const RequestReceived = () => {
 
   const [getData, setData] = useState([]);
+  const [shouldDisplayDiv, setDisplay] = useState(false);
   const [selection, setSelection] = useState('');
+  const { state } = useLocation();
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
   const headers = {
@@ -22,25 +24,29 @@ const RequestReceived = () => {
     setSelection('reject');
     sendSelection('reject');
   };
-
-  const sendSelection = (selectedOption) => {
-    axios.post('http://127.0.0.1:5000/UpdateStatus', { selection: selectedOption }, { headers: headers })
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-  const fetchData = async () => {
+  const sendSelection = async (selectedOption) => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/DutyDetails', { headers: headers });
-      setData(response.data);
+      const response = await axios.post('http://127.0.0.1:5000/UpdateStatus', { Id: state.data.id, type: state.data.type, selection: selectedOption }, { headers: headers });
       console.log(response.data);
-    } catch (error) {
-
-    }
+      navigate("/home")
+    } catch (error) { }
   };
+
+  useEffect(() => {
+    axios
+      .post("http://127.0.0.1:5000/DutyDetails", { Id: state.data.id, type: state.data.type }, { headers: headers })
+      .then((res) => {
+        const resData = res.data;
+        console.log(resData)
+        setData(resData);
+      })
+      .catch((err) => console.log(err + "  OOPS! BAD REQUEST CC"));
+  }, []);
+  // if (state.data.type === "Practical Exam") {
+  //   setDisplay(true);
+  // } else {
+  //   setDisplay(true);
+  // }
   if (!accessToken) {
     return navigate("/"); // Render the Login component if access token doesn't exist
   }
@@ -52,39 +58,35 @@ const RequestReceived = () => {
         <div className='container'>
           <div className="row RequestheaderRR">
             <div className="courseTitleRR col-9">
-              CMP-100 Introduction to Computing
+              {getData[4]} {getData[5]}
               <br></br>
               <div className="requestdateRR col-3">
-                requested date
+                {getData[2]}
               </div>
             </div>
             <div className="deadlineRR col-3">
-              deadline of paper upload
+              {getData[1]}
             </div>
           </div>
           <div className="row">
             <div className="requestBodyRR">
               <div className="bookRecomended">
                 <label className='outlineTitleRR'>Book recomended: </label>
-                Nell Dale, John Lewis, Computer Science Illuminated, 5th Edition,
-                Jones & Bartlett Learning, 2012, ISBN-10: 1449672841,
-                ISBN-13: 978-1449672843.
+                {getData[6]}
               </div>
               <div className="CourseOutlineRR">
                 <label className='outlineTitleRR'>Outline:</label>
-                Introduction to Information Technology, The Internet and World
-                Wide Web, Software, Types of software, Application Software, Productivity
-                Software, System Software, Digital Logic Design, Computer Organization,
-                Operating System, Utility Programs, Hardware, Storage, Computer
-                Networks, Software development, Command Line, Little Man Computer,
-                Database Systems, Software Engineering Problem Solving, Algorithms,
-                HTML.
+                {getData[7]}
               </div>
+              {shouldDisplayDiv && <div className="CourseOutlineRR" id='venu'>
+                <label className='outlineTitleRR'>Venu:</label>
+                Practicle is at {getData[0]}, {getData[3]} in college {getData[8]}, {getData[9]}
+              </div>}
             </div>
           </div>
-          <div className="row requestFooterRR">
-            <button type='accept' className='col-4 AcceptBtn' onClick={handleAccept}>Accept</button>
-            <button type='accept' className='col-4 RejectBtn' onClick={handleReject}>Reject</button>
+          <div className="requestFooterRR">
+            <div type='accept' className='AcceptBtn' onClick={handleAccept}>Accept</div>
+            <div type='accept' className='RejectBtn' onClick={handleReject}>Reject</div>
           </div>
         </div>
       </div>
