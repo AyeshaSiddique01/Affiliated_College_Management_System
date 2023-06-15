@@ -586,7 +586,7 @@ class model:
     def InsertUploadedPaper(self, d_id, papers, duty_type):
         cursor = None
         try:
-            if self.connection != None:
+            if self.connection:
                 cursor = self.connection.cursor()
                 if duty_type == "Practical Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_paper = '{papers}' WHERE prac_duty_id = {d_id};''')
@@ -606,7 +606,7 @@ class model:
     def InsertUploadedResult(self, d_id, results, duty_type):
         cursor = None
         try:
-            if self.connection != None:
+            if self.connection:
                 cursor = self.connection.cursor()
                 if duty_type == "Practical Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_result = '{results}' WHERE prac_duty_id = {d_id};''')
@@ -638,6 +638,36 @@ class model:
                 return False
         except Exception as e:
             print("Exception in UpdateStatus", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def insertExaminerCourses(self, examiner_id, examiner_crs_name):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor
+                cursor.execute(f'''insert into examiner_courses (examiner_id, examiner_crs_name) values({examiner_id}, {examiner_crs_name});''')
+                self.connection.commit()
+                return True
+        except Exception as e:
+            print("Exception in insertExaminerCourses", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def  insertCollegeReview(self, ExamnrID, complain, AcId):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor
+                cursor.execute(f'''insert into college_review("examiner_id","cr_complain","ac_id") values ({ExamnrID},{complain},{AcId});''')
+                self.connection.commit()
+                return True
+        except Exception as e:
+            print("Exception in insertCollegeReview", str(e))
             return False
         finally:
             if cursor != None:
