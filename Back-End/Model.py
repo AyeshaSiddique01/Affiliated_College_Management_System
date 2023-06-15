@@ -672,3 +672,18 @@ class model:
         finally:
             if cursor != None:
                 cursor.close()
+
+    def getAllCoursesNames(self):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                cursor.execute(f'''select rd_crs_name from roadmap;''')
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getAllCourses", str(e))
+            return []
+        finally:
+            if cursor:
+                cursor.close()
