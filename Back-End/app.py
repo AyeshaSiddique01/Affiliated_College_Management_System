@@ -81,7 +81,7 @@ def essentials(func):
             # close connections
             g.model.__del__()
         except Exception as e:
-            print("Exception in @essentials")
+            print("Exception in @essentials", str(e))
             raise e
         return api_result
     decorated.__name__ = func.__name__
@@ -285,13 +285,22 @@ def verify():
         print("Exception in verify", str(e))
         return str(e)
 
-@app.route('/AddExaminerCourse', methods=["POST"])
+@app.route('/AddExaminerCourse', methods=["POST","GET"])
+@jwt_required()
 @essentials
 def AddExaminerCourse():
-    selected_options = request.json['selectedOptions']
-    # Process the selected options
-    # ...
-    return 'Success'
+    try :
+        data = request.json['data']
+        courses = data.split(",")
+        examiner_id = g.examiner_id
+        m = g.model
+        for i in range (1, courses.__len__()) :
+            if not m.insertExaminerCourses(examiner_id, courses[i]) :
+                return jsonify({"error": "Insertion issue"}), 401
+        return jsonify({"Message": "Okay"}), 200
+    except Exception as e:
+        print("Exception in add course to examiner ",str(e))
+        return jsonify({"error": str(e)}), 401
 
 @app.route('/ExaminerLogin', methods=["POST"])
 @essentials
@@ -566,7 +575,7 @@ def NewExperience():
 @essentials
 def AllCourses():
     m = g.model
-    courses = m.getAllCourses()
+    courses = m.getAllCoursesNames()
     return jsonify(courses)
 
 @app.route('/UpdateStatus', methods=["POST"])

@@ -10,7 +10,7 @@ class model:
                 database="ACMS",  # write your Dbname
                 host="localhost",
                 user="postgres",
-                password="aiman12345",  # write your dbPassword
+                password="Ayesha@1306",  # write your dbPassword
                 port="5432")
         except Exception as e:
             self.connection = None
@@ -647,8 +647,9 @@ class model:
         cursor = None
         try:
             if self.connection:
-                cursor = self.connection.cursor
-                cursor.execute(f'''insert into examiner_courses (examiner_id, examiner_crs_name) values({examiner_id}, {examiner_crs_name});''')
+                cursor = self.connection.cursor()
+                query = f'''insert into examiner_courses (examiner_id, examiner_crs_name) values({examiner_id}, '{examiner_crs_name}');'''
+                cursor.execute(query)
                 self.connection.commit()
                 return True
         except Exception as e:

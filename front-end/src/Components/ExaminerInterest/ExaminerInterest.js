@@ -6,7 +6,7 @@ import './ExaminerInterest.css';
 
 const ExaminerInterest = () => {
 
-    // const [dataList, setDataList] = useState([]);
+    const [dataList, setDataList] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [textInput, setTextInput] = useState('');
     const navigate = useNavigate();
@@ -14,23 +14,20 @@ const ExaminerInterest = () => {
     const header = {
         'Authorization': `Bearer ${accessToken}`,
     };
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await axios.get('http://127.0.0.1:5000/AllCourses', { headers: header });
-    //         setDataList(response.data);
-    //     } catch (error) {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:5000/AllCourses', { headers: header });
+            setDataList(response.data);
+        } catch (error) {
 
-    //     }
-    // };
+        }
+    };
     if (!accessToken) {
         return navigate("/"); // Render the Login component if access token doesn't exist
-    }
-    const GoNext = () => {
-        return navigate("/home");
     }
 
     const handleOptionChange = (event) => {
@@ -42,10 +39,15 @@ const ExaminerInterest = () => {
         setTextInput(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Process the selected option and text input here
-        console.log(selectedOption, textInput);
+        console.log(textInput)
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/AddExaminerCourse',{data: textInput} , { headers: header });
+            navigate("/home");
+        } catch (error) {
+            console.error("error: ", error);
+        }
     };
 
     return (
@@ -59,20 +61,17 @@ const ExaminerInterest = () => {
                         <form onSubmit={handleSubmit}>
                             <select value={selectedOption} onChange={handleOptionChange}>
                                 <option value="">Select an option</option>
-                                <option value="Option 1">Option 1</option>
-                                <option value="Option 2">Option 2</option>
-                                <option value="Option 3">Option 3</option>
+                                {dataList.map((item, index) => (
+                                <option value={item}>{item}</option>
+                                ))}
                             </select>
                             <br />
-                            <input type="text" value={textInput} onChange={handleTextChange} readOnly />
+                            <input className='input-box' type="text" value={textInput} onChange={handleTextChange} readOnly />
                             <br />
                             <div className='NextBtnEE'>
-                                <button type="submit" style={{ width: "190px" }}>Submit</button>
+                                <button type="submit" style={{ width: "190px" }}>Next</button>
                             </div>
                         </form>
-                    </div>
-                    <div className='NextBtnEE'>
-                        <button style={{ width: "190px" }} onClick={GoNext}>Next Page</button>
                     </div>
                 </div>
             </div >
