@@ -75,7 +75,7 @@ const ExaminerExp = () => {
         return navigate("/"); // Render the Login component if access token doesn't exist
     }
     const GoNext = () => {
-        return navigate("/home");
+        return navigate("/ExaminerInterest");
     }
     return (
         <div className='FormBgEE'>

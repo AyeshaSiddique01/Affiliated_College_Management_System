@@ -45,8 +45,8 @@ const UploadPaper = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('Paper', fileInputRef.current.files[0]);
-        formData.append('Id', state.data.id)
-        formData.append('type', state.data.type)
+        formData.append('Id', id)
+        formData.append('type', type)
         try {
             const response = await axios.post('http://127.0.0.1:5000/GetPaper', formData, { headers: headers });
             setMessage(response.data["message"]);

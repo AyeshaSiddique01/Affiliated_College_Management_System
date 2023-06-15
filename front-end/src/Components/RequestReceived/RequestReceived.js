@@ -31,7 +31,7 @@ const RequestReceived = () => {
   };
   const sendSelection = async (selectedOption) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/UpdateStatus', { Id: state.data.id, type: state.data.type, selection: selectedOption }, { headers: headers });
+      const response = await axios.post('http://127.0.0.1:5000/UpdateStatus', { Id: id, type: type, selection: selectedOption }, { headers: headers });
       console.log(response.data);
       navigate("/home")
     } catch (error) { }

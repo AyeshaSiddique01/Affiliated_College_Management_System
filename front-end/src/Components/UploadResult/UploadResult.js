@@ -44,8 +44,8 @@ const UploadResult = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('result', fileInputRef.current.files[0]);
-        formData.append('Id', state.data.id)
-        formData.append('type', state.data.type)
+        formData.append('Id', id)
+        formData.append('type', type)
         try {
             const response = await axios.post('http://127.0.0.1:5000/GetResult', formData, { headers: headers });
             console.log(response)

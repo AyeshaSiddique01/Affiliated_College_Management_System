@@ -66,6 +66,10 @@ def is_phone_number_present(phone_number):
     except phonenumbers.phonenumberutil.NumberParseException:
         return False
 
+def is_cnic_number_present(cnic_number):
+    pattern = r'^\d{5}-\d{7}-\d$'  # CNIC format: 00000-0000000-0
+    return re.match(pattern, cnic_number) is not None
+
 def essentials(func):
     def decorated(*args, **kwargs):
         try:
@@ -82,10 +86,6 @@ def essentials(func):
         return api_result
     decorated.__name__ = func.__name__
     return decorated
-
-def is_cnic_number_present(cnic_number):
-    pattern = r'^\d{5}-\d{7}-\d$'  # CNIC format: 00000-0000000-0
-    return re.match(pattern, cnic_number) is not None
 
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 @essentials
@@ -284,6 +284,14 @@ def verify():
     except Exception as e:
         print("Exception in verify", str(e))
         return str(e)
+
+@app.route('/AddExaminerCourse', methods=["POST"])
+@essentials
+def AddExaminerCourse():
+    selected_options = request.json['selectedOptions']
+    # Process the selected options
+    # ...
+    return 'Success'
 
 @app.route('/ExaminerLogin', methods=["POST"])
 @essentials
@@ -527,7 +535,7 @@ def GetResult():
         # store nme of the result in the DataBase
         m = g.model
         if m.InsertUploadedResult(id, results, type_):
-            return jsonify({"status": "success", "message": "result Uploaded Successfully"})
+            return jsonify({"status": "success", "message": "Result Uploaded Successfully"})
         return jsonify({"status": "failed", "message": "Failed to Upload result"})
     except Exception as e:
         print("Exception in Getresults", str(e))
@@ -552,6 +560,14 @@ def NewExperience():
 
     experiences = m.getDataofExaminer("experience", examiner_id)
     return jsonify(experiences)
+
+@app.route('/AllCourses', methods=["GET"])
+@jwt_required()
+@essentials
+def AllCourses():
+    m = g.model
+    courses = m.getAllCourses()
+    return jsonify(courses)
 
 @app.route('/UpdateStatus', methods=["POST"])
 @jwt_required()
