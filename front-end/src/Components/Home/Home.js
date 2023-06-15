@@ -63,9 +63,7 @@ const Home = () => {
                                             <button className='detail-btn' type="deatils" onClick={() => {
                                                 const id = item[0];
                                                 const type = item[3]
-                                                navigate("/UploadPaper", {
-                                                    state: { data: { id, type } },
-                                                });
+                                                navigate("/UploadPaper?id=" + id + "&type=" + type);
                                             }}>See Details</button>
                                         </div>
                                         <div className='date4'>{item[2]}</div>

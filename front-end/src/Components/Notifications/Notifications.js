@@ -52,9 +52,7 @@ const Notifications = () => {
                                         <button className='detail-btn' type="deatils" onClick={() => {
                                             const id = item[0];
                                             const type = item[3]
-                                            navigate("/RequestRecieved", {
-                                                state: { data: { id, type } },
-                                            });
+                                            navigate("/RequestRecieved?id=" + id + "&type=" + type);
                                         }}>See Details</button>
                                     </div>
                                     <div className='date4'>{item[2]}</div>

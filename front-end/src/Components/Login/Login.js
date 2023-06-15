@@ -5,10 +5,13 @@ import './login.css';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const redirectto = queryParameters.get("redirectto")
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('access_token');
 
     const handleLogin = async (e) => {
         console.log("go")
@@ -19,8 +22,13 @@ const Login = () => {
             
             const accessToken = response.data.access_token;
             localStorage.setItem('access_token', accessToken);
-            
-            navigate('/Notifications');
+            console.log(redirectto);
+            if (redirectto) {
+                navigate(decodeURIComponent(redirectto))
+            }
+            else {
+                navigate('/Notifications');
+            }
         } catch (error) {
             // document.getElementById("msj").textContent = error;
             console.error(error);
@@ -43,7 +51,10 @@ const Login = () => {
                 showBtn.style.color = "#222";
             }
         });
-    });    
+    });  
+    if (accessToken){
+        navigate("/Notifications");
+    }  
     return (
         <>
             <div className='FormBglogin'>

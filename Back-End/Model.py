@@ -505,9 +505,9 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                if (dtType == "Practical Exam"):
+                if (dtType == "Practical_Exam"):
                     query = f'''select prac_date, paper_upload_deadline, prac_ass_date, prac_time, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
-                elif (dtType == "Theory Paper"):
+                elif (dtType == "Theory_Paper"):
                     query = f'''select paper_date, paper_upload_deadline, request_date, rd_id from exam_duty where exam_duty_id = {dtId};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
@@ -517,7 +517,7 @@ class model:
                 cursor.execute(query)
                 rdData = cursor.fetchall()
                 acData = []
-                if dtType == "Practical Exam":
+                if dtType == "Practical_Exam":
                     acID = data[data.__len__() - 1][4]
                     query = f'''select ac_name, ac_address from affiliated_colleges where ac_id = {acID};'''
                     cursor.execute(query)
@@ -588,9 +588,9 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                if duty_type == "Practical Exam":
+                if duty_type == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_paper = '{papers}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper":
+                elif duty_type == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET paper = '{papers}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -608,9 +608,9 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                if duty_type == "Practical Exam":
+                if duty_type == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_result = '{results}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper":
+                elif duty_type == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET result = '{results}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -628,9 +628,9 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                if table_name == "Practical Exam":
+                if table_name == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_duty_status = {status} WHERE prac_duty_id = {d_id};''')
-                elif table_name == "Theory Paper":
+                elif table_name == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
                 self.connection.commit()
                 return True

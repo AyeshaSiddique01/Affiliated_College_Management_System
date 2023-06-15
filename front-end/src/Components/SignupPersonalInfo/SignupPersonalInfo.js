@@ -26,11 +26,8 @@ const SignupPersonalInfo = () => {
             const accessToken = response.data.access_token;
             localStorage.setItem('access_token', accessToken);
            
-            // Redirect the user to the protected route
             navigate("/SignupExaminerInfo")
-            // window.location.href = '/SignupExaminerInfo';
         } catch (error) {
-            // document.getElementById("msj").textContent = error;
             console.error("error: ", error);
             setError(error);
         }
@@ -67,11 +64,11 @@ const SignupPersonalInfo = () => {
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
-                            <input type="text" className="input-boxSP" placeholder='Enter CNIC' name='cnic' onChange={(e) => setCNIC(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter CNIC (00000-0000000-0)' name='cnic' onChange={(e) => setCNIC(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-id-card"></span>
-                            <input type="text" className="input-boxSP" placeholder='Enter Phone Number' name='phone' onChange={(e) => setPhone(e.target.value)} required />
+                            <input type="text" className="input-boxSP" placeholder='Enter Phone Number (+92 0000000000)' name='phone' onChange={(e) => setPhone(e.target.value)} required />
                         </div>
                         <div className="maindivSP">
                             <span className="fa fa-home"></span>
@@ -81,8 +78,10 @@ const SignupPersonalInfo = () => {
                             <span className="fa fa-male"></span>
                             <span style={{ width: "fit-content" }} className="input-boxSP" > Gender: </span>
                             <select className="form-label designLable" name="gender" onChange={(e) => setGender(e.target.value)} >
+                                <option value="Select">Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
+                                <option value="Not prefer to say">Not prefer to say</option>
                             </select>
                         </div>
                         <div className="maindivSP">
