@@ -32,7 +32,6 @@ const DuePaper = () => {
         try {
             const response = await axios.get('http://127.0.0.1:5000/PaperPendingDuty', { headers: headers });
             setDataList(response.data);
-            console.log(response.data);
         } catch (error) {
             
         }
@@ -70,9 +69,7 @@ const DuePaper = () => {
                                         <button className='detail-btn' type="deatils" onClick={() => {
                                                 const id = item[0];
                                                 const type = item[3]
-                                                navigate("/AcceptedRequest", {
-                                                    state: { data: { id, type } },
-                                                });
+                                                navigate("/AcceptedRequest?id=" + id + "&type=" + type);
                                             }}>See Details</button>
                                     </div>
                                     <div className='date4'>{item[2]}</div>

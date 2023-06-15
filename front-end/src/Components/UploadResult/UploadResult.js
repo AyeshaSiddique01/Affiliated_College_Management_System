@@ -5,6 +5,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './uploadResult.css';
 
 const UploadResult = () => {
+
+    let { search } = useLocation();
+    const query = new URLSearchParams(search);
+    const id = query.get('id');
+    const type = query.get('type');
+
     const [getData, setData] = useState([]);
     const [shouldDisplayDiv, setDisplay] = useState(false);
     const [message, setMessage] = useState('');
@@ -16,12 +22,21 @@ const UploadResult = () => {
         'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
+        if (!accessToken) {
+            const url = "/UploadPaper?id=" + id + "&type=" + type;
+            return navigate('/?redirectto=' + encodeURIComponent(url));
+        }
         axios
-            .post("http://127.0.0.1:5000/DutyDetails", { Id: state.data.id, type: state.data.type }, { headers: headers })
+            .get("http://127.0.0.1:5000/DutyDetails?Id=" + id + "&type=" + type, { headers: headers })
             .then((res) => {
                 const resData = res.data;
                 console.log(resData)
                 setData(resData);
+                if (type === "Practical_Exam") {
+                    setDisplay(true);
+                } else {
+                    setDisplay(false);
+                }
             })
             .catch((err) => console.log(err + "  OOPS! BAD REQUEST CC"));
     }, []);
@@ -42,9 +57,6 @@ const UploadResult = () => {
             setMessage(error)
         }
     };
-    if (!accessToken) {
-        return navigate('/'); // Render the Login component if access token doesn't exist
-    }
     return (
         <>
             <Navbar></Navbar>
@@ -72,8 +84,8 @@ const UploadResult = () => {
                                 <label className='outlineTitleUR'>Outline:</label>
                                 {getData[7]}
                             </div>
-                            {shouldDisplayDiv && <div className="CourseOutlineRR" id='venu'>
-                                <label className='outlineTitleRR'>Venu:</label>
+                            {shouldDisplayDiv && <div className="CourseOutlineRR" id='Venue'>
+                                <label className='outlineTitleRR'>Venue:</label>
                                 Practicle is at {getData[0]}, {getData[3]} in college {getData[8]}, {getData[9]}
                             </div>}
                         </div>

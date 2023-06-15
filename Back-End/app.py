@@ -1,5 +1,8 @@
 from flask import *
 from flask import g
+import requests
+import re
+import phonenumbers
 from flask_session import Session
 from werkzeug.wrappers import response
 from Model import model
@@ -44,6 +47,25 @@ mail = Mail(app)
 app.config['MAIL_DEFAULT_SENDER'] = "elite.express243@gmail.com"
 mail = Mail(app)
 
+def is_email_present(email):
+    api_key = 'f7b74b5a429c9a8920c793907a0d0600'
+    url = f'http://apilayer.net/api/check?access_key={api_key}&email={email}'
+
+    response = requests.get(url)
+    data = response.json()
+
+    if 'smtp_check' in data and data['smtp_check']:
+        return True
+    else:
+        return False
+
+def is_phone_number_present(phone_number):
+    try:
+        parsed_number = phonenumbers.parse(phone_number, None)
+        return phonenumbers.is_valid_number(parsed_number)
+    except phonenumbers.phonenumberutil.NumberParseException:
+        return False
+
 def essentials(func):
     def decorated(*args, **kwargs):
         try:
@@ -61,6 +83,10 @@ def essentials(func):
     decorated.__name__ = func.__name__
     return decorated
 
+def is_cnic_number_present(cnic_number):
+    pattern = r'^\d{5}-\d{7}-\d$'  # CNIC format: 00000-0000000-0
+    return re.match(pattern, cnic_number) is not None
+
 @app.route('/SignUpPersonalInfo', methods=["POST"])
 @essentials
 def SignUpPersonalInfo():
@@ -77,6 +103,15 @@ def SignUpPersonalInfo():
         usr_profile_pic = "..\\front-end\\src\\Static\\ProfilePics\\empty.png"
         usr_active_status = True
         _hashed_password = generate_password_hash(usr_password)
+
+        if not is_email_present(usr_email) :
+            return jsonify({"error": "Email does not exist"}), 401
+        
+        if not is_phone_number_present(usr_phone) :
+            return jsonify({"error": "Phone number is not valid"}), 401
+        
+        if not is_cnic_number_present(usr_cnic) :
+            return jsonify({"error": "CNIC is not valid"}), 401
 
         # set data in obj
         data = User()
@@ -330,12 +365,12 @@ def notifications():
 
         for i in pracDuties:
             i = list(i)
-            i.append("Practical Exam")
+            i.append("Practical_Exam")
             data.append(i)
 
         for i in examDuties:
             i = list(i)
-            i.append("Theory Paper")
+            i.append("Theory_Paper")
             data.append(i)
 
         data.sort(key=lambda x: x[0], reverse=True)
@@ -350,8 +385,8 @@ def notifications():
 @essentials
 def DutyDetails():                  # moving from request page to duty details
     try:
-        id = request.json.get("Id")
-        type_ = request.json.get("type")
+        id = request.args.get("Id")
+        type_ = request.args.get("type")
         
         m = g.model
         # => using course code get crs code, crs title,
@@ -381,12 +416,12 @@ def home():
 
         for i in pracDuties:
             i = list(i)
-            i.append("Practical Exam")
+            i.append("Practical_Exam")
             duties.append(i)
 
         for i in examDuties:
             i = list(i)
-            i.append("Theory Paper")
+            i.append("Theory_Paper")
             duties.append(i)
 
         duties.sort(key=lambda x: x[1], reverse=True)
@@ -411,12 +446,12 @@ def PaperPendingDuty():						# accepted and uploaded paper and paper is not take
 
         for i in pracDuties:
             i = list(i)
-            i.append("Practical Exam")
+            i.append("Practical_Exam")
             duties.append(i)
 
         for i in examDuties:
             i = list(i)
-            i.append("Theory Paper")
+            i.append("Theory_Paper")
             duties.append(i)
 
         duties.sort(key=lambda x: x[1], reverse=True)
@@ -440,12 +475,12 @@ def ResultUploadPending():					# paper done upload paper now
 
         for i in pracDuties:
             i = list(i)
-            i.append("Practical Exam")
+            i.append("Practical_Exam")
             duties.append(i)
 
         for i in examDuties:
             i = list(i)
-            i.append("Theory Paper")
+            i.append("Theory_Paper")
             duties.append(i)
 
         duties.sort(key=lambda x: x[1], reverse=True)
