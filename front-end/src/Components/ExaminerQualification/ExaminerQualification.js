@@ -12,6 +12,9 @@ const ExaminerQualification = () => {
         'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
+        if (!accessToken) {
+            return navigate("/"); // Render the Login component if access token doesn't exist
+        }
         fetchData();
     }, []);
 
@@ -66,9 +69,6 @@ const ExaminerQualification = () => {
         }
 
     });
-    if (!accessToken) {
-        return navigate("/"); // Render the Login component if access token doesn't exist
-    }
     const GoNext = () => {
         return navigate("/ExaminerExp");
     }

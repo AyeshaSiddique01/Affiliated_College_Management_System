@@ -15,6 +15,9 @@ const ExaminerInterest = () => {
         'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
+        if (!accessToken) {
+            return navigate("/");
+        }
         fetchData();
     }, []);
 
@@ -26,24 +29,18 @@ const ExaminerInterest = () => {
 
         }
     };
-    if (!accessToken) {
-        return navigate("/"); // Render the Login component if access token doesn't exist
-    }
-
     const handleOptionChange = (event) => {
         const selectedOption = event.target.value;
         setTextInput((prevText) => prevText + ", " + selectedOption);
     };
-
     const handleTextChange = (event) => {
         setTextInput(event.target.value);
     };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(textInput)
         try {
-            const response = await axios.post('http://127.0.0.1:5000/AddExaminerCourse',{data: textInput} , { headers: header });
+            const response = await axios.post('http://127.0.0.1:5000/AddExaminerCourse', { data: textInput }, { headers: header });
             navigate("/home");
         } catch (error) {
             console.error("error: ", error);
@@ -62,7 +59,7 @@ const ExaminerInterest = () => {
                             <select value={selectedOption} onChange={handleOptionChange}>
                                 <option value="">Select an option</option>
                                 {dataList.map((item, index) => (
-                                <option value={item}>{item}</option>
+                                    <option value={item}>{item}</option>
                                 ))}
                             </select>
                             <br />

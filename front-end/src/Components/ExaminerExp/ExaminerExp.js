@@ -13,6 +13,9 @@ const ExaminerExp = () => {
         'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
+        if (!accessToken) {
+            return navigate("/");
+        }
         fetchData();
     }, []);
 
@@ -71,9 +74,6 @@ const ExaminerExp = () => {
             }
         }
     });
-    if (!accessToken) {
-        return navigate("/"); // Render the Login component if access token doesn't exist
-    }
     const GoNext = () => {
         return navigate("/ExaminerInterest");
     }

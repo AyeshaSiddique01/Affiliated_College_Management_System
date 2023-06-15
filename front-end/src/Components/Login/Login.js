@@ -35,7 +35,10 @@ const Login = () => {
             setError(error);
         }
     };
-    useEffect(() => {
+    useEffect(() => { 
+        if (accessToken){
+            navigate("/Notifications");
+        }  
         const showBtn = document.getElementById("show");
         showBtn.addEventListener("click", function () {
             const pass_field = document.getElementById("pass-key");
@@ -51,10 +54,7 @@ const Login = () => {
                 showBtn.style.color = "#222";
             }
         });
-    });  
-    if (accessToken){
-        navigate("/Notifications");
-    }  
+    }); 
     return (
         <>
             <div className='FormBglogin'>

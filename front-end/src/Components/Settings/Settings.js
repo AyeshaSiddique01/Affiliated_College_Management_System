@@ -11,7 +11,7 @@ function Settings() {
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
   };
-  
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -24,9 +24,11 @@ function Settings() {
     event.preventDefault();
     // Handle form submission here
   };
-  if (!accessToken) {
-    return navigate("/"); // Render the Login component if access token doesn't exist
-  }
+  useEffect(() => {
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }
+  }, []);
   return (
     <>
       <Navbar></Navbar>

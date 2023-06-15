@@ -30,9 +30,11 @@ const SignupExaminerInfo = () => {
       setError('Some Input is Wrong');
     }
   };
-  if (!accessToken) {
-    return navigate("/"); // Render the Login component if access token doesn't exist
-  }
+  useEffect(() => {
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }
+  }, []);
   return (
     <div className='FormBg'>
       <div className='bg-img'>

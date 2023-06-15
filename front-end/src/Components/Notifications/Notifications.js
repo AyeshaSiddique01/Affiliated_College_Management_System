@@ -12,6 +12,9 @@ const Notifications = () => {
         'Authorization': `Bearer ${accessToken}`,
     };
     useEffect(() => {
+        if (!accessToken) {
+            return navigate("/"); // Render the Login component if access token doesn't exist
+        }
         fetchData();
     }, []);
     const fetchData = async () => {
@@ -23,9 +26,6 @@ const Notifications = () => {
 
         }
     };
-    if (!accessToken) {
-        return navigate("/"); // Render the Login component if access token doesn't exist
-    }
     return (
         <>
             <Navbar></Navbar>
