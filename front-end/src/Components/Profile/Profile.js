@@ -1,3 +1,4 @@
+profile.js
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Avatar from "./avatar"
@@ -30,10 +31,10 @@ const Profile = () => {
   }, [])
 
   return (
-    <div style={{ marginTop: "50px" }}>
+    < >
       <Navbar></Navbar>
-      <div className="container py-5">
-        <div className="row">
+      <div className="container py-5" style={{ marginTop: "100px" }}>
+        <div className="row" style={{ marginTop: "50px 0 0 250px" }}>
 
           <div className="col-lg-3 col-md-6">
 
@@ -65,7 +66,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

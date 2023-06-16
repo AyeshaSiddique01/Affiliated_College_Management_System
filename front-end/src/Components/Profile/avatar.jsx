@@ -1,10 +1,10 @@
 import React from "react";
-
+// import abc from "../../../../Back-End/Static/ProfilePics/empty.png";
 const Avatar = ({ src, name }) => {
   return (
     <div className="bg-white w-full p-md-5 p-2 card">
       <img
-        src={src ?? "/user-placeholder.jpg"}
+        src={"/assets/images/user-placeholder.jpg"}
         alt={name}
         width={200}
         height={200}
