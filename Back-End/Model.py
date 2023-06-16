@@ -714,3 +714,18 @@ class model:
         finally:
             if cursor:
                 cursor.close()
+
+    def getExaminerCourses(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                cursor.execute(f'''select examiner_crs_name from examiner_courses where examiner_id = {examiner_id};''')
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getAllCourses", str(e))
+            return []
+        finally:
+            if cursor:
+                cursor.close()

@@ -217,7 +217,7 @@ def ExaminerQualification():
         # Insertion in DataBase
 
         if m.InsertExaminerQualification(data) != False:
-            return jsonify({"Message": "Okay"}), 200
+            return jsonify({"message": "Okay"}), 200
         return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
@@ -249,7 +249,7 @@ def ExaminerExperience() :
                           organization, reference_email, starting_date, ending_date)
 
         if m.InsertExaminerExperience(data) != False:
-            return jsonify({"Message": "Okay"}), 200
+            return jsonify({"message": "Okay"}), 200
         return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
@@ -302,7 +302,7 @@ def AddExaminerCourse():
         print(":)")
         mail.send(message)
         print(":)2")
-        return jsonify({"Message": "Okay"}), 200
+        return jsonify({"message": "Okay"}), 200
     except Exception as e:
         print("Exception in add course to examiner ",str(e))
         return jsonify({"status": "fail", "message": str(e)})
@@ -362,9 +362,7 @@ def profile():
                 "acceptance_count": examiner_[2],
                 "rejection_count": examiner_[3],
                 "resume": examiner_[4]
-            },
-            "qualification_details" : m.getDataofExaminer("qualification", examiner_id),
-            "experience_details" : m.getDataofExaminer("experience", examiner_id)
+            }
         }
         return jsonify(data), 200
     except Exception as e:
@@ -600,12 +598,35 @@ def UpdateStatus():
             return jsonify({"status": "fail", "message": "Status has not Updated Successfully"}), 200
         
         m = g.model
-        if m.UpdateStatus(id, status, type_):
+        if m.UpdateStatus(id, status, type_, g.examiner_id):
             return jsonify({"status": "success", "message": "Status Updated Successfully"})
         return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
     except Exception as e:
         print("Exception in GetResult", str(e))
         return jsonify({"status": "fail", "message": str(e)})
+
+@app.route('/UpdateExaminerCourse', methods=["POST","GET"])
+@jwt_required()
+@essentials
+def UpdateExaminerCourse():
+    try :
+        data = request.json['data']
+        courses = data.split(",")
+        examiner_id = g.examiner_id
+        m = g.model
+        if (courses.__len__() > 1) :
+            e_courses = m.getExaminerCourses(examiner_id)
+            examiner_courses = [item[0] for item in data]
+            for i in range (1, courses.__len__()) :
+                if not examiner_courses.__contains__(courses[i]) :
+                    if not m.insertExaminerCourses(examiner_id, courses[i]) :
+                        return jsonify({"status": "fail", "message": "Insertion issue"})
+        
+        return jsonify({"message": "Updated"}), 200
+    except Exception as e:
+        print("Exception in update course to examiner ",str(e))
+        return jsonify({"status": "fail", "message": str(e)})
+
 
 # Running app
 if __name__ == '__main__':

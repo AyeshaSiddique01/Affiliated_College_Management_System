@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-profile.js
-import React, { useState, useEffect } from 'react';
-import Navbar from '../Navbar/Navbar';
-import Avatar from "./avatar"
-import ExperienceDetails from "./experience-details"
-import QualificationDetails from "./qualification-details"
-import UserDetails from "./user-details"
-import axios from 'axios';
-import QuaTable from './Qua_table';
-=======
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Avatar from "./avatar";
@@ -18,8 +7,8 @@ import UserDetails from "./user-details";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import QuaTable from "./Qua_table";
->>>>>>> d26ae21142088f779a8aed2bf579ca1255a96791
 import ExpTable from "./Exp_table";
+import "./profile.css"
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -53,21 +42,15 @@ const Profile = () => {
   return (
     < >
       <Navbar></Navbar>
-<<<<<<< HEAD
-      <div className="container py-5" style={{ marginTop: "100px" }}>
-        <div className="row" style={{ marginTop: "50px 0 0 250px" }}>
-
-=======
-      <div className="container py-5">
+      <div className="container py-5 profile_container">
         <div className="row">
->>>>>>> d26ae21142088f779a8aed2bf579ca1255a96791
           <div className="col-lg-3 col-md-6">
             <Avatar
               src={userDetails?.personal_details?.usr_profile_pic}
               name={userDetails?.personal_details?.usr_name}
             />
           </div>
-          <div className="col-lg-9 col-md-6">
+          <div className="col-lg-9 col-md-6" style={{color:"black"}}>
             <h2 className="mb-4 mt-4 mt-md-0">User Details</h2>
             <div className="card mb-4">
               <UserDetails data={userDetails?.personal_details} />
@@ -89,15 +72,9 @@ const Profile = () => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
     </>
-  )
-}
-=======
-    </div>
   );
 };
->>>>>>> d26ae21142088f779a8aed2bf579ca1255a96791
 
 export default Profile;
 

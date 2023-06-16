@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './signupPersonalInfo.css';
 import { useNavigate } from 'react-router-dom';
+import './signupPersonalInfo.css';
 
 const SignupPersonalInfo = () => {
     const [usr_name, setUserName] = useState('');
