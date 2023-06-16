@@ -1,11 +1,15 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import "../Login/Login"
 import './signupExaminerInfo.css';
+import { useNavigate } from 'react-router-dom';
+import Login from '../Login/Login';
 
 const SignupExaminerInfo = () => {
   const [institution, setInstitution] = useState('');
   const fileInputRef = useRef(null);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
@@ -17,20 +21,25 @@ const SignupExaminerInfo = () => {
     formData.append('institution', institution);
     formData.append('resume', fileInputRef.current.files[0]);
     try {
-      const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData, {headers});
-      localStorage.setItem('access_token', response.data.access_token);
+      const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData, { headers: headers });
+
       // Redirect the user to the protected route
-      window.location.href = '/ExaminerQualification';
+      return navigate('/ExaminerQualification')
     } catch (error) {
       console.error("error: ", error);
       setError('Some Input is Wrong');
     }
   };
+  useEffect(() => {
+    if (!accessToken) {
+      return navigate("/"); // Render the Login component if access token doesn't exist
+    }
+  }, []);
   return (
     <div className='FormBg'>
       <div className='bg-img'>
         <div className="content" style={{ width: "510px" }}>
-          <header type="EI"style={{ fontFamily: "Poppins", color: "#d7e7ec" }}>Examiner Information</header>
+          <header type="EI" style={{ fontFamily: "Poppins", color: "#d7e7ec" }}>Examiner Information</header>
           {/* <form action="http://localhost:5000//SignUpExaminerInfo" method='post' enctype="multipart/form-data"> */}
           <form onSubmit={handleSignUpExaminer}>
             <div className="maindiv">

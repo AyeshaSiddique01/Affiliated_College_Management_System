@@ -12,10 +12,8 @@ class model:
                 user="postgres",
                 password="Ayesha@1306",  # write your dbPassword
                 port="5432")
-            # self.ur_id = 0
-            # self.exmnr_id = 0
-            # self.duty_id = 0
         except Exception as e:
+            self.connection = None
             print(str(e))
 
     # Destructor
@@ -65,23 +63,23 @@ class model:
             if cursor != None:
                 cursor.close()
 
-    # def getUserEmail(self, id):
-    #     cursor = None
-    #     try:
-    #         if self.connection != None:
-    #             cursor = self.connection.cursor()
-    #             cursor.execute(
-    #                 f'''select usr_email from public.user where usr_id = '{id}';''')
-    #             email = cursor.fetchone()
-    #             return email[0]
-    #         else:
-    #             return 0
-    #     except Exception as e:
-    #         print("Exception in getUserEmail", str(e))
-    #         return 0
-    #     finally:
-    #         if cursor != None:
-    #             cursor.close()
+    def getUserEmail(self, id):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(
+                    f'''select usr_email from public.user where usr_id = '{id}';''')
+                email = cursor.fetchone()
+                return email[0]
+            else:
+                return 0
+        except Exception as e:
+            print("Exception in getUserEmail", str(e))
+            return 0
+        finally:
+            if cursor != None:
+                cursor.close()
 
     # def Returns hashed Password 
     def getUserPassword(self, email):
@@ -108,10 +106,10 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                cursor.execute(
-                    f'''select examiner_id from public.examiner where "user_id " = {userid};''')
-                id = cursor.fetchone()
-                return id[0]
+                query = f'''select examiner_id from public.examiner where "user_id " = {userid};'''
+                cursor.execute(query)
+                id = cursor.fetchall()
+                return id[0][0]
             else:
                 return 0
         except Exception as e:
@@ -130,7 +128,6 @@ class model:
                 query = f'''insert into public.examiner("user_id ","institution ","availability","ranking","resume","acceptance_count","rejection_count","verified") 
                             values({examiner.user_id}, '{examiner.institution}', '{examiner.availability}', {examiner.ranking}, '{examiner.resume}', {examiner.acceptance_count}, {examiner.rejection_count}, {examiner.verified}) returning examiner_id;
                             '''
-                print("query: ", query)
                 cursor.execute(query)
                 id = cursor.fetchone()
                 self.connection.commit()
@@ -314,6 +311,23 @@ class model:
         finally:
             if cursor != None:
                 cursor.close()
+ 
+    # Get data of specific examiner
+    def getDataofExaminerForProfile(self, examiner_id):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''select "institution ", ranking, acceptance_count, rejection_count, resume from public."examiner" where examiner_id = {examiner_id};'''
+                cursor.execute(query)
+                data = cursor.fetchall()
+                return data[0]
+        except Exception as e:
+            print("Exception in getDataofExaminerForProfile", str(e))
+            return []
+        finally:
+            if cursor:
+                cursor.close()
 
     # Get data of specific examiner
     def getDataofExaminer(self, tableName, examiner_id):
@@ -322,7 +336,6 @@ class model:
             if self.connection:
                 cursor = self.connection.cursor()
                 query = f'''select * from public.{tableName} where examiner_id = {examiner_id};'''
-                print(query)
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data
@@ -339,10 +352,10 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''select * from public.user where usr_id = {usr_id};'''
+                query = f'''SELECT usr_name, usr_cnic, usr_phoneno, usr_address, usr_email, usr_gender,usr_bio, usr_profile_pic FROM public."user" where usr_id = {usr_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                return data
+                return data[0]
         except Exception as e:
             print("Exception in getDataofUser", str(e))
             return []
@@ -359,7 +372,6 @@ class model:
                 query = f'''select ed.prac_duty_id, rd.rd_crs_name, ed.prac_ass_date from practical_duty ed, roadmap rd where ed.rd_id = rd.rd_id and ed.examiner_id = {examiner_id} and prac_duty_status = 1;'''
                 cursor.execute(query)
                 data = cursor.fetchall()
-                print(data)
                 return data
         except Exception as e:
             print("Exception in getRecievedPracRequests")
@@ -493,26 +505,37 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                if (dtType == "Practical Exam"):
-                    query = f'''select prac_date, prac_time, paper_upload_deadline, prac_ass_date, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
-                elif (dtType == "Theory Paper"):
-                    query = f'''select paper_date, paper_upload_deadline, request_date,rd_id from exam_duty where exam_duty_id = {dtId};'''
+                if (dtType == "Practical_Exam"):
+                    query = f'''select prac_date, paper_upload_deadline, prac_ass_date, prac_time, ac_id, rd_id from practical_duty where prac_duty_id = {dtId};'''
+                elif (dtType == "Theory_Paper"):
+                    query = f'''select paper_date, paper_upload_deadline, request_date, rd_id from exam_duty where exam_duty_id = {dtId};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
+                # get roadmap id
                 rdId = data[len(data) - 1][5]
                 query = f'''select rd_crs_code, rd_crs_name, rd_crs_book, rd_crs_outlline from roadmap where rd_id = {rdId};'''
                 cursor.execute(query)
                 rdData = cursor.fetchall()
                 acData = []
-                if dtType == "Practical Exam":
+                if dtType == "Practical_Exam":
                     acID = data[data.__len__() - 1][4]
                     query = f'''select ac_name, ac_address from affiliated_colleges where ac_id = {acID};'''
                     cursor.execute(query)
                     acData = cursor.fetchall()
-                # if len(acData) > 0:
-                    combinedList = data[0] + rdData[0] + acData[0]
+                    # if len(acData) > 0:
+                    l = []
+                    for i in range(4):
+                        l.append(str(data[0][i]))
+
+                    l = tuple(l)
+                    combinedList = l + rdData[0] + acData[0]
                 else:
-                    combinedList = data[0] + rdData[0]
+                    l = []
+                    for i in range(3):
+                        l.append(str(data[0][i]))
+                    l.append("")
+                    l = tuple(l)
+                    combinedList = l + rdData[0]
                 return combinedList
         except Exception as e:
             print("Exception in getDutyDetails: ", e)
@@ -532,7 +555,7 @@ class model:
                 data = cursor.fetchall()
                 return data
         except Exception as e:
-            print("Exception in getDataofUser", str(e))
+            print("Exception in setUserVerified", str(e))
             return []
         finally:
             if cursor:
@@ -563,11 +586,11 @@ class model:
     def InsertUploadedPaper(self, d_id, papers, duty_type):
         cursor = None
         try:
-            if self.connection != None:
+            if self.connection:
                 cursor = self.connection.cursor()
-                if duty_type == "Practical Exam":
+                if duty_type == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_paper = '{papers}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper":
+                elif duty_type == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET paper = '{papers}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -583,11 +606,11 @@ class model:
     def InsertUploadedResult(self, d_id, results, duty_type):
         cursor = None
         try:
-            if self.connection != None:
+            if self.connection:
                 cursor = self.connection.cursor()
-                if duty_type == "Practical Exam":
+                if duty_type == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_result = '{results}' WHERE prac_duty_id = {d_id};''')
-                elif duty_type == "Theory Paper":
+                elif duty_type == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET result = '{results}' WHERE exam_duty_id = {d_id};''')
                 return True
             else:
@@ -605,10 +628,11 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                if table_name == "Practical Exam":
+                if table_name == "Practical_Exam":
                     cursor.execute(f'''UPDATE practical_duty SET prac_duty_status = {status} WHERE prac_duty_id = {d_id};''')
-                elif table_name == "Theory Paper":
+                elif table_name == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
+                self.connection.commit()
                 return True
             else:
                 return False
@@ -617,4 +641,50 @@ class model:
             return False
         finally:
             if cursor != None:
+                cursor.close()
+
+    def insertExaminerCourses(self, examiner_id, examiner_crs_name):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                query = f'''insert into examiner_courses (examiner_id, examiner_crs_name) values({examiner_id}, '{examiner_crs_name}');'''
+                cursor.execute(query)
+                self.connection.commit()
+                return True
+        except Exception as e:
+            print("Exception in insertExaminerCourses", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def  insertCollegeReview(self, ExamnrID, complain, AcId):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor
+                cursor.execute(f'''insert into college_review("examiner_id","cr_complain","ac_id") values ({ExamnrID},{complain},{AcId});''')
+                self.connection.commit()
+                return True
+        except Exception as e:
+            print("Exception in insertCollegeReview", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
+    def getAllCoursesNames(self):
+        cursor = None
+        try:
+            if self.connection:
+                cursor = self.connection.cursor()
+                cursor.execute(f'''select rd_crs_name from roadmap;''')
+                data = cursor.fetchall()
+                return data
+        except Exception as e:
+            print("Exception in getAllCourses", str(e))
+            return []
+        finally:
+            if cursor:
                 cursor.close()

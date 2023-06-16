@@ -2,7 +2,7 @@ import React from "react";
 
 const ExpTable = ({ headings, data,keys }) => {
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">#</th>

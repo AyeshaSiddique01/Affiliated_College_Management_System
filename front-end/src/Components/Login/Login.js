@@ -2,27 +2,43 @@ import React, { useState, useEffect } from "react";
 // npm install axios
 import axios from 'axios';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const redirectto = queryParameters.get("redirectto")
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const accessToken = localStorage.getItem('access_token');
 
     const handleLogin = async (e) => {
+        console.log("go")
         e.preventDefault();
         try {
-            console.log("in try")
+            console.log(email, password)
             const response = await axios.post('http://127.0.0.1:5000/ExaminerLogin', { email, password });
-            // localStorage.setItem('access_token', response.data.access_token);
             
-            window.location.href = '/Notifications';
+            const accessToken = response.data.access_token;
+            localStorage.setItem('access_token', accessToken);
+            console.log(redirectto);
+            if (redirectto) {
+                navigate(decodeURIComponent(redirectto))
+            }
+            else {
+                navigate('/Notifications');
+            }
         } catch (error) {
             // document.getElementById("msj").textContent = error;
             console.error(error);
-            setError('Invalid username or password');
+            setError(error);
         }
     };
-    useEffect(() => {
+    useEffect(() => { 
+        if (accessToken){
+            navigate("/Notifications");
+        }  
         const showBtn = document.getElementById("show");
         showBtn.addEventListener("click", function () {
             const pass_field = document.getElementById("pass-key");
@@ -38,8 +54,7 @@ const Login = () => {
                 showBtn.style.color = "#222";
             }
         });
-    });
-
+    }); 
     return (
         <>
             <div className='FormBglogin'>

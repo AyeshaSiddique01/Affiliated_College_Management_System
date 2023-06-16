@@ -1,18 +1,31 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './examinerQualification.css';
 
 const ExaminerQualification = () => {
 
     const [dataList, setDataList] = useState([]);
-
+    const navigate = useNavigate();
+    const accessToken = localStorage.getItem('access_token');
+    const header = {
+        'Authorization': `Bearer ${accessToken}`,
+    };
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/NewQualifications')
-            .then(response => response.json())
-            .then(data => setDataList(data))
-            .catch(error => console.error(error));
+        if (!accessToken) {
+            return navigate("/"); // Render the Login component if access token doesn't exist
+        }
+        fetchData();
     }, []);
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:5000/NewQualifications', { headers: header });
+            setDataList(response.data);
+        } catch (error) {
+
+        }
+    };
     const [degree_title, setDegreeTitle] = useState('');
     const [institution, setInstitution] = useState('');
     const [starting_date, setStartingDate] = useState('');
@@ -28,8 +41,8 @@ const ExaminerQualification = () => {
         formData.append('ending_date', ending_date);
         formData.append('transcript', fileInputRef.current.files[0]);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/ExaminerQualification', formData);
-            localStorage.setItem('access_token', response.data.access_token);
+            const response = await axios.post('http://127.0.0.1:5000/ExaminerQualification', formData, { headers: header });
+
             // Redirect the user to the protected route
             window.location.href = '/ExaminerQualification';
         } catch (error) {
@@ -56,42 +69,45 @@ const ExaminerQualification = () => {
         }
 
     });
-    
+    const GoNext = () => {
+        return navigate("/ExaminerExp");
+    }
     return (
         <div className='FormBgEQ'>
             <div className='bg-imgEQ'>
-                <div className="contentEQ" style={{ width: "522px", height: "87%" }}>
+                <div className="contentEQ" style={{ width: "fit-content", height: "fit-content" }}>
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>
                     <table className='TableStyleEQ' border="1">
-                        <tr>
-                            <th>Sr #</th>
-                            <th>Degree Title</th>
-                            <th>Institute Name</th>
-                            <th>Starting Date</th>
-                            <th>Ending Date</th>
-                        </tr>
-                        {dataList.map((item, index) => (
+                        <thead>
                             <tr>
-                            <td>{index + 1}</td>
-                            <td>{item[2]}</td>
-                            <td>{item[3]}</td>
-                            <td>{item[4]}</td>
-                            <td>{item[5]}</td>
-                        </tr>
-                        ))}                        
+                                <th>Sr #</th>
+                                <th>Degree Title</th>
+                                <th>Institute Name</th>
+                                <th>Starting Date</th>
+                                <th>Ending Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dataList.map((item, index) => (
+                                <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{item[2]}</td>
+                                    <td>{item[3]}</td>
+                                    <td>{item[4]}</td>
+                                    <td>{item[5]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                     <div className="container ButtonsEQ">
                         <div>
-                            <div className='NextBtnEQ'>
-                                <button type="button" id='myBtn'>Add New</button>
-                            </div>
-                            <div id="AddNewQualification" class="modal">
-                                <div class="modal-content" style={{backgroundColor : "#232323"}}>
-                                    <span class="close">&times;</span>
+                            <div id="AddNewQualification" className="modal">
+                                <div className="modal-content" style={{ backgroundColor: "#232323" }}>
+                                    <span className="close">&times;</span>
                                     <div>
-                                        <form style={{width:"90%"}} onSubmit={handleExaminerQualification}>
+                                        <form style={{ width: "90%" }} onSubmit={handleExaminerQualification}>
                                             <div className="maindiv">
                                                 <span></span>
                                                 <input type="text" className='input-box' placeholder='Enter Degree Title' name='degree_title' onChange={(e) => setDegreeTitle(e.target.value)} required />
@@ -102,18 +118,18 @@ const ExaminerQualification = () => {
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <label className='label_' for="starting_date">Starting Date:</label>
+                                                <label className='label_' htmlFor="starting_date">Starting Date:</label>
                                                 <input className="form-control input-box" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
                                                 <span></span>
-                                                <label className='label_' for="ending_date">Ending Date:</label>
+                                                <label className='label_' htmlFor="ending_date">Ending Date:</label>
                                                 <input className="form-control input-box" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
                                                     style={{ height: "30px", width: "fit-content" }} />
                                             </div>
                                             <div className="maindiv">
-                                                <label className='label_' for="Certificate">Transcript: </label>
+                                                <label className='label_' htmlFor="Certificate">Transcript: </label>
                                                 <input type="file" name="transcript" className="form-control" ref={fileInputRef} required />
                                             </div>
                                             <div className="AddBtn">
@@ -127,11 +143,11 @@ const ExaminerQualification = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='NextBtnEQ'>
-                            <a href="http://localhost:3000/ExaminerExp">
-                                <button type="submit">Next Page</button>
-                            </a>
-                        </div>
+                    </div>
+                    <div className='NextBtnEE'>
+                        <button type="button" id='myBtn' style={{ width: "190px" }}>Add New</button>
+                        <br></br>
+                        <button type="submit" style={{ width: "190px" }} onClick={GoNext}>Next Page</button>
                     </div>
                 </div>
             </div>
