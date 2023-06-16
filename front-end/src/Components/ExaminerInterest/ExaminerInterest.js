@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './ExaminerInterest.css';
@@ -8,6 +8,7 @@ const ExaminerInterest = () => {
 
     const [dataList, setDataList] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
+    const [error, setError] = useState('');
     const [textInput, setTextInput] = useState('');
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('access_token');
@@ -41,7 +42,11 @@ const ExaminerInterest = () => {
         console.log(textInput)
         try {
             const response = await axios.post('http://127.0.0.1:5000/AddExaminerCourse', { data: textInput }, { headers: header });
-            navigate("/home");
+            if (response.data["status"] === "fail") {
+                setError(response.data["message"]);
+            } else {
+                navigate("/home");
+            }
         } catch (error) {
             console.error("error: ", error);
         }
@@ -67,6 +72,9 @@ const ExaminerInterest = () => {
                             <br />
                             <div className='NextBtnEE'>
                                 <button type="submit" style={{ width: "190px" }}>Next</button>
+                            </div>
+                            <div>
+                                {error && <div style={{ color: "#cc4444" }}>{error}</div>}
                             </div>
                         </form>
                     </div>

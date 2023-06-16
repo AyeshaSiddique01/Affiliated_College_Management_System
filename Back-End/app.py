@@ -105,13 +105,13 @@ def SignUpPersonalInfo():
         _hashed_password = generate_password_hash(usr_password)
 
         if not is_email_present(usr_email) :
-            return jsonify({"error": "Email does not exist"}), 401
+            return jsonify({"status": "fail", "message": "Email does not exist"})
         
         if not is_phone_number_present(usr_phone) :
-            return jsonify({"error": "Phone number is not valid"}), 401
+            return jsonify({"status": "fail", "message": "Phone number is not valid"})
         
         if not is_cnic_number_present(usr_cnic) :
-            return jsonify({"error": "CNIC is not valid"}), 401
+            return jsonify({"status": "fail", "message": "CNIC is not valid"})
 
         # set data in obj
         data = User()
@@ -129,7 +129,11 @@ def SignUpPersonalInfo():
         # Insertion in database
         m = g.model
         if m.checkEmailExist(usr_email):
-            return jsonify({"error": "Email already exists"}), 401
+            return jsonify({"status": "fail", "message": "Email already exists"})
+    
+        if m.checkCnicExist(usr_cnic):
+            return jsonify({"status": "fail", "message": "CNIC already exists"})
+
         user_id = m.InsertUser(data)  # insertion function return userid
 
         if user_id != 0:
@@ -143,11 +147,11 @@ def SignUpPersonalInfo():
             access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=24))
             return jsonify(access_token=access_token), 200
         else:
-            return jsonify({"error": "Error in insertion"}), 401
+            return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
         print("Exception in SignUpPersonalInfo", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/SignUpExaminerInfo', methods=["POST", "GET"])
 @jwt_required()
@@ -179,11 +183,11 @@ def SignUpExaminerInfo():
         examiner_id = m.InsertExaminer(data)[0]
         if examiner_id != 0:
             return jsonify({"message": "okay"}), 200
-        return jsonify({"error": "Error in insertion"}), 401
+        return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
         print("Exception in SignUpExaminerInfo", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/ExaminerQualification', methods=["POST", "GET"])
 @jwt_required()
@@ -214,11 +218,11 @@ def ExaminerQualification():
 
         if m.InsertExaminerQualification(data) != False:
             return jsonify({"Message": "Okay"}), 200
-        return jsonify({"error": "Error in insertion"}), 401
+        return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
         print("Exception in ExaminerQualification", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
     
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 @jwt_required()
@@ -244,25 +248,13 @@ def ExaminerExperience() :
         data = experience(examiner_id, job_title, ExperianceLetters,
                           organization, reference_email, starting_date, ending_date)
 
-        verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
-        verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
-
-        # Insertion in dataBase
-        email = m.getUserEmail(g.user_id)
-
-        message = Message('Verify your email', recipients=email)
-        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {m.getUserEmail(g.user_id)} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-        print(":)")
-        mail.send(message)
-        print(":)2")
-
         if m.InsertExaminerExperience(data) != False:
             return jsonify({"Message": "Okay"}), 200
-        return jsonify({"error": "Error in insertion"}), 401
+        return jsonify({"status": "fail", "message": "Error in insertion"})
 
     except Exception as e:
         print("Exception in ExaminerExp", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/verify')
 @jwt_required()
@@ -294,13 +286,26 @@ def AddExaminerCourse():
         courses = data.split(",")
         examiner_id = g.examiner_id
         m = g.model
-        for i in range (1, courses.__len__()) :
-            if not m.insertExaminerCourses(examiner_id, courses[i]) :
-                return jsonify({"error": "Insertion issue"}), 401
+        if (courses.__len__() > 1) :
+            for i in range (1, courses.__len__()) :
+                if not m.insertExaminerCourses(examiner_id, courses[i]) :
+                    return jsonify({"status": "fail", "message": "Insertion issue"})
+        
+        verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+        verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
+
+        # Insertion in dataBase
+        email = m.getUserEmail(g.user_id)
+
+        message = Message('Verify your email', recipients=email)
+        message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {m.getUserEmail(g.user_id)} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+        print(":)")
+        mail.send(message)
+        print(":)2")
         return jsonify({"Message": "Okay"}), 200
     except Exception as e:
         print("Exception in add course to examiner ",str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/ExaminerLogin', methods=["POST"])
 @essentials
@@ -313,23 +318,23 @@ def ExaminerLogin():
         m = g.model
         examiner_id = m.getExaminerID(m.getUserID(email))
         if not (m.checkExaminerVerified(examiner_id)):
-            return jsonify({"error": "Verify email first"}), 401
+            return jsonify({"status": "fail", "message": "Verify email first"})
 
         if not (m.checkEmailExist(email)):
-            return jsonify({"error": "Email does not exist"}), 401
+            return jsonify({"status": "fail", "message": "Email does not exist"})
 
         usr_pass = m.getUserPassword(email)
         if not (check_password_hash(usr_pass, password)):
-            return jsonify({"error": "Invalid Password"}), 401
+            return jsonify({"status": "fail", "message": "Invalid Password"})
 
         examiner_id = m.ValidatePassword(email, usr_pass)
         if (examiner_id > 0):
             access_token = create_access_token(identity=m.getUserID(email), expires_delta=timedelta(hours=24))
             return jsonify(access_token=access_token), 200
-        return jsonify({"error": "Invalid Password"}), 401
+        return jsonify({"status": "fail", "message": "Invalid Password"})
     except Exception as e:
         print("Exception in Login", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/profile', methods=['GET'])
 @jwt_required()
@@ -364,7 +369,7 @@ def profile():
         return jsonify(data), 200
     except Exception as e:
         print("Exception in profile", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/notifications', methods=["POST", "GET"])
 @jwt_required()
@@ -395,7 +400,7 @@ def notifications():
         return jsonify(data), 200
     except Exception as e:
         print("Exception in notifications", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route("/DutyDetails", methods=['POST', 'GET'])
 @jwt_required()
@@ -416,7 +421,7 @@ def DutyDetails():                  # moving from request page to duty details
     except Exception as e:
         print("Exception in DutyDetails", str(e))
         raise e
-        # return jsonify({"error": str(e)}), 401
+        # return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/home', methods=["POST", "GET"])
 @jwt_required()
@@ -445,7 +450,7 @@ def home():
         return jsonify(duties)
     except Exception as e:
         print("Exception in home", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/PaperPendingDuty', methods=['GET'])
 @jwt_required()
@@ -475,7 +480,7 @@ def PaperPendingDuty():						# accepted and uploaded paper and paper is not take
         return jsonify(duties)
     except Exception as e:
         print("Exception in PaperPendingDuty", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/ResultUploadPending', methods=['GET'])
 @jwt_required()
@@ -504,7 +509,7 @@ def ResultUploadPending():					# paper done upload paper now
         return jsonify(duties)
     except Exception as e:
         print("Exception in ResultUploadPending", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route("/GetPaper", methods=['POST'])
 @jwt_required()
@@ -526,7 +531,7 @@ def GetPaper():
         return jsonify({"status": "failed", "message": "Failed to Upload Paper"})
     except Exception as e:
         print("Exception in GetPaper", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route("/GetResult", methods=['POST'])
 @jwt_required()
@@ -548,7 +553,7 @@ def GetResult():
         return jsonify({"status": "failed", "message": "Failed to Upload result"})
     except Exception as e:
         print("Exception in Getresults", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 @app.route('/NewQualifications', methods=["GET"])
 @jwt_required()
@@ -600,7 +605,7 @@ def UpdateStatus():
         return jsonify({"status": "fail", "message": "Status has not Updated Successfully"})
     except Exception as e:
         print("Exception in GetResult", str(e))
-        return jsonify({"error": str(e)}), 401
+        return jsonify({"status": "fail", "message": str(e)})
 
 # Running app
 if __name__ == '__main__':

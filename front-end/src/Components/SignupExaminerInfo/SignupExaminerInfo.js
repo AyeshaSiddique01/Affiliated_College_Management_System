@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import "../Login/Login"
 import './signupExaminerInfo.css';
 import { useNavigate } from 'react-router-dom';
-import Login from '../Login/Login';
 
 const SignupExaminerInfo = () => {
   const [institution, setInstitution] = useState('');
@@ -22,12 +21,13 @@ const SignupExaminerInfo = () => {
     formData.append('resume', fileInputRef.current.files[0]);
     try {
       const response = await axios.post('http://127.0.0.1:5000/SignUpExaminerInfo', formData, { headers: headers });
-
-      // Redirect the user to the protected route
-      return navigate('/ExaminerQualification')
+      if (response.data["status"] === "fail") {
+        setError(response.data["message"]);
+      } else {
+        return navigate('/ExaminerQualification');
+      }
     } catch (error) {
       console.error("error: ", error);
-      setError('Some Input is Wrong');
     }
   };
   useEffect(() => {
@@ -52,7 +52,7 @@ const SignupExaminerInfo = () => {
               <button type="submit" className="submit-btn" >Next</button>
             </div>
             <div>
-              {error && <div>{error}</div>}
+              {error && <div style={{color:"#cc4444"}}>{error}</div>}
             </div>
           </form>
         </div>

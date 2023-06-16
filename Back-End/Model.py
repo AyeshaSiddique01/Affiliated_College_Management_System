@@ -163,6 +163,27 @@ class model:
             if cursor != None:
                 cursor.close()
 
+    # Check is CNIC exists in user table or not
+    def checkCnicExist(self, usr_CNIC):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                cursor.execute(f"select usr_cnic from public.user;")
+                cnicList = cursor.fetchall()
+                for e in cnicList:
+                    if usr_CNIC == e[0]:
+                        return True
+                return False
+            else:
+                return False
+        except Exception as e:
+            print("Exception in checkCnicExist", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()
+
     # Validate password 
     def ValidatePassword(self, email, password):  # return examiner id
         cursor = None

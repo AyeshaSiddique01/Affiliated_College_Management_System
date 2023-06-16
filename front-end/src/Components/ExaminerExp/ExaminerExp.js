@@ -45,12 +45,14 @@ const ExaminerExp = () => {
         formData.append('ExperianceLetter', fileInputRef.current.files[0]);
         try {
             const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, { headers: header });
-
+            if (response.data["status"] === "fail") {
+                setError(response.data["message"]);
+            } else {
+                window.location.href = '/ExaminerExp';
+            }
             // Redirect the user to the protected route
-            window.location.href = '/ExaminerExp';
         } catch (error) {
             console.error("error: ", error);
-            setError('Some Input is Wrong');
         }
     };
     useEffect(() => {
@@ -147,7 +149,7 @@ const ExaminerExp = () => {
                                                 <input type="submit" value="Add" />
                                             </div>
                                             <div>
-                                                {error && <div>{error}</div>}
+                                                {error && <div style={{color:"#cc4444"}}>{error}</div>}
                                             </div>
                                         </form>
                                     </div>
