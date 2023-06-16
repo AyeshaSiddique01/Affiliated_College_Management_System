@@ -644,7 +644,7 @@ class model:
                 cursor.close()
 
     # Update status of a duty
-    def UpdateStatus(self, d_id, status, table_name):
+    def UpdateStatus(self, d_id, status, table_name, examiner_id):
         cursor = None
         try:
             if self.connection != None:
@@ -654,6 +654,11 @@ class model:
                 elif table_name == "Theory_Paper":
                     cursor.execute(f'''UPDATE exam_duty SET status_req = {status} WHERE exam_duty_id = {d_id};''')
                 self.connection.commit()
+                if status == 2 :
+                    cursor.execute(f'''UPDATE examiner SET acceptance_count = acceptance_count + 1 WHERE examiner_id = {examiner_id};''')
+                elif status == 3:
+                    cursor.execute(f'''UPDATE examiner SET rejection_count = rejection_count + 1 WHERE examiner_id = {examiner_id};''')
+                self.connection.commit()                
                 return True
             else:
                 return False
