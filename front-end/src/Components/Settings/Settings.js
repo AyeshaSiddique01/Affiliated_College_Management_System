@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
@@ -12,7 +12,9 @@ function Settings() {
   const [usr_address, setAddress] = useState('');
   const [usr_bio, setBio] = useState('');
   const [usr_gender, setGender] = useState('');
-  const [usr_password, setPassword] = useState('');
+  const [usr_active_status, setStatus] = useState('');
+  const resumeFile = useRef(null);
+  const ProfilePic = useRef(null);
   const [usr_phone, setPhone] = useState('');
   const [errorP, setErrorP] = useState('');
 
@@ -29,36 +31,47 @@ function Settings() {
     'Authorization': `Bearer ${accessToken}`,
   };
   const handleEditPersonal = async (e) => {
-    console.log("usr_address: ", usr_address);
+    const formData = new FormData();
+    formData.append('resume', resumeFile.current.files[0]);
+    formData.append('profile', ProfilePic.current.files[0]);
+    formData.append('usr_name', usr_name);
+    formData.append('usr_cnic', usr_cnic);
+    formData.append('usr_email', usr_email);
+    formData.append('usr_address', usr_address);
+    formData.append('usr_bio', usr_bio);
+    formData.append('usr_gender', usr_gender);
+    formData.append('usr_phone', usr_phone);
+    formData.append('usr_active_status', usr_active_status);
+    console.log(formData['resume']);
     e.preventDefault();
-    // try {
-    //   const response = await axios.post('http://127.0.0.1:5000/SignUpPersonalInfo',
-    //     { usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_password, usr_phone });
-
-    //   if (response.data["status"] === "fail") {
-    //     setErrorP(response.data["message"]);
-    //   } else {        
-    //     navigate("/SignupExaminerInfo")
-    //   }
-    // } catch (error) {
-    //   console.error("error: ", error);
-    //   setErrorP(error);
-    // }
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/UpdateExaminer', formData , { headers: headers });
+        setErrorP(response.data["message"]);
+    } catch (error) {
+      console.error("error: ", error);
+    }
   };
-
+  
   useEffect(() => {
+    console.log("use effect")
+    getData();
     fetchCourses();
-    getData();git 
     if (!accessToken) {
-      return navigate("/"); // Render the Login component if access token doesn't exist
+      return navigate("/");
     }
   }, []);
-
   const getData = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/profile', { headers: headers });
-      setUserDetails(response.data)
-      console.log("response-----------", response);
+      const res = await axios.get('http://127.0.0.1:5000/profile', { headers: headers });
+      setUserDetails(res.data)
+      setUserName(res.data["personal_details"]["usr_name"])
+      setCNIC(res.data["personal_details"]["usr_cnic"])
+      setEmail(res.data["personal_details"]["usr_email"])
+      setPhone(res.data["personal_details"]["usr_phoneno"])
+      setAddress(res.data["personal_details"]["usr_address"])
+      setGender(res.data["personal_details"]["usr_gender"])
+      setStatus(res.data["personal_details"]["usr_active_status"])
+      setBio(res.data["personal_details"]["usr_bio"])
     } catch (error) {
       console.error(error);
     }
@@ -99,28 +112,27 @@ function Settings() {
           <form onSubmit={handleEditPersonal}>
             <div className="PersonalEditForm">
               <span className="label_">User Name: </span>
-              <input type="text" className="PersonalEditInput" placeholder='Enter User Name' name='name_' value={userDetails["personal_details"]["usr_name"]} onChange={(e) => setUserName(e.target.value)} required />
+              <input type="text" className="PersonalEditInput" placeholder='Enter User Name' name='name_' value={usr_name} onChange={(e) => setUserName(e.target.value)} />
             </div>
             <div className="PersonalEditForm">
               <span className="label_">Email Address: </span>
-              <input type="email" className="PersonalEditInput" placeholder='Enter Email Address' name='email' value={userDetails["personal_details"]["usr_email"]} onChange={(e) => setEmail(e.target.value)} required />
+              <input type="email" className="PersonalEditInput" placeholder='Enter Email Address' name='email' value={usr_email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="PersonalEditForm">
               <span className="label_">CNIC: </span>
-              <input type="text" className="PersonalEditInput" placeholder='Enter CNIC (00000-0000000-0)' name='cnic' value={userDetails["personal_details"]["usr_cnic"]} onChange={(e) => setCNIC(e.target.value)} required />
+              <input type="text" className="PersonalEditInput" placeholder='Enter CNIC (00000-0000000-0)' name='cnic' value={usr_cnic} onChange={(e) => setCNIC(e.target.value)} />
             </div>
             <div className="PersonalEditForm">
               <span className="label_">Phone Number: </span>
-              <input type="text" className="PersonalEditInput" placeholder='Enter Phone Number (+92 0000000000)' name='phone' value={userDetails["personal_details"]["usr_phoneno"]} onChange={(e) => setPhone(e.target.value)} required />
+              <input type="text" className="PersonalEditInput" placeholder='Enter Phone Number (+92 0000000000)' name='phone' value={usr_phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
             <div className="PersonalEditForm">
               <span className="label_">Address: </span>
-              <input type="text" className="PersonalEditInput" placeholder='Enter Address' name='address' value={userDetails["personal_details"]["usr_address"]} onChange={(e) => setAddress(e.target.value)} required />
+              <input type="text" className="PersonalEditInput" placeholder='Enter Address' name='address' value={usr_address} onChange={(e) => setAddress(e.target.value)} />
             </div>
             <div className="PersonalEditForm">
               <span className="label_">Gender: </span>
-              {/* <span style={{ width: "fit-content" }} className="PersonalEditInput" > Gender: </span> */}
-              <select className="form-label designLable" name="gender" value={userDetails["personal_details"]["usr_gender"]} onChange={(e) => setGender(e.target.value)} required >
+              <select className="form-label designLable" name="gender" value={usr_gender} onChange={(e) => setGender(e.target.value)}  >
                 <option value="Select">Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -128,23 +140,30 @@ function Settings() {
               </select>
             </div>
             <div className="PersonalEditForm">
-              <span className="label_">Bio: </span>
-              <input type="text" className="PersonalEditInput" placeholder='Enter Bio' name='bio' value={userDetails["personal_details"]["usr_bio"]} onChange={(e) => setBio(e.target.value)} required />
-            </div>
-            {/* <div className="PersonalEditForm">
-              <span className="fa fa-lock"></span>
-              <input type="password" id='pass' className="PersonalEditInput" placeholder='Enter Password' name='password' value={userDetails["personal_details"][""]} onChange={(e) => setPassword(e.target.value)} required />
+              <span className="label_">Active Status: </span>
+              <select className="form-label designLable" name="status" value={usr_active_status} onChange={(e) => setStatus(e.target.value)}  >
+                <option value="Select">Select</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
             </div>
             <div className="PersonalEditForm">
-              <span className="fa fa-lock"></span>
-              <input type="password" id='passC' className="PersonalEditInput" placeholder='Confirm Password' value={userDetails["personal_details"][""]} required />
+              <span className="label_">Bio: </span>
+              <input type="text" className="PersonalEditInput" placeholder='Enter Bio' name='bio' value={usr_bio} onChange={(e) => setBio(e.target.value)} />
             </div>
-            <span id="messageError"></span> */}
+            <div className="PersonalEditForm">
+              <span className="label_">Resume: </span>
+              <input type="file" name="resume" className="form-control" ref={resumeFile} />
+            </div>
+            <div className="PersonalEditForm">
+              <span className="label_">Profile Pic: </span>
+              <input type="file" name="pfp" className="form-control" ref={ProfilePic} />
+            </div>
             <div style={{ textAlign: "right" }}>
               <button type="submit" className="PersonalEditSubmitt" >Update data</button>
             </div>
             <div>
-              {errorP && <div style={{ color: "#cc4444" }}>{errorP}</div>}
+              {errorP && <div className='update_msj'>{errorP}</div>}
             </div>
           </form>
         </div>
@@ -154,7 +173,7 @@ function Settings() {
             <form onSubmit={handleSubmitInterest}>
               <select value={selectedOption} onChange={handleOptionChange}>
                 <option value="">Select an option</option>
-                {dataList.map((item, index) => (
+                {dataList.map((item) => (
                   <option value={item}>{item}</option>
                 ))}
               </select>
@@ -165,7 +184,7 @@ function Settings() {
                 <button type="submit" className="PersonalEditSubmitt" >Update Courses</button>
               </div>
               <div>
-                {errorI && <div style={{ color: "#cc4444" }}>{errorI}</div>}
+                {errorI && <div className='update_msj'>{errorI}</div>}
               </div>
             </form>
           </div>

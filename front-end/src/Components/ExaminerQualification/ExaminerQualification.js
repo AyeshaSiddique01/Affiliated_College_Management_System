@@ -23,7 +23,6 @@ const ExaminerQualification = () => {
             const response = await axios.get('http://127.0.0.1:5000/NewQualifications', { headers: header });
             setDataList(response.data);
         } catch (error) {
-
         }
     };
     const [degree_title, setDegreeTitle] = useState('');
