@@ -203,7 +203,7 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in ValidatePassword", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()

@@ -23,7 +23,6 @@ const ExaminerQualification = () => {
             const response = await axios.get('http://127.0.0.1:5000/NewQualifications', { headers: header });
             setDataList(response.data);
         } catch (error) {
-
         }
     };
     const [degree_title, setDegreeTitle] = useState('');
@@ -78,7 +77,7 @@ const ExaminerQualification = () => {
     return (
         <div className='FormBgEQ'>
             <div className='bg-imgEQ'>
-                <div className="contentEQ" style={{ width: "fit-content", height: "fit-content" }}>
+                <div className="contentEQ" >
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Qualification</h1>
                     </header>

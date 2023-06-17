@@ -55,13 +55,13 @@ const ExaminerInterest = () => {
     return (
         <div className='FormBgEE'>
             <div className='bg-imgEE'>
-                <div className="contentEE" style={{ width: "fit-content", height: "fit-content" }}>
+                <div className="contentEE" >
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Interest</h1>
                     </header>
                     <div className='option_'>
                         <form onSubmit={handleSubmit}>
-                            <select value={selectedOption} onChange={handleOptionChange}>
+                            <select value={selectedOption} style={{ width:"100%"}} onChange={handleOptionChange}>
                                 <option value="">Select an option</option>
                                 {dataList.map((item, index) => (
                                     <option value={item}>{item}</option>
