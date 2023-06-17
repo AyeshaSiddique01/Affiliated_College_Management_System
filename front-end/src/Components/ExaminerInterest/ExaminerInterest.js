@@ -61,7 +61,7 @@ const ExaminerInterest = () => {
                     </header>
                     <div className='option_'>
                         <form onSubmit={handleSubmit}>
-                            <select value={selectedOption} onChange={handleOptionChange}>
+                            <select value={selectedOption} style={{ width:"100%"}} onChange={handleOptionChange}>
                                 <option value="">Select an option</option>
                                 {dataList.map((item, index) => (
                                     <option value={item}>{item}</option>
