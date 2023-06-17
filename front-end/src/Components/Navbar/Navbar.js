@@ -22,9 +22,6 @@ const Navbar = () => {
   const GoProfile = () => {
     return navigate("/Profile");
   }
-  const GoRecent = () => {
-    return navigate("/Recent");
-  }
   const GoSettings = () => {
     return navigate("/Settings");
   }

@@ -47,7 +47,7 @@ mail = Mail(app)
 app.config['MAIL_DEFAULT_SENDER'] = "elite.express243@gmail.com"
 mail = Mail(app)
 
-def is_email_present(email):
+def is_valid_email(email):
     api_key = 'f7b74b5a429c9a8920c793907a0d0600'
     url = f'http://apilayer.net/api/check?access_key={api_key}&email={email}'
 
@@ -104,8 +104,8 @@ def SignUpPersonalInfo():
         usr_active_status = True
         _hashed_password = generate_password_hash(usr_password)
 
-        if not is_email_present(usr_email) :
-            return jsonify({"status": "fail", "message": "Email does not exist"})
+        if not is_valid_email(usr_email) :
+            return jsonify({"status": "fail", "message": "Invalid Email"})
         
         if not is_phone_number_present(usr_phone) :
             return jsonify({"status": "fail", "message": "Phone number is not valid"})
@@ -114,18 +114,9 @@ def SignUpPersonalInfo():
             return jsonify({"status": "fail", "message": "CNIC is not valid"})
 
         # set data in obj
-        data = User()
-        data.usr_name = usr_name
-        data.usr_password = _hashed_password
-        data.usr_cnic = usr_cnic
-        data.usr_profile_pic = usr_profile_pic
-        data.usr_address = usr_address
-        data.usr_email = usr_email
-        data.usr_active_status = usr_active_status
-        data.usr_bio = usr_bio
-        data.usr_gender = usr_gender
-        data.usr_phoneno = usr_phone
-
+        data = User(usr_name, usr_password, usr_phone, usr_cnic, usr_profile_pic, usr_address,
+               usr_email, usr_active_status, usr_bio, usr_gender)
+        
         # Insertion in database
         m = g.model
         if m.checkEmailExist(usr_email):
@@ -194,7 +185,6 @@ def SignUpExaminerInfo():
 @essentials
 def ExaminerQualification():
     try:
-
         m = g.model
         examiner_id = g.examiner_id
 
@@ -223,7 +213,7 @@ def ExaminerQualification():
     except Exception as e:
         print("Exception in ExaminerQualification", str(e))
         return jsonify({"status": "fail", "message": str(e)})
-    
+   
 @app.route('/ExaminerExperience', methods=["POST", "GET"])
 @jwt_required()
 @essentials
@@ -287,9 +277,12 @@ def AddExaminerCourse():
         examiner_id = g.examiner_id
         m = g.model
         if (courses.__len__() > 1) :
+            e_courses = m.getExaminerCourses(examiner_id)
+            examiner_courses = [item[0] for item in e_courses]
             for i in range (1, courses.__len__()) :
-                if not m.insertExaminerCourses(examiner_id, courses[i]) :
-                    return jsonify({"status": "fail", "message": "Insertion issue"})
+                if not examiner_courses.__contains__(courses[i]) :
+                    if not m.insertExaminerCourses(examiner_id, courses[i]) :
+                        return jsonify({"status": "fail", "message": "Insertion issue"})
         
         verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
         verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
@@ -345,7 +338,6 @@ def profile():
         examiner_id = g.examiner_id
         user_ = m.getDataofUser(g.user_id)
         examiner_ = m.getDataofExaminerForProfile(examiner_id)
-
         data = {
             "personal_details": {
                 "usr_name": user_[0],
@@ -355,8 +347,8 @@ def profile():
                 "usr_email": user_[4],
                 "usr_gender": user_[5],
                 "usr_bio": user_[6],
-                # "usr_profile_pic": user_[7],
-                "usr_profile_pic": ".\\Static\\ProfilePics\\empty.png",
+                "usr_active_status": user_[8],
+                "usr_profile_pic": user_[7],
                 "institution": examiner_[0],
                 "ranking": examiner_[1],
                 "acceptance_count": examiner_[2],
@@ -616,17 +608,70 @@ def UpdateExaminerCourse():
         m = g.model
         if (courses.__len__() > 1) :
             e_courses = m.getExaminerCourses(examiner_id)
-            examiner_courses = [item[0] for item in data]
+            examiner_courses = [item[0] for item in e_courses]
             for i in range (1, courses.__len__()) :
                 if not examiner_courses.__contains__(courses[i]) :
                     if not m.insertExaminerCourses(examiner_id, courses[i]) :
-                        return jsonify({"status": "fail", "message": "Insertion issue"})
+                        return jsonify({"status": "fail", "message": "Courses have not been updated try later."})
         
-        return jsonify({"message": "Updated"}), 200
+        return jsonify({"message": "Data Updated"}), 200
     except Exception as e:
         print("Exception in update course to examiner ",str(e))
-        return jsonify({"status": "fail", "message": str(e)})
+        return jsonify({"status": "fail", "message": "Courses have not been updated try later."})
 
+@app.route('/UpdateExaminer', methods=["POST"])
+@jwt_required()
+@essentials
+def UpdateExaminer():
+    try:
+        user_id = g.user_id
+        m = g.model
+        examiner_id = g.examiner_id
+        # get data from form
+        usr_name = request.form.get("usr_name")
+        usr_cnic = request.form.get("usr_cnic")
+        usr_email = request.form.get("usr_email")
+        usr_address = request.form.get("usr_address")
+        usr_bio = request.form.get("usr_bio")
+        usr_gender = request.form.get("usr_gender")
+        usr_phone = request.form.get("usr_phone")
+        usr_active_status = request.form.get("usr_active_status")
+
+        p = request.files.get("profile")
+        profile = f"..\\front-end\\src\\Static\\ProfilePics\\{user_id}.png"
+        if p != None:
+            if Path(profile).is_file():
+                os.remove(profile)
+            p.save(profile) 
+
+        f = request.files.get("resume")
+        if f != None:
+            resume = f"..\\front-end\\src\\Static\\Resumes\\{user_id}.pdf"
+            if Path(resume).is_file():
+                os.remove(resume)
+            f.save(resume)    
+            if not m.updateResume(examiner_id, resume) :
+                return jsonify({"status": "fail", "message": "Resume is not updated try again."})
+
+
+        user_ = m.getDataofUser(user_id)
+        if usr_email != user_[4] and not is_valid_email(usr_email) :
+            return jsonify({"status": "fail", "message": "Invalid Email"})
+        
+        if usr_phone != user_[2] and not is_phone_number_present(usr_phone) :
+            return jsonify({"status": "fail", "message": "Phone number is not valid"})
+        
+        if usr_cnic != user_[1] and not is_cnic_number_present(usr_cnic):
+            return jsonify({"status": "fail", "message": "CNIC is not valid"})
+
+        if not m.updateUser(user_id, usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_phone, usr_active_status, profile):
+                return jsonify({"status": "fail", "message": "Data has not updated try again."})
+
+        return jsonify({"status": "success", "message": "Data Updated"})
+        
+    except Exception as e:
+        print("Exception in Update user", str(e))
+        return jsonify({"status": "fail", "message": "Data has not updated try again."})
 
 # Running app
 if __name__ == '__main__':

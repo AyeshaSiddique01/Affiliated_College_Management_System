@@ -185,7 +185,7 @@
 }
 
 .header-btn .progap:nth-child(2):hover::before {
-  content: "Recent";
+  content: "Settings";
   position: absolute;
   top: 50%;
   left: 50%;

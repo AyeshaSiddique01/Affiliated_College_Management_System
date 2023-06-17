@@ -202,7 +202,7 @@ class model:
                 return 0
         except Exception as e:
             print("Exception in ValidatePassword", str(e))
-            return False
+            return 0
         finally:
             if cursor != None:
                 cursor.close()
@@ -373,7 +373,7 @@ class model:
         try:
             if self.connection:
                 cursor = self.connection.cursor()
-                query = f'''SELECT usr_name, usr_cnic, usr_phoneno, usr_address, usr_email, usr_gender,usr_bio, usr_profile_pic FROM public."user" where usr_id = {usr_id};'''
+                query = f'''SELECT usr_name, usr_cnic, usr_phoneno, usr_address, usr_email, usr_gender,usr_bio, usr_profile_pic, usr_active_status FROM public."user" where usr_id = {usr_id};'''
                 cursor.execute(query)
                 data = cursor.fetchall()
                 return data[0]
