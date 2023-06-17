@@ -46,10 +46,13 @@ const Navbar = () => {
           </div>
         </form>
       </div>
-      <div className='header-btn' style={{ width:"30%" }}>
-        <label onClick={GoProfile} className='progap'><box-icon name='user-circle' size='30px' color="#DDDBCB"></box-icon></label>
+      <div className='header-btn' style={{ width:"10%" }}>
+        <label onClick={GoProfile} className='profile'><box-icon name='user-circle' size='30px' color="#DDDBCB"></box-icon></label>
         {/* <label onClick={GoRecent} className='progap'><box-icon type='solid' name='bell-ring' animation='tada' size='30px' color="#DDDBCB"></box-icon></label> */}
-        <label onClick={GoSettings} className='progap'><box-icon name='cog' animation='spin' size='30px' color="#DDDBCB"></box-icon></label>
+        {/* <label onClick={GoSettings} className='progap'><box-icon name='cog' animation='spin' size='30px' color="#DDDBCB"></box-icon></label> */}
+      </div>
+      <div className='header-btn' style={{ width:"20%" }}>
+        <label onClick={GoSettings} className='settings'><box-icon name='cog' animation='spin' size='30px' color="#DDDBCB"></box-icon></label>
       </div>
       <div className='header-btn' style={{ width : "15%" }}>
         <label onClick={LogOut} className='signlog'><box-icon name='log-out' size='22px' color="#DDDBCB"></box-icon>Log Out</label>
