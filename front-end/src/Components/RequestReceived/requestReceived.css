@@ -55,7 +55,11 @@
 }
 
 .requestFooterRR {
-  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  width: 55%;
+  margin: 0 auto;
+  margin-top: 25px;
 }
 
 .courseTitleRR {
@@ -66,17 +70,18 @@
   margin-top: 70px;
 }
 
-div[type="accept"]:nth-child(1) {
-  width: 170px;
+div[type="accept"]{
+  width: 140px;
   background: rgb(17, 17, 17);
   border: 1px solid #fff;
-  margin-right: 45px;
+  /* margin-right: 45px; */
   margin-top: 25px;
-  margin-left: 890px;
+  margin-left: 590px;
   height: 50px;
   font-size: 18px;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 12px;
+  padding-left: 23px;
   box-sizing: border-box;
   outline: none;
   color: #fff;
@@ -89,7 +94,7 @@ div[type="accept"]:nth-child(1) {
 
 }
 
-div[type="accept"]:nth-child(1):hover {
+div[type="accept"]:hover {
   background: rgb(5, 4, 4);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
@@ -97,16 +102,18 @@ div[type="accept"]:nth-child(1):hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-div[type="accept"]:nth-child(2) {
-  width: 170px;
+div[type="reject"]{
+  width: 140px;
   background: rgb(17, 17, 17);
   border: 1px solid #fff;
   margin-right: 45px;
   margin-top: 25px;
+  margin-left: 10px;
   height: 50px;
   font-size: 18px;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 12px;
+  padding-left: 23px;
   box-sizing: border-box;
   outline: none;
   color: #fff;
@@ -119,7 +126,7 @@ div[type="accept"]:nth-child(2) {
 
 }
 
-div[type="accept"]:nth-child(2):hover {
+div[type="reject"]:hover {
   background: rgb(5, 4, 4);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
