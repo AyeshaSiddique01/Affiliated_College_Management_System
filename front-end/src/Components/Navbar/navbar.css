@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-/* .logo {
- 
-} */
-
 .VerNavbar {
   position: fixed;
   padding-top: 0px;
@@ -141,14 +137,14 @@
   margin: 20px;
 }
 
-.header-btn .progap {
+.header-btn .profile {
   position: relative;
   /* Add a relative position to the link container */
   background: #0a0a0a;
   border: 1px solid rgb(131, 127, 127);
   border-radius: 50px;
   transition: all .50s ease;
-  margin: 30px;
+  margin: 20px;
   /* padding: 15px 12px; */
   padding-top: 20px;
   padding-bottom: 10px;
@@ -156,22 +152,22 @@
   transition: all .8s ease;
 }
 
-.header-btn .progap:hover {
+.header-btn .profile:hover {
   background: #DDDBCB;
   /* border-radius: 40%; */
-  padding-top: 25px;
-  margin-bottom: 55px;
+  padding-top: 15px;
+  margin-bottom: 5px;
   padding-right: 45px;
   padding-left: 45px;
   border: 1px solid #0a0a0a;
 }
 
-.header-btn .progap:hover box-icon {
+.header-btn .profile:hover box-icon {
   display: none;
   /* Hide the box-icon on hover */
 }
 
-.header-btn .progap:nth-child(1):hover::before {
+.header-btn .profile:nth-child(1):hover::before {
   content: "Profile";
   position: absolute;
   top: 50%;
@@ -184,8 +180,8 @@
   opacity: 0.9;
 }
 
-.header-btn .progap:nth-child(2):hover::before {
-  content: "Settings";
+/* .header-btn .progap:nth-child(2):hover::before {
+  content: "Recent";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -195,22 +191,10 @@
   font-family: poppin serif;
   color: #0a0a0a;
   opacity: 0.9;
-}
+} */
 
-.header-btn .progap:nth-child(3):hover::before {
-  content: "Settings";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 25px;
-  font-weight: 800;
-  font-family: poppin serif;
-  color: #0a0a0a;
-  opacity: 0.9;
-}
 
-.header-btn .progap label {
+.header-btn .profile label {
   color: #ffffff;
   text-decoration: none;
   font-size: 20px;
@@ -218,7 +202,63 @@
   font-family: poppin serif;
 }
 
-.header-btn .progap label:hover {
+.header-btn .profile label:hover {
+  text-decoration: none;
+}
+
+
+.header-btn .settings {
+  position: relative;
+  /* Add a relative position to the link container */
+  background: #0a0a0a;
+  border: 1px solid rgb(131, 127, 127);
+  border-radius: 50px;
+  transition: all .50s ease;
+  margin: 20px;
+  /* padding: 15px 12px; */
+  padding-top: 20px;
+  padding-bottom: 10px;
+  width: 12%;
+  transition: all .8s ease;
+}
+
+.header-btn .settings:hover {
+  background: #DDDBCB;
+  /* border-radius: 40%; */
+  padding-top: 15px;
+  margin-bottom: 5px;
+  padding-right: 45px;
+  padding-left: 45px;
+  border: 1px solid #0a0a0a;
+}
+
+.header-btn .settings:hover box-icon {
+  display: none;
+  /* Hide the box-icon on hover */
+}
+
+.header-btn .settings:nth-child(1):hover::before {
+  content: "Settings";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-weight: 800;
+  font-family: poppin serif;
+  color: #0a0a0a;
+  opacity: 0.9;
+}
+
+.header-btn .settings label {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: poppin serif;
+}
+
+.header-btn .settings label:hover {
   text-decoration: none;
 }
 
