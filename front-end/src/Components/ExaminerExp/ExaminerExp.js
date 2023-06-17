@@ -81,7 +81,7 @@ const ExaminerExp = () => {
     return (
         <div className='FormBgEE'>
             <div className='bg-imgEE'>
-                <div className="contentEE" style={{ width: "fit-content", height: "fit-content" }}>
+                <div className="contentEE">
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
