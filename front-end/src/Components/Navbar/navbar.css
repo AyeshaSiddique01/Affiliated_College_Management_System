@@ -1,3 +1,8 @@
+
+
+
+
+
 .Navbar {
   height: 95px;
   top: 0%;
@@ -10,6 +15,10 @@
   z-index: 9999;
   align-items: center;
 }
+
+/* .logo {
+ 
+} */
 
 .VerNavbar {
   position: fixed;
@@ -29,6 +38,7 @@
   padding: 30px 10px;
   margin: 8px;
   left: 0%;
+  cursor: pointer;
 }
 
 .vernav div {
@@ -147,19 +157,25 @@
   margin: 20px;
   /* padding: 15px 12px; */
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   width: 12%;
   transition: all .8s ease;
+
+  padding-right: 30px;
+  padding-left: 30px;
+  width: 150px;
+  cursor: pointer;
 }
 
 .header-btn .profile:hover {
   background: #DDDBCB;
-  /* border-radius: 40%; */
+  border-radius: 30%;
   padding-top: 15px;
   margin-bottom: 5px;
-  padding-right: 45px;
-  padding-left: 45px;
-  border: 1px solid #0a0a0a;
+  padding-right: 50px;
+  padding-left: 50px;
+  border: 3px solid #0a0a0a;
+  cursor: pointer;
 }
 
 .header-btn .profile:hover box-icon {
@@ -217,19 +233,25 @@
   margin: 20px;
   /* padding: 15px 12px; */
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   width: 12%;
   transition: all .8s ease;
+
+  padding-right: 30px;
+  padding-left: 30px;
+  width: 150px;
+  cursor: pointer;
 }
 
 .header-btn .settings:hover {
   background: #DDDBCB;
-  /* border-radius: 40%; */
+  border-radius: 30%;
   padding-top: 15px;
   margin-bottom: 5px;
-  padding-right: 45px;
-  padding-left: 45px;
-  border: 1px solid #0a0a0a;
+  padding-right: 50px;
+  padding-left: 50px;
+  border: 3px solid #0a0a0a;
+  cursor: pointer;
 }
 
 .header-btn .settings:hover box-icon {
@@ -271,6 +293,7 @@
   box-shadow: 2px 2px 0 0 #11161b, 4px 4px 0 0 white;
   text-decoration: none;
   width: 60%;
+  cursor: pointer;
 }
 
 .header-btn .signlog:hover {
@@ -278,6 +301,7 @@
   border: 1px solid white;
   box-shadow: 3px 3px #11161b, 6px 6px 0 0 #DDDBCB;
   transform: translate(-3px, -3px);
+  cursor: pointer;
 }
 
 .btnsubmit {
