@@ -116,7 +116,7 @@ def SignUpPersonalInfo():
             return jsonify({"status": "fail", "message": "CNIC is not valid"})
 
         # set data in obj
-        data = User(usr_name, usr_password, usr_phone, usr_cnic, usr_profile_pic, usr_address,
+        data = User(usr_name, _hashed_password, usr_phone, usr_cnic, usr_profile_pic, usr_address,
                usr_email, usr_active_status, usr_bio, usr_gender)
         
         # Insertion in database
@@ -314,16 +314,16 @@ def ExaminerLogin():
         # Verification
         m = g.model
         examiner_id = m.getExaminerID(m.getUserID(email))
-        if not (m.checkExaminerVerified(examiner_id)):
-            return jsonify({"status": "fail", "message": "Verify email first"})
+        # if not (m.checkExaminerVerified(examiner_id)):
+        #     return jsonify({"status": "fail", "message": "Verify email first"})
 
         if not (m.checkEmailExist(email)):
             return jsonify({"status": "fail", "message": "Email does not exist"})
 
         usr_pass = m.getUserPassword(email)
+
         if not (check_password_hash(usr_pass, password)):
             return jsonify({"status": "fail", "message": "Invalid Password"})
-
         examiner_id = m.ValidatePassword(email, usr_pass)
         if (examiner_id > 0):
             access_token = create_access_token(identity=m.getUserID(email), expires_delta=timedelta(hours=24))
