@@ -10,8 +10,8 @@ class model:
                 database="ACMS",  # write your Dbname
                 host="localhost",
                 user="postgres",
-                password="Ayesha@1306",  # write your dbPassword
-                # password="aiman12345",  # write your dbPassword
+                # password="Ayesha@1306",  # write your dbPassword
+                password="aiman12345",  # write your dbPassword
                 port="5432")
         except Exception as e:
             self.connection = None
@@ -590,7 +590,8 @@ class model:
                 query = '''select verified from examiner where examiner_id = %s;'''
                 cursor.execute(query,(examiner_id,))
                 data = cursor.fetchall()
-                if data.__len__() == 1:
+                #print("isVerified from model:",data[0][0])
+                if data[0][0] == "True":
                     return True
                 else:
                     return False
@@ -745,12 +746,11 @@ class model:
         try:
             if self.connection != None:
                 cursor = self.connection.cursor()
-                query = f'''update public."user" set usr_name = '{usr_name}', usr_cnic = '{usr_cnic}', usr_email = '{usr_email}',
-                            usr_address = '{usr_address}', usr_bio = '{usr_bio}', usr_gender = '{usr_gender}', usr_phoneno = '{usr_phone}', 
-                            usr_active_status = {usr_active_status}, usr_profile_pic = '{profile}' 
-                            where usr_id = {user_id};
-                '''
-                cursor.execute(query)
+                query = '''update public."user" set usr_name = %s, usr_cnic = %s, usr_email = %s,
+                            usr_address = %s, usr_bio = %s, usr_gender = %s, usr_phoneno = %s, 
+                            usr_active_status = %s, usr_profile_pic = %s 
+                            where usr_id = %s;'''
+                cursor.execute(query,(usr_name,usr_cnic,usr_email,usr_address,usr_bio,usr_gender,usr_phone,usr_active_status,profile,user_id))
                 self.connection.commit()                
                 return True
             else:
