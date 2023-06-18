@@ -8,8 +8,7 @@
 .bg-imgEE {
   /* background-image: url("/src/Static/books2.jpg"); */
   /* background-color: #2f4050; */
-  background-color: #212529;
-  height: 100vh;
+  background-color: #1f2c30;
   background-size: cover;
   background-position: center;
 }
@@ -28,7 +27,7 @@
   color: white;
   transform: translate(-50%, -50%);
   /* background-image: url("/src/Static/books4.jpg"); */
-  background-color: #252f38;
+  background-color: #18292d;
   background-size: cover;
   /* background-image: url("/src/Static/login13.jpg"); */
   /*background: rgb(48, 22, 22);

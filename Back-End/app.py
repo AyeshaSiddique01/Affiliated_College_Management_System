@@ -1,8 +1,5 @@
 from flask import *
 from flask import g
-import requests
-import re
-import phonenumbers
 from flask_session import Session
 from werkzeug.wrappers import response
 from Model import model
@@ -11,19 +8,23 @@ from datetime import timedelta
 # pip install flask_cors
 from flask_cors import CORS
 from fileinput import filename
-import os
 from pathlib import Path
-import smtplib
-import ssl
-import random
-import string
-import time
 # pip install flask_mail
 from flask_mail import Mail, Message
 from BusinessObjects import *
 from werkzeug.security import generate_password_hash, check_password_hash
 # pip install flask_jwt_extended
 from flask_jwt_extended import *
+import requests
+import re
+# pip install phonenumbers                                      
+import phonenumbers
+import os
+import smtplib
+import ssl
+import random
+import string
+import time
 
 
 app = Flask(__name__)
@@ -77,6 +78,7 @@ def essentials(func):
             if request.headers.get('authorization') and get_jwt_identity() != None:
                 g.user_id = get_jwt_identity()
                 g.examiner_id = g.model.getExaminerID(g.user_id)
+                
             api_result = func(*args, **kwargs)
             # close connections
             g.model.__del__()
@@ -129,11 +131,12 @@ def SignUpPersonalInfo():
 
         if user_id != 0:
             # sending email
-            verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
-            verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
-            message = Message('Verify your email', recipients=[usr_email])
-            message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {usr_name} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-            mail.send(message)
+            # verification_code = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+            # verification_link = request.url_root + 'verify?code=' + verification_code + '&verify=' + generate_password_hash("SHHH" + verification_code)
+            # message = Message('Verify your email', recipients=[usr_email])
+            # message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {usr_name} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
+            # mail.send(message)
+
             # Creating Access Token
             access_token = create_access_token(identity=user_id[0], expires_delta=timedelta(hours=24))
             return jsonify(access_token=access_token), 200
@@ -250,6 +253,7 @@ def ExaminerExperience() :
 @jwt_required()
 @essentials
 def verify():
+    print("in verification route: ")
     try:
         m = g.model
         examiner_id = g.examiner_id
@@ -290,11 +294,11 @@ def AddExaminerCourse():
         # Insertion in dataBase
         email = m.getUserEmail(g.user_id)
 
-        message = Message('Verify your email', recipients=email)
+        message = Message('Verify your email', recipients=[email])
         message.html = f'<div style="background-color: #221e1e; border-radius: 20px; color: wheat; font-family: Tahoma, Verdana, sans-serif; padding: 10px;"><h1 style="text-align: center;"><strong>ٱلسَّلَامُ عَلَيْكُمْ <br /></strong></h1><h2 style="text-align: center;"><span style="color: brown;"> {m.getUserEmail(g.user_id)} </span></h2><hr/><p>Welcome to Exam Portal, before being able to use your account you need to verify that this is your email address by clicking here: {verification_link}</p><p style="text-align: left;"><span style="color: brown;">If you do not recognize this activity simply ignore this mail.&nbsp;</span></p><p>Kind Regards,<br /><span style="color: brown;"><strong>PUCIT Exam Portal</strong></span></p></div>'
-        print(":)")
+        # print(":)")
         mail.send(message)
-        print(":)2")
+        # print(":)2")
         return jsonify({"message": "Okay"}), 200
     except Exception as e:
         print("Exception in add course to examiner ",str(e))
