@@ -739,3 +739,25 @@ class model:
         finally:
             if cursor:
                 cursor.close()
+
+    def updateUser(self, user_id, usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_phone, usr_active_status, profile):
+        cursor = None
+        try:
+            if self.connection != None:
+                cursor = self.connection.cursor()
+                query = f'''update public."user" set usr_name = '{usr_name}', usr_cnic = '{usr_cnic}', usr_email = '{usr_email}',
+                            usr_address = '{usr_address}', usr_bio = '{usr_bio}', usr_gender = '{usr_gender}', usr_phoneno = '{usr_phone}', 
+                            usr_active_status = {usr_active_status}, usr_profile_pic = '{profile}' 
+                            where usr_id = {user_id};
+                '''
+                cursor.execute(query)
+                self.connection.commit()                
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Exception in UpdateStatus", str(e))
+            return False
+        finally:
+            if cursor != None:
+                cursor.close()

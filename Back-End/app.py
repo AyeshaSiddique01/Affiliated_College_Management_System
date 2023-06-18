@@ -654,9 +654,7 @@ def UpdateExaminer():
             if Path(resume).is_file():
                 os.remove(resume)
             f.save(resume)    
-            if not m.updateResume(examiner_id, resume) :
-                return jsonify({"status": "fail", "message": "Resume is not updated try again."})
-
+            
 
         user_ = m.getDataofUser(user_id)
         if usr_email != user_[4] and not is_valid_email(usr_email) :
