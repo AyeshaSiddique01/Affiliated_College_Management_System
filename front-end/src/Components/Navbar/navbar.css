@@ -158,12 +158,12 @@
   /* padding: 15px 12px; */
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 12%;
+  width: 25%;
   transition: all .8s ease;
 
   padding-right: 30px;
   padding-left: 30px;
-  width: 150px;
+  /* width: 150px; */
   cursor: pointer;
 }
 
@@ -234,12 +234,11 @@
   /* padding: 15px 12px; */
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 12%;
+  width: 25%;
   transition: all .8s ease;
 
   padding-right: 30px;
   padding-left: 30px;
-  width: 150px;
   cursor: pointer;
 }
 
