@@ -24,7 +24,6 @@ const ExaminerExp = () => {
             const response = await axios.get('http://127.0.0.1:5000/NewExperience', { headers: header });
             setDataList(response.data);
         } catch (error) {
-
         }
     };
     const [job_title, set_job_title] = useState('');
@@ -45,12 +44,14 @@ const ExaminerExp = () => {
         formData.append('ExperianceLetter', fileInputRef.current.files[0]);
         try {
             const response = await axios.post('http://127.0.0.1:5000/ExaminerExperience', formData, { headers: header });
-
+            if (response.data["status"] === "fail") {
+                setError(response.data["message"]);
+            } else {
+                window.location.href = '/ExaminerExp';
+            }
             // Redirect the user to the protected route
-            window.location.href = '/ExaminerExp';
         } catch (error) {
             console.error("error: ", error);
-            setError('Some Input is Wrong');
         }
     };
     useEffect(() => {
@@ -80,7 +81,7 @@ const ExaminerExp = () => {
     return (
         <div className='FormBgEE'>
             <div className='bg-imgEE'>
-                <div className="contentEE" style={{ width: "fit-content", height: "fit-content" }}>
+                <div className="contentEE">
                     <header>
                         <h1 style={{ color: "#d7e7ec", fontFamily: "'Poppins'", fontWeight: "500" }}>Experience</h1>
                     </header>
@@ -88,11 +89,11 @@ const ExaminerExp = () => {
                         <thead>
                             <tr>
                                 <th>Sr #</th>
-                                <th>Degree Title</th>
-                                <th>Institute Name</th>
+                                <th>Job Title</th>
+                                <th>Organization Name</th>
+                                <th>Reference Email</th>
                                 <th>Starting Date</th>
                                 <th>Ending Date</th>
-                                {/* <th className='EditBtnEE'>Edit</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -103,6 +104,7 @@ const ExaminerExp = () => {
                                     <td>{item[3]}</td>
                                     <td>{item[4]}</td>
                                     <td>{item[5]}</td>
+                                    <td>{item[6]}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -147,7 +149,7 @@ const ExaminerExp = () => {
                                                 <input type="submit" value="Add" />
                                             </div>
                                             <div>
-                                                {error && <div>{error}</div>}
+                                                {error && <div style={{ color: "#cc4444" }}>{error}</div>}
                                             </div>
                                         </form>
                                     </div>

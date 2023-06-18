@@ -19,7 +19,10 @@ const Login = () => {
         try {
             console.log(email, password)
             const response = await axios.post('http://127.0.0.1:5000/ExaminerLogin', { email, password });
-            
+            if (response.data["status"] === "fail") {
+                setError(response.data["message"]);
+                return;
+            }
             const accessToken = response.data.access_token;
             localStorage.setItem('access_token', accessToken);
             console.log(redirectto);
@@ -27,17 +30,15 @@ const Login = () => {
                 navigate(decodeURIComponent(redirectto))
             }
             else {
-                navigate('/Notifications');
+                navigate('/Home');
             }
         } catch (error) {
-            // document.getElementById("msj").textContent = error;
             console.error(error);
-            setError(error);
         }
     };
     useEffect(() => { 
         if (accessToken){
-            navigate("/Notifications");
+            navigate("/Home");
         }  
         const showBtn = document.getElementById("show");
         showBtn.addEventListener("click", function () {
@@ -86,7 +87,7 @@ const Login = () => {
                                     <button type="submit" className="submit-btnlogin" >Login</button>
                                 </div>
                                 <div>
-                                    {error && <div>{error}</div>}
+                                    {error && <div style={{color:"#cc4444"}}>{error}</div>}
                                 </div>
                             </form>
                         </div>

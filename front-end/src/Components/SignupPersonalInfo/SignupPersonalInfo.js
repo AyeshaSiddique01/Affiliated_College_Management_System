@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './signupPersonalInfo.css';
-import { decodeToken } from "react-jwt";
 import { useNavigate } from 'react-router-dom';
+import './signupPersonalInfo.css';
 
 const SignupPersonalInfo = () => {
     const [usr_name, setUserName] = useState('');
@@ -20,13 +19,16 @@ const SignupPersonalInfo = () => {
         console.log("usr_address: ", usr_address);
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:5000/SignUpPersonalInfo', 
+            const response = await axios.post('http://127.0.0.1:5000/SignUpPersonalInfo',
                 { usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_password, usr_phone });
 
-            const accessToken = response.data.access_token;
-            localStorage.setItem('access_token', accessToken);
-           
-            navigate("/SignupExaminerInfo")
+            if (response.data["status"] === "fail") {
+                setError(response.data["message"]);
+            } else {
+                const accessToken = response.data.access_token;
+                localStorage.setItem('access_token', accessToken);
+                navigate("/SignupExaminerInfo")
+            }
         } catch (error) {
             console.error("error: ", error);
             setError(error);
@@ -101,7 +103,7 @@ const SignupPersonalInfo = () => {
                             <button type="submit" className="submit-btnSP" >Next</button>
                         </div>
                         <div>
-                            {error && <div>{error}</div>}
+                            {error && <div style={{color:"#cc4444"}}>{error}</div>}
                         </div>
                     </form>
                     <div className="passSP">

@@ -91,8 +91,8 @@ const RequestReceived = () => {
             </div>
           </div>
           <div className="requestFooterRR">
-            <div type='accept' className='AcceptBtn' onClick={handleAccept}>Accept</div>
-            <div type='accept' className='RejectBtn' onClick={handleReject}>Reject</div>
+            <div type='accept' onClick={handleAccept}>Accept</div>
+            <div type='reject' onClick={handleReject}>Reject</div>
           </div>
         </div>
       </div>

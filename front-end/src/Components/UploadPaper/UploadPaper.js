@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './uploadPaper.css';
 
 const UploadPaper = () => {
@@ -17,7 +17,6 @@ const UploadPaper = () => {
     const [message, setMessage] = useState('');
     const accessToken = localStorage.getItem('access_token');
     const navigate = useNavigate();
-    const { state } = useLocation();
     const headers = {
         'Authorization': `Bearer ${accessToken}`,
     };
