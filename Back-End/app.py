@@ -647,6 +647,7 @@ def UpdateExaminer():
             if Path(profile).is_file():
                 os.remove(profile)
             p.save(profile) 
+            m.updateProfile(user_id, profile)
 
         f = request.files.get("resume")
         if f != None:
@@ -666,7 +667,7 @@ def UpdateExaminer():
         if usr_cnic != user_[1] and not is_cnic_number_present(usr_cnic):
             return jsonify({"status": "fail", "message": "CNIC is not valid"})
 
-        if not m.updateUser(user_id, usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_phone, usr_active_status, profile):
+        if not m.updateUser(user_id, usr_name, usr_cnic, usr_email, usr_address, usr_bio, usr_gender, usr_phone, usr_active_status):
                 return jsonify({"status": "fail", "message": "Data has not updated try again."})
 
         return jsonify({"status": "success", "message": "Data Updated"})
@@ -677,4 +678,4 @@ def UpdateExaminer():
 
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5001)
