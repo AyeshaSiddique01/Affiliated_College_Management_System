@@ -106,6 +106,11 @@ def SignUpPersonalInfo():
         usr_active_status = True
         _hashed_password = generate_password_hash(usr_password)
 
+        m = g.model
+        print("in signup personal info:\nemail entered by user:", usr_email)
+        print("overall existance: ",is_valid_email(usr_email))
+        print("db existance: ",m.checkEmailExist(usr_email))
+
         if not is_valid_email(usr_email) :
             return jsonify({"status": "fail", "message": "Invalid Email"})
         
@@ -120,10 +125,8 @@ def SignUpPersonalInfo():
                usr_email, usr_active_status, usr_bio, usr_gender)
         
         # Insertion in database
-        m = g.model
         if m.checkEmailExist(usr_email):
             return jsonify({"status": "fail", "message": "Email already exists"})
-    
         if m.checkCnicExist(usr_cnic):
             return jsonify({"status": "fail", "message": "CNIC already exists"})
 
