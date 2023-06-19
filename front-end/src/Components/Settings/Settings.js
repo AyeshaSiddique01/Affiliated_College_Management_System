@@ -19,13 +19,27 @@ function Settings() {
   const [errorP, setErrorP] = useState('');
 
   const [dataList, setDataList] = useState([]);
-  const [QualList, setQualifList] = useState([]);
+  const [QualList, setQualList] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [errorI, setErrorI] = useState('');
   const [textInput, setTextInput] = useState('');
   const [userDetails, setUserDetails] = useState({});
-  const [ExpList, setExpList] = useState({});
+  const [ExpList, setExpList] = useState([]);
 
+  const [degree_title, setDegreeTitle] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [starting_dateQ, setStartingDateQ] = useState('');
+  const [ending_dateQ, setEndingDateQ] = useState('');
+  const Transcript = useRef(null);
+
+  const [job_title, set_job_title] = useState('');
+  const [organization, set_organization] = useState('');
+  const [reference_email, set_reference_email] = useState('');
+  const [starting_date, set_starting_date] = useState('');
+  const [ending_date, set_ending_date] = useState('');
+  const Experience = useRef(null);
+
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem('access_token');
@@ -53,58 +67,45 @@ function Settings() {
       console.error("error: ", error);
     }
   };
-  // const [degree_title, setDegreeTitle] = useState('');
-  // const [institution, setInstitution] = useState('');
-  // const [Qstarting_date, setStartingDate] = useState('');
-  // const [Qending_date, setEndingDate] = useState('');
-  // const Transcript = useRef(null);
-  const [error, setError] = useState('');
-  // const handleExaminerQualification = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append('degree_title', degree_title);
-  //   formData.append('institution', institution);
-  //   formData.append('starting_date', Qstarting_date);
-  //   formData.append('ending_date', Qending_date);
-  //   formData.append('transcript', Transcript.current.files[0]);
-  //   try {
-  //     const response = await axios.post('http://127.0.0.1:5001/ExaminerQualification', formData, { headers: headers });
-  //     if (response.data["status"] === "fail") {
-  //       setError(response.data["message"]);
-  //     } else {
-  //       window.location.href = '/Settings';
-  //     }
-  //     // Redirect the user to the protected route
-  //   } catch (error) {
-  //   }
-  // };
-  // const [job_title, set_job_title] = useState('');
-  // const [organization, set_organization] = useState('');
-  // const [reference_email, set_reference_email] = useState('');
-  // const [starting_date, set_starting_date] = useState('');
-  // const [ending_date, set_ending_date] = useState('');
-  // const Experience = useRef(null);
-  // const handleExaminerExper = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append('job_title', job_title);
-  //   formData.append('organization', organization);
-  //   formData.append('reference_email', reference_email);
-  //   formData.append('starting_date', starting_date);
-  //   formData.append('ending_date', ending_date);
-  //   formData.append('ExperianceLetter', Experience.current.files[0]);
-  //   try {
-  //     const response = await axios.post('http://127.0.0.1:5001/ExaminerExperience', formData, { headers: headers });
-  //     if (response.data["status"] === "fail") {
-  //       setError(response.data["message"]);
-  //     } else {
-  //       window.location.href = '/Settings';
-  //     }
-  //     // Redirect the user to the protected route
-  //   } catch (error) {
-  //     console.error("error: ", error);
-  //   }
-  // };
+  const handleExaminerQualification = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('degree_title', degree_title);
+    formData.append('institution', institution);
+    formData.append('starting_date', starting_dateQ);
+    formData.append('ending_date', ending_dateQ);
+    formData.append('transcript', Transcript.current.files[0]);
+    try {
+      const response = await axios.post('http://127.0.0.1:5001/ExaminerQualification', formData, { headers: headers });
+      if (response.data["status"] === "fail") {
+        setError(response.data["message"]);
+      } else {
+        window.location.href = '/Settings';
+      }
+    } catch (error) {
+    }
+  };
+  const handleExaminerExper = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('job_title', job_title);
+    formData.append('organization', organization);
+    formData.append('reference_email', reference_email);
+    formData.append('starting_date', starting_date);
+    formData.append('ending_date', ending_date);
+    formData.append('ExperianceLetter', Experience.current.files[0]);
+    try {
+        const response = await axios.post('http://127.0.0.1:5001/ExaminerExperience', formData, { headers: headers });
+        if (response.data["status"] === "fail") {
+            setError(response.data["message"]);
+        } else {
+            window.location.href = '/Settings';
+        }
+        // Redirect the user to the protected route
+    } catch (error) {
+        console.error("error: ", error);
+    }
+};
   useEffect(() => {
     console.log("use effect")
     getData();
@@ -114,38 +115,34 @@ function Settings() {
     if (!accessToken) {
       return navigate("/");
     }
-    // const modal = document.getElementById("AddNewQualification");
-    // const btn = document.getElementById("newQua");
-    // const span = document.getElementsByClassName("close")[0];
-
-    // btn.onclick = function () {
-    //   modal.style.display = "block";
-    // }
-    // span.onclick = function () {
-    //   modal.style.display = "none";
-    // }
-    // window.onclick = function (event) {
-    //   if (event.target === modal) {
-    //     modal.style.display = "none";
-    //   }    
-    // }
-    // const modalE = document.getElementById("AddNewExp");
-    // const btnE = document.getElementById("newExp");
-    // const spanE = document.getElementsByClassName("close2")[0];
-
-    // btnE.onclick = function () {
-    //   modalE.style.display = "block";
-    // }
-
-    // spanE.onclick = function () {
-    //   modalE.style.display = "none";
-    // }
-
-    // window.onclick = function (event) {
-    //     if (event.target === modalE) {
-    //       modalE.style.display = "none";
-    //     }
-    // }
+    const modalQ = document.getElementById("AddNewQualification");
+    const btnQ = document.getElementById("newQua");
+    const spanQ = document.getElementsByClassName("closeQ")[0];
+    btnQ.onclick = function () {
+      modalQ.style.display = "block";
+    }
+    spanQ.onclick = function () {
+      modalQ.style.display = "none";
+    }
+    window.onclick = function (event) {
+      if (event.target === modalQ) {
+        modalQ.style.display = "none";
+      }
+    }
+    const modal = document.getElementById("AddNewExp");
+    const btn = document.getElementById("newExp");
+    const span = document.getElementsByClassName("closeE")[0];
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
   }, []);
   const fetchExperience = async () => {
     try {
@@ -157,7 +154,7 @@ function Settings() {
   const fetchQualificatoins = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5001/NewQualifications', { headers: headers });
-      setQualifList(response.data);
+      setQualList(response.data);
     } catch (error) {
     }
   };
@@ -290,7 +287,7 @@ function Settings() {
             </form>
           </div>
         </div>
-        {/* <h2>Qualification</h2>
+        <h2>Qualification</h2>
         <div className="PersonalForm">
           <table className='TableStyleQuali' border="1">
             <thead>
@@ -315,10 +312,10 @@ function Settings() {
             </tbody>
           </table>
           <button type="button" id='newQua' style={{ width: "190px", float: "right" }}>Add New</button>
-        </div> */}
-        {/* <div id="AddNewQualification" className="Setting-Modal">
+        </div>
+        <div id="AddNewQualification" className="Setting-Modal">
           <div className="Setting-Modal-content" style={{ backgroundColor: "#232323" }}>
-            <span className="close">&times;</span>
+            <span className="closeQ">&times;</span>
             <div>
               <form style={{ width: "90%" }} onSubmit={handleExaminerQualification}>
                 <div className="mainSettdiv">
@@ -332,13 +329,13 @@ function Settings() {
                 <div className="mainSettdiv">
                   <span></span>
                   <label className='label_' htmlFor="starting_date">Starting Date:</label>
-                  <input className="form-control inputQuabox" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDate(e.target.value)}
+                  <input className="form-control inputQuabox" type="date" name="starting_date" runat="server" onChange={(e) => setStartingDateQ(e.target.value)}
                     style={{ height: "30px", width: "fit-content" }} />
                 </div>
                 <div className="mainSettdiv">
                   <span></span>
                   <label className='label_' htmlFor="ending_date">Ending Date:</label>
-                  <input className="form-control inputQuabox" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDate(e.target.value)}
+                  <input className="form-control inputQuabox" type="date" name="ending_date" runat="server" onChange={(e) => setEndingDateQ(e.target.value)}
                     style={{ height: "30px", width: "fit-content" }} />
                 </div>
                 <div className="mainSettdiv">
@@ -354,36 +351,38 @@ function Settings() {
               </form>
             </div>
           </div>
-        </div> */}
-        {/* <h2>Experience</h2>
-        <table className='TableStyleQuali' border="1">
-          <thead>
-            <tr>
-              <th>Sr #</th>
-              <th>Job Title</th>
-              <th>Organization Name</th>
-              <th>Reference Email</th>
-              <th>Starting Date</th>
-              <th>Ending Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ExpList.map((item, index) => (
+        </div>
+        <h2>Experience</h2>
+        <div className="PersonalForm">
+          <table className='TableStyleQuali' border="1">
+            <thead>
               <tr>
-                <td>{index + 1}</td>
-                <td>{item[2]}</td>
-                <td>{item[3]}</td>
-                <td>{item[4]}</td>
-                <td>{item[5]}</td>
-                <td>{item[6]}</td>
+                <th>Sr #</th>
+                <th>Job Title</th>
+                <th>Organization Name</th>
+                <th>Reference Email</th>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <button type="button" id='newExp' style={{ width: "190px", float: "right" }}>Add New</button> */}
-        {/* <div id="AddNewExp" className="Setting-Modal">
+            </thead>
+            <tbody>
+              {ExpList.map((item, index) => (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{item[2]}</td>
+                  <td>{item[3]}</td>
+                  <td>{item[4]}</td>
+                  <td>{item[5]}</td>
+                  <td>{item[6]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button type="button" id='newExp' style={{ width: "190px", float: "right" }}>Add New</button>
+        </div>
+        <div id="AddNewExp" className="Setting-Modal">
           <div className="Setting-Modal-content">
-            <span className="close2">&times;</span>
+            <span className="closeE">&times;</span>
             <div>
               <form style={{ width: "90%" }} onSubmit={handleExaminerExper}>
                 <div className="mainSettdiv">
@@ -423,7 +422,7 @@ function Settings() {
               </form>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
     </>
