@@ -312,9 +312,9 @@ def ExaminerLogin():
         # print("in login 5")
         mail.send(message)
 
-        print("mail sent")
-        if not (m.checkExaminerVerified(examiner_id)):
-            return jsonify({"status": "fail", "message": "Verify email first"})
+        # print("mail sent")
+        # if not (m.checkExaminerVerified(examiner_id)):
+        #     return jsonify({"status": "fail", "message": "Verify email first"})
 
         if not (m.checkEmailExist(email)):
             return jsonify({"status": "fail", "message": "Email does not exist"})
